@@ -1,0 +1,39 @@
+tr td{
+    padding-top:20px;
+    font-size:20px;
+}
+table{
+    margin:20px auto;
+}
+label{
+    font-size:20px;
+    margin-right: 100px;
+}
+input,select,option{
+    font-size: 20px;
+}
+#formButton{
+    margin-bottom:20px;
+    text-align: center;
+}
+#formButton input{
+    background-color: #1fbfdb;
+    color:white;
+    border: 0px;
+    border-radius:10px;
+    padding:8px 20px;
+    font-size:18px;
+    margin:0px 20px;
+}
+#formButton input:hover{
+    opacity:0.8;
+}
+#title{
+    text-align: center;
+    font-size:40px;
+    margin:15px auto;
+        text-shadow: 
+        2.5px 2.5px 0px #1fb1c4 ,
+        5px 5px 2px rgba(255, 255, 255);
+}
+
