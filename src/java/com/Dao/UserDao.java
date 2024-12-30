@@ -39,6 +39,7 @@ public class UserDao {
         }
         return status;
     }
+
     public static int update(User user) {
         int status = 0;
         try {
@@ -57,18 +58,38 @@ public class UserDao {
         return status;
     }
 
-    public static int delete(int id) {
+    public static String getUsernameByTeacherId(int teacherId) {
+        String username = null;
+
+        try {
+            Connection con = TeacherDao.getConnection();
+            String query = "SELECT username FROM user WHERE teacherId = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, teacherId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                username = rs.getString("username");
+            }
+
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return username;
+    }
+
+    public static int delete(String username) {
         int status = 0;
         try {
             Connection con = TeacherDao.getConnection();
-            PreparedStatement myPS = con.prepareStatement("delete from user where teacherId=?");
-            myPS.setInt(1, id);
-
-            status = myPS.executeUpdate();
-
+            PreparedStatement ps = con.prepareStatement("DELETE FROM user WHERE username = ?");
+            ps.setString(1, username);
+            status = ps.executeUpdate();
             con.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return status;
     }
@@ -93,8 +114,5 @@ public class UserDao {
         }
         return user;
     }
-
-    public static User getUserByTeacherID(int teacherId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
+

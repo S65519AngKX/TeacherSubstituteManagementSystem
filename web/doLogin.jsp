@@ -41,7 +41,7 @@
                     session.setAttribute("username", username);  
                     session.setAttribute("password", password);  
 
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("HOME.jsp");
                 } else {
                     out.println("<script>alert('Teacher name not found.'); window.location.href='login.jsp';</script>");
                 }
@@ -51,7 +51,7 @@
             con.close();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            out.println("<script>alert(\"Invalid username or password.\"); window.location.href='index.html';</script>");
+            out.println("<script>alert(\"Invalid username or password.\"); window.location.href='login.jsp';</script>");
         }
     %>
 </body>

@@ -46,6 +46,16 @@
                             <option value="Assistant Principal">Assistant Principal</option>
                         </select></td>
                 </tr>
+                <tr>
+                    <td><label for="username">Username: </label></td>
+                    <td><input type="text" name="username"></td>                
+                </tr>
+                <tr>
+                    <td><label for="password">Password: </label></td>
+                    <td>
+                        <input type="password" name="password">
+                    </td>
+                </tr>
             </table>
             <br><br>
             <div id="formButton">

@@ -4,10 +4,11 @@
  */
 package com.Controller;
 
-import com.Dao.TeacherDao;
-import com.Dao.UserDao;
+import com.Dao.LeaveDao;
+import com.Model.Leave;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,39 +19,47 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ACER
  */
-@WebServlet(name = "DeleteTeacherServlet", urlPatterns = {"/DeleteTeacherServlet"})
-public class DeleteTeacherServlet extends HttpServlet {
+@WebServlet(name = "SaveLeaveServlet", urlPatterns = {"/SaveLeaveServlet"})
+public class SaveLeaveServlet extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String teacherIdStr = request.getParameter("teacherId");
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
 
-        if (teacherIdStr == null || teacherIdStr.isEmpty()) {
-            response.getWriter().print("<script>alert('Invalid teacher ID.');</script>");
-            response.sendRedirect("TEACHERS.jsp");
-            return;
-        }
+        int absentTeacherId = Integer.parseInt(request.getParameter("teacherId"));
+        Date startDate = java.sql.Date.valueOf(request.getParameter("leaveStartDate"));
+        Date endDate = java.sql.Date.valueOf(request.getParameter("leaveEndDate"));
+        String reason = request.getParameter("leaveReason");
+        String notes = request.getParameter("leaveNotes");
+        String status = request.getParameter("leaveStatus");
 
-        int teacherId = Integer.parseInt(teacherIdStr);
-        String username = UserDao.getUsernameByTeacherId(teacherId);
-        if (username == null || username.isEmpty()) {
-            response.getWriter().print("<script>alert('No corresponding user found for the teacher.');</script>");
-            response.sendRedirect("TEACHERS.jsp");
-            return;
-        }
-        int teacherStatus = TeacherDao.delete(teacherId);
-        if (teacherStatus > 0) {
-            int userStatus = UserDao.delete(username);
-            if (userStatus > 0) {
-                response.getWriter().print("<script>alert('Teacher and user record deleted successfully!');</script>");
-                response.sendRedirect("TEACHERS.jsp");
-            } else {
-                response.getWriter().print("<script>alert('Sorry! Unable to delete user record.');</script>");
-                response.sendRedirect("TEACHERS.jsp");
-            }
+        Leave leave = new Leave();
+        leave.setAbsentTeacherID(absentTeacherId);
+        leave.setLeaveStartDate(startDate);
+        leave.setLeaveEndDate(endDate);
+        leave.setLeaveReason(reason);
+        leave.setLeaveNotes(notes);
+        leave.setLeaveStatus(status);
+
+        int result = LeaveDao.save(leave);
+        if (result > 0) {
+            out.print("<script>alert('Record saved successfully!');</script>");
+            request.getRequestDispatcher("teacherLeaveHistory.jsp").include(request, response);
         } else {
-            response.getWriter().print("<script>alert('Sorry! Unable to delete teacher record.');</script>");
-            response.sendRedirect("TEACHERS.jsp");
+            out.print("<script>alert('Sorry! Unable to save leave record.');</script>");
+            request.getRequestDispatcher("LEAVE.jsp").include(request, response);
+
+            out.close();
         }
     }
 
@@ -92,5 +101,4 @@ public class DeleteTeacherServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

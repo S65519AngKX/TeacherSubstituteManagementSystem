@@ -4,7 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Stardos Stencil">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Stardos Stencil">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="css/style.css">
@@ -12,20 +12,20 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <title>Manage Profile</title>
         <style>
-            table{
+            table {
                 margin: auto;
             }
-            table tr td{
-                font-size:17px;
+            table tr td {
+                font-size: 17px;
             }
-            label{
-                font-size:17px;
+            label {
+                font-size: 17px;
             }
-            #formButton input{
-                font-size:17px;
+            #formButton input {
+                font-size: 17px;
             }
-            #title{
-                font-size:30px;
+            #title {
+                font-size: 30px;
             }
         </style>
     </head>
@@ -37,10 +37,10 @@
     <body>
         <h1 id="title"> Manage Profile</h1>
 
-        <form method="post" action="manageProfile">            
+        <form method="post" action="manageProfile">        
             <table>
                 <tr>
-                    <td><label for="staff_id">Teacher ID: </label></td>
+                    <td><label for="teacherId">Teacher ID: </label></td>
                     <td><input type="text" name="teacherId" value="<%= session.getAttribute("teacherId")%>" readonly></td>                
                 </tr>
                 <tr>
@@ -53,7 +53,7 @@
                 </tr>
                 <tr>
                     <td><label for="contact">Contact No:</label></td>
-                    <td><input type="text" name="contactNo" value="<%= session.getAttribute("contact")%>"></td>
+                    <td><input type="text" name="contact" value="<%= session.getAttribute("contact")%>"></td>
                 </tr>       
                 <tr>
                     <td><label for="role">Role:</label></td>
@@ -92,8 +92,6 @@
                     icon.className = "fas fa-eye";
                 }
             }
-
-
         </script>
     </body>
 

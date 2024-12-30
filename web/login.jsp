@@ -31,12 +31,14 @@
             .login-card a {
                 color: rgb(0, 102, 204);
                 text-decoration: none;
+                font-size:15px
             }
             .login-card a:hover {
                 text-decoration: underline;
             }
             .form-label{
-                font-weight:500;
+                font-weight:bold;
+                font-size:15px;
             }
             @media only screen and (max-width: 768px) {
                 .text-center{

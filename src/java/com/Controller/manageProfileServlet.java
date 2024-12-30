@@ -48,8 +48,7 @@ public class manageProfileServlet extends HttpServlet {
         User user = new User();
         user.setUsername(username);
         if (!password.isEmpty()) {
-            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-            user.setPassword(hashedPassword);
+            user.setPassword(password);
         }
         user.setTeacherId(Integer.parseInt(id));
 

@@ -28,6 +28,18 @@
         <servlet-name>UserDao</servlet-name>
         <servlet-class>com.Dao.UserDao</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SaveLeaveServlet</servlet-name>
+        <servlet-class>com.Controller.SaveLeaveServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteLeaveServlet</servlet-name>
+        <servlet-class>com.Controller.DeleteLeaveServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateLeaveStatusServlet</servlet-name>
+        <servlet-class>com.Controller.UpdateLeaveStatusServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TeacherDao</servlet-name>
         <url-pattern>/TeacherDao</url-pattern>
@@ -55,6 +67,18 @@
     <servlet-mapping>
         <servlet-name>UserDao</servlet-name>
         <url-pattern>/UserDao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveLeaveServlet</servlet-name>
+        <url-pattern>/SaveLeaveServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteLeaveServlet</servlet-name>
+        <url-pattern>/DeleteLeaveServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateLeaveStatusServlet</servlet-name>
+        <url-pattern>/UpdateLeaveStatusServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

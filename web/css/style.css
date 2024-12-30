@@ -45,6 +45,13 @@ footer{
     font-weight: bolder;
     text-align: center;
 }
+footer {
+    background-color: #1fb1c4;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
 @media only screen and (max-width: 768px) {
 
 }

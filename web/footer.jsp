@@ -5,10 +5,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Footer Page</title>
         <style>
-            footer {
+             footer {
+                background-color: #1fb1c4;
+                color: white;
+                text-align: center;
+                padding: 10px;
                 bottom: 0px;
                 width: 100%;
+                margin-top: 2%;
+                position:relative;
             }
+
         </style>
     </head>
     <body>

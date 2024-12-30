@@ -6,6 +6,8 @@ package com.Controller;
 
 import com.Model.Teacher;
 import com.Dao.TeacherDao;
+import com.Dao.UserDao;
+import com.Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -33,42 +35,57 @@ public class SaveTeacherServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
-        PrintWriter out=response.getWriter();
-        
-        String name=request.getParameter("name");
-        String email=request.getParameter("email");
-        String contactNo=request.getParameter("contactNo");
-        String role=request.getParameter("role");
-        
-        Teacher teacher=new Teacher();
+        PrintWriter out = response.getWriter();
+
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String contactNo = request.getParameter("contactNo");
+        String role = request.getParameter("role");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        Teacher teacher = new Teacher();
         teacher.setTeacherName(name);
         teacher.setTeacherEmail(email);
         teacher.setTeacherContact(contactNo);
         teacher.setTeacherRole(role);
-        
-        int status = TeacherDao.save(teacher);
-        if (status > 0) {
-            out.print("<script>alert('Record saved successfully!');</script>");
-            request.getRequestDispatcher("TEACHERS.jsp").include(request, response);
+
+        int teacherId = TeacherDao.save(teacher);
+        if (teacherId > 0) {
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setTeacherId(teacherId);
+
+            int userStatus = UserDao.save(user); 
+
+            if (userStatus > 0) {
+                out.print("<script>alert('Record saved successfully!');</script>");
+                request.getRequestDispatcher("TEACHERS.jsp").include(request, response);
+            } else {
+                out.print("<script>alert('Sorry! Unable to save user record.');</script>");
+                request.getRequestDispatcher("addTeacher.jsp").include(request, response);
+            }
         } else {
-            out.print("<script>alert('Sorry! Unable to save record.');</script>");
+            out.print("<script>alert('Sorry! Unable to save teacher record.');</script>");
             request.getRequestDispatcher("addTeacher.jsp").include(request, response);
         }
-        
+
         out.close();
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+/**
+ * Handles the HTTP <code>GET</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
+@Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -82,7 +99,7 @@ public class SaveTeacherServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -93,7 +110,7 @@ public class SaveTeacherServlet extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

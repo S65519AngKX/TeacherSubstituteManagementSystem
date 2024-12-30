@@ -23,22 +23,27 @@ public class TeacherDao {
     }
 
     public static int save(Teacher teacher) {
-        int status = 0;
+        int teacherId = 0;
         try {
             Connection con = TeacherDao.getConnection();
-            PreparedStatement myPS = con.prepareStatement("INSERT INTO teacher(teacherName,teacherEmail,teacherContact,teacherRole)VALUES(?,?,?,?)");
+            PreparedStatement myPS = con.prepareStatement("INSERT INTO teacher(teacherName,teacherEmail,teacherContact,teacherRole)VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             myPS.setString(1, teacher.getTeacherName());
             myPS.setString(2, teacher.getTeacherEmail());
             myPS.setString(3, teacher.getTeacherContact());
             myPS.setString(4, teacher.getTeacherRole());
+            int rowsAffected = myPS.executeUpdate();
 
-            status = myPS.executeUpdate();
-
+            if (rowsAffected > 0) {
+                ResultSet rs = myPS.getGeneratedKeys();
+                if (rs.next()) {
+                    teacherId = rs.getInt(1);
+                }
+            }
             con.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return status;
+        return teacherId;
     }
 
     public static int update(Teacher teacher) {
@@ -79,7 +84,6 @@ public class TeacherDao {
 
     public static Teacher getTeacherById(int id) {
         Teacher teacher = new Teacher();
-
         try {
             Connection con = TeacherDao.getConnection();
             PreparedStatement myPS = con.prepareStatement("select * from teacher where teacherId=?");

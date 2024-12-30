@@ -63,7 +63,7 @@
             }
 
             .dropdown {
-                float: left;
+                text-align: center;
                 position: relative;
             }
 
@@ -76,15 +76,13 @@
                 font-family: inherit;
                 cursor: pointer;
             }
-
-
             .dropdown-content {
                 display: none;
                 position: absolute;
                 background-color: #f9f9f9;
                 box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
                 z-index: 1;
-                right: 0; /* Align dropdown to the right */
+                right: 0; 
                 min-width: 150px;
                 border-radius: 5px;
             }
@@ -107,16 +105,8 @@
             }
 
             .main-content {
-                flex-grow: 1; /* Ensure the content fills the available space */
+                flex-grow: 1;
             }
-
-            footer {
-                background-color: #1fb1c4;
-                color: white;
-                text-align: center;
-                padding: 10px;
-            }
-
             @media (max-width: 768px) {
                 header {
                     flex-direction: column;
@@ -174,14 +164,15 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav" id="nav-list">
                         </ul>
-                    </div>
-                    <div id="profile" class="dropdown">
-                        <button class="dropbtn"><i class="far fa-user-circle fa-lg"></i><span><%= session.getAttribute("name")%></span></button>
-                        <div class="dropdown-content">
-                            <a href="manageProfile.jsp">Manage Profile</a>
-                            <a href="login.jsp">Logout</a>
+                        <div id="profile" class="dropdown">
+                            <button class="dropbtn"><i class="far fa-user-circle fa-lg"></i><span><%= session.getAttribute("name")%></span></button>
+                            <div class="dropdown-content">
+                                <a href="manageProfile.jsp">Manage Profile</a>
+                                <a href="login.jsp">Logout</a>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </nav>
         </header>

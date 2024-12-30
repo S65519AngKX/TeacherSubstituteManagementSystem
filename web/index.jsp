@@ -8,10 +8,42 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Stardos+Stencil">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <link rel="stylesheet" type="text/css" href="css/style.css">        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/style.css">        
         <title>Teacher Substitution Management System</title>
         <style>
+            header .container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding:0.5%;
+            }
+            #logo {
+                font-family: 'Stardos Stencil', sans-serif;
+                font-size: 30px;
+                font-weight: bolder;
+                color: red;
+            }
 
+            #logo1 {
+                font-size: 30px;
+                font-weight: bolder;
+                color: blue;
+            }
+
+            header input[type="button"] {
+                background-color: #9bebfa;
+                border: 0px;
+                border-radius:5px;
+                padding:5px 15px;
+                font-size:17px;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+
+            }
+
+            header input[type="button"]:hover {
+                opacity:0.5;
+            }
             #section {
                 margin: 20px auto;
                 padding: 20px;
@@ -40,16 +72,19 @@
             }
 
             fieldset {
-                border: 2px solid #007bff;
-                border-radius: 8px;
+                border: none;
+                border-radius: 12px;
                 padding: 20px;
                 margin-bottom: 20px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                background: linear-gradient(to top, #00ccff 0%, #ccffff 100%);
+                color: black;
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
             }
 
             legend {
                 font-weight: bold;
-                color: #007bff;
+                color: black;
+                text-shadow: 2px 2px #007bff;
             }
 
             .btn-primary {
@@ -80,27 +115,21 @@
                 color: #007bff;
                 margin-bottom: 10px;
             }
-
-            footer {
-                background-color: #007bff;
-                color: white;
-                text-align: center;
-                padding: 10px 0;
-                margin-top: 20px;
-            }
         </style>
     </head>
 
     <body>
         <header>
-            <%@ include file="header.jsp" %>
+            <div class="container">
+                <a class="navbar-brand">
+                    <div id="logo"><span id="logo1">Smart</span>Sub</div>
+                </a>
+                <input type="button"value="Login"onclick="location.href = 'login.jsp'">
+            </div>
         </header>
-
         <div class="container" id="section">
-            <!-- Hero Image Section -->
             <div id="div1"></div>
 
-            <!-- Features Section -->
             <div class="row text-center mt-5">
                 <div class="col-md-4">
                     <div class="feature-box">
