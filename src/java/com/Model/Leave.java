@@ -25,7 +25,7 @@ public class Leave {
     }
 
     public void setLeaveID(int leaveId) {
-        this.absentTeacherId = leaveId;
+        this.leaveId = leaveId;
     }
 
     public int getAbsentTeacherID() {

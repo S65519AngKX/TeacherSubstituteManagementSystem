@@ -52,7 +52,7 @@
                 </tr>
                 <%
                     String teacherIdStr = (String) session.getAttribute("teacherId");
-                    List<Leave> list = LeaveDao.getTeacherById(Integer.parseInt(teacherIdStr));
+                    List<Leave> list = LeaveDao.getLeaveByTeacherId(Integer.parseInt(teacherIdStr));
                     for (Leave e : list) {
                 %>
                 <tr>

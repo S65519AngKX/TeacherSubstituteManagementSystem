@@ -84,7 +84,7 @@ public class LeaveDao {
         int status = 0;
         try {
             Connection con = TeacherDao.getConnection();
-            PreparedStatement myPS = con.prepareStatement("delete from leave where leaveId=?");
+            PreparedStatement myPS = con.prepareStatement("delete from `leave` where leaveId=?");
             myPS.setInt(1, id);
 
             status = myPS.executeUpdate();
@@ -101,10 +101,10 @@ public class LeaveDao {
 
         try {
             Connection con = TeacherDao.getConnection();
-            PreparedStatement myPS = con.prepareStatement("select * from leave where absentTeacherId=?");
+            PreparedStatement myPS = con.prepareStatement("select * from `leave` where absentTeacherId=?");
             myPS.setInt(1, id);
             ResultSet rs = myPS.executeQuery();
-            if (rs.next()) {
+            while(rs.next()) {
                 Leave leave = new Leave();
                 leave.setLeaveID(rs.getInt(1));
                 leave.setAbsentTeacherID(rs.getInt(2));

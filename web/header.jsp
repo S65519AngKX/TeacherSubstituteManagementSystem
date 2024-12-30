@@ -76,13 +76,14 @@
                 font-family: inherit;
                 cursor: pointer;
             }
+
             .dropdown-content {
                 display: none;
                 position: absolute;
                 background-color: #f9f9f9;
                 box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
                 z-index: 1;
-                right: 0; 
+                right: 0;
                 min-width: 150px;
                 border-radius: 5px;
             }
@@ -107,6 +108,7 @@
             .main-content {
                 flex-grow: 1;
             }
+
             @media (max-width: 768px) {
                 header {
                     flex-direction: column;
@@ -168,32 +170,39 @@
                             <button class="dropbtn"><i class="far fa-user-circle fa-lg"></i><span><%= session.getAttribute("name")%></span></button>
                             <div class="dropdown-content">
                                 <a href="manageProfile.jsp">Manage Profile</a>
+                                <%
+                                    String tempRole = (String) session.getAttribute("tempRole");
+                                    String currentRole = (String) session.getAttribute("role");
+                                %>
+                                <% if ("Teacher".equals(tempRole)) { %>
+                                <a href="ExitTeacherRoleServlet" onclick="return confirm('Exit Teacher Mode?')">Exit Teacher Mode</a>
+                                <% } else if ("Principal".equals(currentRole) || "Assistant Principal".equals(currentRole)) { %>
+                                <a href="SwitchRoleServlet" onclick="return confirm('Switch to Teacher Mode?')">Switch to Teacher Mode</a>
+                                <% }%>
                                 <a href="login.jsp">Logout</a>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </nav>
         </header>
 
         <script>
-            var userRole = '<%= session.getAttribute("role")%>';
-            var navItems = {
-                'Principal': ['HOME', 'LEAVES', 'REPORT'],
-                'Assistant Principal': ['HOME', 'TEACHERS', ' SCHEDULES', 'SUBSTITUTIONS', 'REPORT'],
-                'Teacher': ['HOME', 'LEAVE', 'SCHEDULE', 'SUBSTITUTION']
-            };
+        var userRole = '<%= session.getAttribute("tempRole") != null ? session.getAttribute("tempRole") : session.getAttribute("role")%>';
+        var navItems = {
+            'Principal': ['HOME', 'LEAVES', 'REPORT'],
+            'Assistant Principal': ['HOME', 'TEACHERS', 'SCHEDULES', 'SUBSTITUTIONS', 'REPORT'],
+            'Teacher': ['HOME', 'LEAVE', 'SCHEDULE', 'SUBSTITUTION']
+        };
 
-            var navList = document.getElementById('nav-list');
-            navItems[userRole].forEach(function (item) {
-                var li = document.createElement('li');
-                li.classList.add('nav-item');
-                li.innerHTML = '<a class="nav-link" href="' + item + '.jsp">' + item + '</a>';
-                navList.appendChild(li);
-            });
+        var navList = document.getElementById('nav-list');
+        navItems[userRole].forEach(function (item) {
+            var li = document.createElement('li');
+            li.classList.add('nav-item');
+            li.innerHTML = '<a class="nav-link" href="' + item + '.jsp">' + item + '</a>';
+            navList.appendChild(li);
+        });
         </script>
-
     </body>
 
 </html>

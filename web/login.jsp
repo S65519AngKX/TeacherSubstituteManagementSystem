@@ -38,7 +38,14 @@
             }
             .form-label{
                 font-weight:bold;
+                font-size:18px;
+            }
+            .form-control{
                 font-size:15px;
+            }
+            #button button{
+                font-size: 15px;
+                margin-top:15%;
             }
             @media only screen and (max-width: 768px) {
                 .text-center{
@@ -63,7 +70,7 @@
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
                             </div>
-                            <div class="d-grid">
+                            <div class="d-grid" id="button">
                                 <button type="submit" class="btn btn-primary">Login</button>
                             </div>
                             <div class="text-center mt-3">

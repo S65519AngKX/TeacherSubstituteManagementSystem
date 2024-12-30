@@ -54,26 +54,26 @@ public class SaveLeaveServlet extends HttpServlet {
         int result = LeaveDao.save(leave);
         if (result > 0) {
             out.print("<script>alert('Record saved successfully!');</script>");
-            request.getRequestDispatcher("teacherLeaveHistory.jsp").include(request, response);
+            response.sendRedirect("teacherLeaveHistory.jsp");
         } else {
             out.print("<script>alert('Sorry! Unable to save leave record.');</script>");
-            request.getRequestDispatcher("LEAVE.jsp").include(request, response);
-
-            out.close();
+            response.sendRedirect("LEAVE.jsp");
         }
+
+        out.close();
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+/**
+ * Handles the HTTP <code>GET</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
+@Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -87,7 +87,7 @@ public class SaveLeaveServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -98,7 +98,7 @@ public class SaveLeaveServlet extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 }

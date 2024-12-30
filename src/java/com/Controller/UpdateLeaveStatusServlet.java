@@ -12,7 +12,6 @@ import com.Dao.LeaveDao;
 public class UpdateLeaveStatusServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve leaveId and status from the request
         int leaveId = Integer.parseInt(request.getParameter("leaveId"));
         String status = request.getParameter("status");
 
