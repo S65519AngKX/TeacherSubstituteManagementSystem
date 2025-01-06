@@ -179,7 +179,7 @@
                                 <% } else if ("Principal".equals(currentRole) || "Assistant Principal".equals(currentRole)) { %>
                                 <a href="SwitchRoleServlet" onclick="return confirm('Switch to Teacher Mode?')">Switch to Teacher Mode</a>
                                 <% }%>
-                                <a href="login.jsp">Logout</a>
+                                <a href="index.jsp">Logout</a>
                             </div>
                         </div>
                     </div>

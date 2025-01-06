@@ -25,12 +25,6 @@ public class DeleteTeacherServlet extends HttpServlet {
             throws ServletException, IOException {
         String teacherIdStr = request.getParameter("teacherId");
 
-        if (teacherIdStr == null || teacherIdStr.isEmpty()) {
-            response.getWriter().print("<script>alert('Invalid teacher ID.');</script>");
-            response.sendRedirect("TEACHERS.jsp");
-            return;
-        }
-
         int teacherId = Integer.parseInt(teacherIdStr);
         String username = UserDao.getUsernameByTeacherId(teacherId);
         if (username == null || username.isEmpty()) {
@@ -38,23 +32,31 @@ public class DeleteTeacherServlet extends HttpServlet {
             response.sendRedirect("TEACHERS.jsp");
             return;
         }
-        int teacherStatus = TeacherDao.delete(teacherId);
-        if (teacherStatus > 0) {
-            int userStatus = UserDao.delete(username);
-            if (userStatus > 0) {
-                response.getWriter().print("<script>alert('Teacher and user record deleted successfully!');</script>");
-                response.sendRedirect("TEACHERS.jsp");
+
+        try {
+            int teacherStatus = TeacherDao.delete(teacherId);
+            if (teacherStatus > 0) {
+                int userStatus = UserDao.delete(username);
+                if (userStatus > 0) {
+                    response.getWriter().print("<script>alert('Teacher and user record deleted successfully!');</script>");
+                    response.sendRedirect("TEACHERS.jsp");
+                } else {
+                    response.getWriter().print("<script>alert('Sorry! Unable to delete user record.');</script>");
+                    response.sendRedirect("TEACHERS.jsp");
+                }
             } else {
-                response.getWriter().print("<script>alert('Sorry! Unable to delete user record.');</script>");
+                response.getWriter().print("<script>alert('Sorry! Unable to delete teacher record.');</script>");
                 response.sendRedirect("TEACHERS.jsp");
             }
-        } else {
-            response.getWriter().print("<script>alert('Sorry! Unable to delete teacher record.');</script>");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().print("<script>alert('An error occurred while deleting records.');</script>");
             response.sendRedirect("TEACHERS.jsp");
         }
     }
-
+    
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *

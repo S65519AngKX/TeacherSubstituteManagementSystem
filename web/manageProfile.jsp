@@ -1,4 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="com.Model.Teacher"%>
+<%@ page import="com.Dao.TeacherDao"%>
+<%@ page import="com.Model.User"%>
+<%@ page import="com.Dao.UserDao"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,38 +39,43 @@
     </header>
 
     <body>
+        <% 
+            int id=Integer.parseInt((String)session.getAttribute("teacherId"));
+            Teacher teacher = TeacherDao.getTeacherById(id);
+            User user =UserDao.getUserByTeacherId(id);
+        %>
         <h1 id="title"> Manage Profile</h1>
 
         <form method="post" action="manageProfile">        
             <table>
                 <tr>
-                    <td><label for="teacherId">Teacher ID: </label></td>
-                    <td><input type="text" name="teacherId" value="<%= session.getAttribute("teacherId")%>" readonly></td>                
+                    <!--<td><label for="teacherId">Teacher ID: </label></td>-->
+                    <td><input type="hidden" name="teacherId" value="<%= session.getAttribute("teacherId")%>"></td>                
                 </tr>
                 <tr>
                     <td><label for="name">Name: </label></td>
-                    <td><input type="text" name="name" value="<%= session.getAttribute("name")%>"></td>
+                    <td><input type="text" name="name" value="<%= teacher.getTeacherName()%>"></td>
                 </tr>
                 <tr>
                     <td><label for="email">Email: </label></td>
-                    <td><input type="text" name="email" value="<%= session.getAttribute("email")%>"></td>
+                    <td><input type="text" name="email" value="<%=  teacher.getTeacherEmail()%>"></td>
                 </tr>
                 <tr>
                     <td><label for="contact">Contact No:</label></td>
-                    <td><input type="text" name="contact" value="<%= session.getAttribute("contact")%>"></td>
+                    <td><input type="text" name="contact" value="<%= teacher.getTeacherContact()%>"></td>
                 </tr>       
                 <tr>
-                    <td><label for="role">Role:</label></td>
-                    <td><input type="text" name="role" value="<%= session.getAttribute("role")%>" readonly></td>                
+                    <!--<td><label for="role">Role:</label></td>-->
+                    <td><input type="hidden" name="role" value="<%= teacher.getTeacherRole() %>" ></td>                
                 </tr>       
                 <tr>
                     <td><label for="username">Username: </label></td>
-                    <td><input type="text" name="username" value="<%= session.getAttribute("username")%>" readonly></td>                
+                    <td><input type="text" name="username" value="<%= user.getUsername()%>" readonly></td>                
                 </tr>
                 <tr>
                     <td><label for="password">Password: </label></td>
                     <td>
-                        <input type="password" name="password" value="<%= session.getAttribute("password")%>">
+                        <input type="password" name="password" value="<%= user.getPassword()%>">
                         <i class="fas fa-eye" style="color:#1fb1c4;" onclick="togglePasswordVisibility(this)"></i>
                     </td>
                 </tr>

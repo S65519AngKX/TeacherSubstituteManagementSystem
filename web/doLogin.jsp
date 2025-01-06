@@ -43,15 +43,15 @@
 
                     response.sendRedirect("HOME.jsp");
                 } else {
-                    out.println("<script>alert('Teacher name not found.'); window.location.href='login.jsp';</script>");
+                    out.println("<script>alert('Teacher name not found.'); window.location.href='index.jsp';</script>");
                 }
             } else {
-                out.println("<script>alert('Invalid username or password.'); window.location.href='login.jsp';</script>");
+                out.println("<script>alert('Invalid username or password.'); window.location.href='index.jsp';</script>");
             }
             con.close();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            out.println("<script>alert(\"Invalid username or password.\"); window.location.href='login.jsp';</script>");
+            out.println("<script>alert(\"Invalid username or password.\"); window.location.href='index.jsp';</script>");
         }
     %>
 </body>
