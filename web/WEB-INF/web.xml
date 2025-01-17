@@ -48,6 +48,14 @@
         <servlet-name>ExitTeacherRoleServlet</servlet-name>
         <servlet-class>com.Controller.ExitTeacherRoleServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SendResetLinkServlet</servlet-name>
+        <servlet-class>com.Controller.SendResetLinkServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <servlet-class>com.Controller.ResetPasswordServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TeacherDao</servlet-name>
         <url-pattern>/TeacherDao</url-pattern>
@@ -95,6 +103,14 @@
     <servlet-mapping>
         <servlet-name>ExitTeacherRoleServlet</servlet-name>
         <url-pattern>/ExitTeacherRoleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendResetLinkServlet</servlet-name>
+        <url-pattern>/SendResetLinkServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <url-pattern>/ResetPasswordServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

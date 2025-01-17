@@ -35,14 +35,18 @@
                     List<Teacher> list = TeacherDao.getAllTeacher();
                     for (Teacher e : list) {
                 %>
-                <tr>
+                <tr class="editable-row reservation-row" data-reservation-id="<%= e.getTeacherID()%>" data-teacher-id="<%= e.getTeacherID()%>">
                     <td><%= e.getTeacherID()%></td>
                     <td><%= e.getTeacherName()%></td>
                     <td><%= e.getTeacherEmail()%></td>
                     <td><%= e.getTeacherContact()%></td>
                     <td><%= e.getTeacherRole()%></td>
-                    <td><a href="EditTeacherServlet2?teacherId=<%= e.getTeacherID()%>">Edit</a></td>
-                    <td><a href="DeleteTeacherServlet?teacherId=<%= e.getTeacherID()%>" onclick="return confirm('Do you want to delete this teacher?');">Delete</a>
+                    <td>
+                        <a href="DeleteTeacherServlet?teacherId=<%= e.getTeacherID()%>" 
+                           onclick="return confirm('Do you want to delete this teacher?');" 
+                           class="delete-icon">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
                     </td>
                 </tr>
                 <%
@@ -57,5 +61,17 @@
     <footer>
         <%@ include file="footer.jsp" %>
     </footer>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.editable-row').forEach(function (row) {
+                row.addEventListener('click', function () {
+                    if (event.target.closest('.delete-icon')) {
+                        return;
+                    }
+                    var teacher = row.getAttribute('data-teacher-id');
+                    window.location.href = 'EditTeacherServlet2?teacherId=' + teacher;
+                });
+            });
+        });
+    </script>
 </html>

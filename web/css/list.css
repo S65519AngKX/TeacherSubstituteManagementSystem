@@ -42,7 +42,7 @@ table tr th{
     border: 0px;
     border-radius:10px;
     padding:8px 5px;
-    font-size:15px;
+    font-size:12px;
     margin-bottom: 20px;
     width:10%;
     float: right;
@@ -55,4 +55,12 @@ table tr th{
 }
 #section{
     margin-bottom: 30px;
+}
+.delete-icon i{
+    color: red;
+    font-size:13px;
+}
+
+.delete-icon i:hover {
+    color: darkred;
 }

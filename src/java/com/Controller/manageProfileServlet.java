@@ -8,7 +8,6 @@ import com.Dao.TeacherDao;
 import com.Dao.UserDao;
 import com.Model.Teacher;
 import com.Model.User;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import util.PasswordUtil;
 
 /**
  *
@@ -33,6 +33,8 @@ public class manageProfileServlet extends HttpServlet {
         String name = request.getParameter("name");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        // Hash the password
+        String hashedPassword = PasswordUtil.hashPassword(password);
         String email = request.getParameter("email");
         String contactNo = request.getParameter("contact");
         String role = request.getParameter("role");
@@ -48,13 +50,13 @@ public class manageProfileServlet extends HttpServlet {
         User user = new User();
         user.setUsername(username);
         if (!password.isEmpty()) {
-            user.setPassword(password);
+            user.setPassword(hashedPassword);
         }
         user.setTeacherId(Integer.parseInt(id));
 
         int status = TeacherDao.update(teacher);
         int status2 = UserDao.update(user);
-       
+
         if (status > 0 && status2 > 0) {
             out.print("<script>alert('Record updated successfully!');</script>");
             request.getRequestDispatcher("HOME.jsp").include(request, response);

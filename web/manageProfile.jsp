@@ -27,9 +27,11 @@
             }
             #formButton input {
                 font-size: 17px;
+                margin-bottom: 10px;
             }
             #title {
                 font-size: 30px;
+                margin-top:2%;
             }
         </style>
     </head>

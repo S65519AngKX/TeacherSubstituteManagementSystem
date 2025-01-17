@@ -25,7 +25,7 @@
     <body>
         <form method="post"action="SaveTeacherServlet">
             <h1 id="title"> Add New Teacher</h1>
-            <table style="margin:30px auto;">
+            <table>
                 <tr>
                     <td><label for="name">Name: </label></td>
                     <td><input type="text"name="name"required></td>
@@ -57,7 +57,6 @@
                     </td>
                 </tr>
             </table>
-            <br><br>
             <div id="formButton">
                 <input type="submit"value="Add">
                 <input style="background-color: #9da0a1"type="reset"value="Cancel" onclick="return viewTeacher()">

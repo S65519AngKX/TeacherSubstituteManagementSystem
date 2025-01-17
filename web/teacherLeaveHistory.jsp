@@ -16,17 +16,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/list.css">
-        <title>Manage Leave</title>
+        <title>Leave History</title>
         <style>
-            .delete-icon i{
-                color: red;
-                font-size:13px;
-                align-items: center;
-            }
-
-            .delete-icon i:hover {
-                color: darkred;
-            }
             table tr td,th{
                 text-align:  center;
             }
@@ -40,7 +31,7 @@
 
     <body>
         <div id="section">
-            <h1 id="title">Manage Leave</h1>
+            <h1 id="title">Leave History</h1>
             <table>
                 <tr>
                     <th>Leave ID</th>

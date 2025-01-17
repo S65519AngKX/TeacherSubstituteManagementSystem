@@ -29,7 +29,7 @@ input,select,option{
     border-radius:10px;
     padding:8px 20px;
     font-size:15px;
-    margin:0px 20px;
+    margin:5px 20px;
     box-shadow: 2px 2px 2px black;
 }
 #formButton input:hover{
@@ -37,7 +37,7 @@ input,select,option{
 }
 #title{
     text-align: center;
-    font-size:40px;
+    font-size:30px;
     margin:15px auto;
     text-shadow:
         2.5px 2.5px 0px #1fb1c4 ,
