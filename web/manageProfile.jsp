@@ -41,10 +41,10 @@
     </header>
 
     <body>
-        <% 
-            int id=Integer.parseInt((String)session.getAttribute("teacherId"));
+        <%
+            int id = Integer.parseInt((String) session.getAttribute("teacherId"));
             Teacher teacher = TeacherDao.getTeacherById(id);
-            User user =UserDao.getUserByTeacherId(id);
+            User user = UserDao.getUserByTeacherId(id);
         %>
         <h1 id="title"> Manage Profile</h1>
 
@@ -64,11 +64,11 @@
                 </tr>
                 <tr>
                     <td><label for="contact">Contact No:</label></td>
-                    <td><input type="text" name="contact" value="<%= teacher.getTeacherContact()%>"></td>
+                    <td><input type="tel"name="contact" placeholder="012-3456789" pattern="01[0-9]-[0-9]{7,8}" required></td>
                 </tr>       
                 <tr>
                     <!--<td><label for="role">Role:</label></td>-->
-                    <td><input type="hidden" name="role" value="<%= teacher.getTeacherRole() %>" ></td>                
+                    <td><input type="hidden" name="role" value="<%= teacher.getTeacherRole()%>" ></td>                
                 </tr>       
                 <tr>
                     <td><label for="username">Username: </label></td>

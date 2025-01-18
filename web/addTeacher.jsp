@@ -36,7 +36,7 @@
                 </tr>
                 <tr>
                     <td><label for="contactNo">Contact No:</label></td>
-                    <td><input type="text"name="contactNo"required></td>
+                    <td><input type="tel"name="contactNo" placeholder="012-3456789" pattern="01[0-9]-[0-9]{7,8}" required></td>
                 </tr>
                 <tr>
                     <td><label for="role">Role: </label></td>

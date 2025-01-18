@@ -104,7 +104,7 @@ public class LeaveDao {
             PreparedStatement myPS = con.prepareStatement("select * from `leave` where absentTeacherId=?");
             myPS.setInt(1, id);
             ResultSet rs = myPS.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 Leave leave = new Leave();
                 leave.setLeaveID(rs.getInt(1));
                 leave.setAbsentTeacherID(rs.getInt(2));
@@ -171,4 +171,34 @@ public class LeaveDao {
         }
         return list;
     }
+
+    public static Leave getLeaveDetailsByLeaveID(int leaveID) {
+        Leave leave = null;
+
+        try {
+            Connection con = TeacherDao.getConnection();
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT leave.leaveID, teacher.teacherName, leave.leaveStartDate, leave.leaveEndDate, leave.leaveStatus FROM `leave` INNER JOIN teacher ON leave.absentTeacherId = teacher.teacherID WHERE leave.leaveID = ?"
+            );
+            ps.setInt(1, leaveID);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                leave = new Leave();
+                leave.setLeaveID(rs.getInt("leaveID"));
+                leave.setTeacherName(rs.getString("teacherName"));
+                leave.setLeaveStartDate(rs.getDate("leaveStartDate"));
+                leave.setLeaveEndDate(rs.getDate("leaveEndDate"));
+                leave.setLeaveStatus(rs.getString("leaveStatus"));
+            }
+
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return leave;
+    }
+
 }

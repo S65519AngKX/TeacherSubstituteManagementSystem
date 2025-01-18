@@ -65,7 +65,7 @@ public class EditTeacherServlet2 extends HttpServlet {
         out.println("</tr>");
         out.println("<tr>");
         out.println("<td><label for='contactNo'>Contact No:</label></td>");
-        out.println("<td><input type='text' name='contactNo' value='" + e.getTeacherContact() + "' required></td>");
+        out.println("<td><input type='text' name='contactNo' value='" + e.getTeacherContact() + "' pattern=\"01[0-9]-[0-9]{7,8}\" required></td>");
         out.println("</tr>");
         out.println("<tr>");
         out.println("<td><label for='role'>Role: </label></td>");
@@ -73,15 +73,15 @@ public class EditTeacherServlet2 extends HttpServlet {
         if ("Teacher".equals(e.getTeacherRole())) {
             out.println("<option value='Teacher' selected>Teacher</option>");
             out.println("<option value='Principal'>Principal</option>");
-            out.println("<option value='Assistant Principal'>Principal</option>");
+            out.println("<option value='Assistant Principal'>Assistant Principal</option>");
         } else if ("Principal".equals(e.getTeacherRole())) {
             out.println("<option value='Teacher'>Teacher</option>");
             out.println("<option value='Principal' selected>Principal</option>");
-            out.println("<option value='Assistant Principal'>Principal</option>");
+            out.println("<option value='Assistant Principal'>Assistant Principal</option>");
         } else {
             out.println("<option value='Teacher'>Teacher</option>");
             out.println("<option value='Principal'>Principal</option>");
-            out.println("<option value='Assistant Principal'selected>Principal</option>");
+            out.println("<option value='Assistant Principal'selected>Assistant Principal</option>");
         }
         out.println("</select></td>");
         out.println("</tr>");
