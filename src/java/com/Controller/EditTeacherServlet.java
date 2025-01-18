@@ -27,6 +27,7 @@ public class EditTeacherServlet extends HttpServlet {
         String email=request.getParameter("email");
         String contactNo=request.getParameter("contactNo");
         String role=request.getParameter("role");
+        String telegramID=request.getParameter("telegramId");
         String id=request.getParameter("teacherId");
         
         
@@ -35,6 +36,7 @@ public class EditTeacherServlet extends HttpServlet {
         teacher.setTeacherEmail(email);
         teacher.setTeacherContact(contactNo);
         teacher.setTeacherRole(role);
+        teacher.setTelegramId(telegramID);
         teacher.setTeacherID(Integer.parseInt(id));
 
         int status=TeacherDao.update(teacher);

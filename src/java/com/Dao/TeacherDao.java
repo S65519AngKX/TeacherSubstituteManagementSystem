@@ -26,11 +26,12 @@ public class TeacherDao {
         int teacherId = 0;
         try {
             Connection con = TeacherDao.getConnection();
-            PreparedStatement myPS = con.prepareStatement("INSERT INTO teacher(teacherName,teacherEmail,teacherContact,teacherRole)VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement myPS = con.prepareStatement("INSERT INTO teacher(teacherName,teacherEmail,teacherContact,teacherRole,telegramId)VALUES(?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             myPS.setString(1, teacher.getTeacherName());
             myPS.setString(2, teacher.getTeacherEmail());
             myPS.setString(3, teacher.getTeacherContact());
             myPS.setString(4, teacher.getTeacherRole());
+            myPS.setString(5, teacher.getTelegramId());
             int rowsAffected = myPS.executeUpdate();
 
             if (rowsAffected > 0) {
@@ -50,12 +51,13 @@ public class TeacherDao {
         int status = 0;
         try {
             Connection con = TeacherDao.getConnection();
-            PreparedStatement myPS = con.prepareStatement("Update teacher set teacherName=?,teacherEmail=?,teacherContact=?,teacherRole=? where teacherId=?");
+            PreparedStatement myPS = con.prepareStatement("Update teacher set teacherName=?,teacherEmail=?,teacherContact=?,teacherRole=?,telegramId=? where teacherId=?");
             myPS.setString(1, teacher.getTeacherName());
             myPS.setString(2, teacher.getTeacherEmail());
             myPS.setString(3, teacher.getTeacherContact());
             myPS.setString(4, teacher.getTeacherRole());
-            myPS.setInt(5, teacher.getTeacherID());
+            myPS.setString(5, teacher.getTelegramId());
+            myPS.setInt(6, teacher.getTeacherID());
 
             status = myPS.executeUpdate();
 
@@ -95,6 +97,7 @@ public class TeacherDao {
                 teacher.setTeacherEmail(rs.getString(3));
                 teacher.setTeacherContact(rs.getString(4));
                 teacher.setTeacherRole(rs.getString(5));
+                teacher.setTelegramId(rs.getString(6));
             }
             con.close();
         } catch (Exception ex) {
@@ -117,6 +120,7 @@ public class TeacherDao {
                 teacher.setTeacherEmail(rs.getString(3));
                 teacher.setTeacherContact(rs.getString(4));
                 teacher.setTeacherRole(rs.getString(5));
+                teacher.setTelegramId(rs.getString(6));
                 list.add(teacher);
             }
             con.close();

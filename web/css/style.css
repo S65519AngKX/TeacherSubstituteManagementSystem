@@ -11,6 +11,7 @@ body{
 }
 #section{
     min-height:77vh;
+    margin-bottom: 5%;
 }
 header,footer {
     background-color: #1fb1c4;
@@ -49,7 +50,7 @@ footer {
     background-color: #1fb1c4;
     color: white;
     text-align: center;
-    padding: 10px;
+    padding: 5px;
 }
 
 @media only screen and (max-width: 768px) {

@@ -42,6 +42,7 @@ public class SaveTeacherServlet extends HttpServlet {
         String email = request.getParameter("email");
         String contactNo = request.getParameter("contactNo");
         String role = request.getParameter("role");
+        String telegramID = request.getParameter("telegramId");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         //hash password for security purpose
@@ -52,6 +53,7 @@ public class SaveTeacherServlet extends HttpServlet {
         teacher.setTeacherEmail(email);
         teacher.setTeacherContact(contactNo);
         teacher.setTeacherRole(role);
+        teacher.setTelegramId(telegramID);
 
         int teacherId = TeacherDao.save(teacher);
         if (teacherId > 0) {

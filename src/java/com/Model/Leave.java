@@ -19,6 +19,9 @@ public class Leave {
     private String leaveReason;
     private String leaveNotes;
     private String leaveStatus;
+    //other variable
+    private String teacherName;
+    private String TelegramId;
 
     public int getLeaveID() {
         return leaveId;
@@ -74,5 +77,23 @@ public class Leave {
 
     public void setLeaveStatus(String leaveStatus) {
         this.leaveStatus = leaveStatus;
+    }
+    
+    //other method
+    //for leave status notification purpose(Telegram API)
+     public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
+    }
+
+    public String getTelegramId() {
+        return TelegramId;
+    }
+    
+    public void setTelegramId(String TelegramId) {
+        this.TelegramId = TelegramId;
     }
 }

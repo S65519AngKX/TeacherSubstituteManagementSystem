@@ -14,6 +14,7 @@ public class Teacher {
     private String teacherEmail;
     private String teacherContact;
     private String teacherRole;
+    private String telegramID;
 
     public int getTeacherID() {
         return teacherId;
@@ -52,5 +53,12 @@ public class Teacher {
 
     public void setTeacherRole(String teacherRole) {
         this.teacherRole = teacherRole;
+    }
+    public String getTelegramId() {
+        return telegramID;
+    }
+
+    public void setTelegramId(String telegramID) {
+        this.telegramID = telegramID;
     }
 }

@@ -117,7 +117,7 @@
                 }
 
                 .navbar-collapse {
-                    background-color: #189294;
+                    background-color: #1fb1c4;
                     width: 100%;
                 }
 
@@ -188,21 +188,23 @@
         </header>
 
         <script>
-        var userRole = '<%= session.getAttribute("tempRole") != null ? session.getAttribute("tempRole") : session.getAttribute("role")%>';
-        var navItems = {
-            'Principal': ['HOME', 'LEAVES', 'REPORT'],
-            'Assistant Principal': ['HOME', 'TEACHERS', 'SCHEDULES', 'SUBSTITUTIONS', 'REPORT'],
-            'Teacher': ['HOME', 'LEAVE', 'SCHEDULE', 'SUBSTITUTION']
-        };
+            var userRole = '<%= session.getAttribute("tempRole") != null ? session.getAttribute("tempRole") : session.getAttribute("role")%>';
+            var navItems = {
+                'Principal': ['HOME', 'LEAVES', 'REPORT'],
+                'Assistant Principal': ['HOME', 'TEACHERS', 'SCHEDULES', 'SUBSTITUTIONS', 'REPORT'],
+                'Teacher': ['HOME', 'LEAVE', 'SCHEDULE', 'SUBSTITUTION']
+            };
 
-        var navList = document.getElementById('nav-list');
-        navItems[userRole].forEach(function (item) {
-            var li = document.createElement('li');
-            li.classList.add('nav-item');
-            li.innerHTML = '<a class="nav-link" href="' + item + '.jsp">' + item + '</a>';
-            navList.appendChild(li);
-        });
+            var navList = document.getElementById('nav-list');
+            navItems[userRole].forEach(function (item) {
+                var li = document.createElement('li');
+                li.classList.add('nav-item');
+                li.innerHTML = '<a class="nav-link" href="' + item + '.jsp">' + item + '</a>';
+                navList.appendChild(li);
+            });
         </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     </body>
 
 </html>

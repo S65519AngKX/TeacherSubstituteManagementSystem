@@ -178,7 +178,7 @@ public class LeaveDao {
         try {
             Connection con = TeacherDao.getConnection();
             PreparedStatement ps = con.prepareStatement(
-                    "SELECT leave.leaveID, teacher.teacherName, leave.leaveStartDate, leave.leaveEndDate, leave.leaveStatus FROM `leave` INNER JOIN teacher ON leave.absentTeacherId = teacher.teacherID WHERE leave.leaveID = ?"
+                    "SELECT leave.leaveId,teacher.teacherName,teacher.telegramId,leave.leaveStartDate,leave.leaveEndDate,leave.leaveStatus FROM `leave` INNER JOIN teacher ON leave.absentTeacherId = teacher.teacherId WHERE leave.leaveId = ?"
             );
             ps.setInt(1, leaveID);
             ResultSet rs = ps.executeQuery();
@@ -187,6 +187,7 @@ public class LeaveDao {
                 leave = new Leave();
                 leave.setLeaveID(rs.getInt("leaveID"));
                 leave.setTeacherName(rs.getString("teacherName"));
+                leave.setTelegramId(rs.getString("telegramId"));
                 leave.setLeaveStartDate(rs.getDate("leaveStartDate"));
                 leave.setLeaveEndDate(rs.getDate("leaveEndDate"));
                 leave.setLeaveStatus(rs.getString("leaveStatus"));

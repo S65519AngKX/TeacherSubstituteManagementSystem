@@ -29,6 +29,7 @@
                     <th>Email</th>
                     <th>Contact No</th>
                     <th>Role</th>
+                    <th>Telegram ID</th>
                     <th colspan="2">Action</th>
                 </tr>
                 <%
@@ -41,6 +42,7 @@
                     <td><%= e.getTeacherEmail()%></td>
                     <td><%= e.getTeacherContact()%></td>
                     <td><%= e.getTeacherRole()%></td>
+                    <td><%= e.getTelegramId()%></td>
                     <td>
                         <a href="DeleteTeacherServlet?teacherId=<%= e.getTeacherID()%>" 
                            onclick="return confirm('Do you want to delete this teacher?');" 

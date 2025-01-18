@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import util.PasswordUtil;
 
 @WebServlet(name = "ResetPasswordServlet", urlPatterns = {"/ResetPasswordServlet"})
 public class ResetPasswordServlet extends HttpServlet {
@@ -23,6 +24,8 @@ public class ResetPasswordServlet extends HttpServlet {
             throws ServletException, IOException {
         String token = request.getParameter("token");
         String newPassword = request.getParameter("password");
+        // Hash the password
+        String hashedPassword = PasswordUtil.hashPassword(newPassword);
 
         logger.info("Received token: " + token);  
         logger.info("New password: " + newPassword); 
@@ -51,7 +54,7 @@ public class ResetPasswordServlet extends HttpServlet {
                 } else {
                     // Token is valid, proceed to update the password
                     PreparedStatement updatePs = con.prepareStatement("UPDATE user INNER JOIN teacher ON user.teacherId = teacher.teacherId SET user.password=? WHERE user.token=?");
-                    updatePs.setString(1, newPassword);
+                    updatePs.setString(1, hashedPassword);
                     updatePs.setString(2, token);
                     updatePs.executeUpdate();
 

@@ -85,6 +85,10 @@ public class EditTeacherServlet2 extends HttpServlet {
         }
         out.println("</select></td>");
         out.println("</tr>");
+        out.println("<tr>");
+        out.println("<td><label for='telegramId'>Chat ID(Telegram): </label></td>");
+        out.println("<td><input type='text' name='telegramId' value='" + e.getTelegramId()+ "'pattern=\"[0-9]{10}\"  required></td>");
+        out.println("</tr>");
         out.println("</table>");
         out.println("<br><br>");
         out.println("<div id='formButton'>");
@@ -94,8 +98,8 @@ public class EditTeacherServlet2 extends HttpServlet {
         out.println("</form>");
         out.println("</body>");
         out.println("<footer>");
-        RequestDispatcher dispatcherb = request.getRequestDispatcher("/footer.jsp");
-        dispatcherb.include(request, response);
+        RequestDispatcher dispatcher2 = request.getRequestDispatcher("/footer.jsp");
+        dispatcher2.include(request, response);
         out.println("</footer>");
         out.println("</html>");
 

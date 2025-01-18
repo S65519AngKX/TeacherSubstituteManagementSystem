@@ -38,6 +38,7 @@ public class manageProfileServlet extends HttpServlet {
         String email = request.getParameter("email");
         String contactNo = request.getParameter("contact");
         String role = request.getParameter("role");
+        String telegramID = request.getParameter("telegramId");
         String id = request.getParameter("teacherId");
 
         Teacher teacher = new Teacher();
@@ -45,6 +46,7 @@ public class manageProfileServlet extends HttpServlet {
         teacher.setTeacherEmail(email);
         teacher.setTeacherContact(contactNo);
         teacher.setTeacherRole(role);
+        teacher.setTelegramId(telegramID);
         teacher.setTeacherID(Integer.parseInt(id));
 
         User user = new User();

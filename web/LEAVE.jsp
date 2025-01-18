@@ -12,8 +12,13 @@
         <link rel="stylesheet" href="css/form.css">
         <title>Apply Leave</title>
         <style>
+            #top{
+                display: flex;
+                align-items: center;
+            }
             #title{
                 font-size:30px;
+                margin-left:40%;
             }
             form{
                 margin-top:0;
@@ -31,11 +36,14 @@
         </header>
 
         <div class="container mt-5">
-            <div  id="formButton" class="d-flex justify-content-end mb-3">
-                <input id="history" type="button" style="background-color:#8d9394;" value="History" onclick="window.location.href = 'teacherLeaveHistory.jsp'"> 
-            </div>
+
             <form method="post" action="SaveLeaveServlet" id="applyLeaveForm">
-                <h1 id="title">Apply Leave</h1>
+                <div id="top">
+                    <h1 id="title">Apply Leave</h1>
+                    <div  id="formButton" class="d-flex justify-content-end mb-3">
+                        <input id="history" type="button" style="background-color:#8d9394;" value="History" onclick="window.location.href = 'teacherLeaveHistory.jsp'"> 
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-12">
                         <input type="hidden" name="teacherId" value="<%=session.getAttribute("teacherId")%>">

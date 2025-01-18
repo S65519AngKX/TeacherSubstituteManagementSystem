@@ -15,25 +15,6 @@
         <link rel="stylesheet" href="css/form.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <title>Manage Profile</title>
-        <style>
-            table {
-                margin: auto;
-            }
-            table tr td {
-                font-size: 17px;
-            }
-            label {
-                font-size: 17px;
-            }
-            #formButton input {
-                font-size: 17px;
-                margin-bottom: 10px;
-            }
-            #title {
-                font-size: 30px;
-                margin-top:2%;
-            }
-        </style>
     </head>
 
     <header>
@@ -46,48 +27,69 @@
             Teacher teacher = TeacherDao.getTeacherById(id);
             User user = UserDao.getUserByTeacherId(id);
         %>
-        <h1 id="title"> Manage Profile</h1>
 
-        <form method="post" action="manageProfile">        
-            <table>
-                <tr>
-                    <!--<td><label for="teacherId">Teacher ID: </label></td>-->
-                    <td><input type="hidden" name="teacherId" value="<%= session.getAttribute("teacherId")%>"></td>                
-                </tr>
-                <tr>
-                    <td><label for="name">Name: </label></td>
-                    <td><input type="text" name="name" value="<%= teacher.getTeacherName()%>"></td>
-                </tr>
-                <tr>
-                    <td><label for="email">Email: </label></td>
-                    <td><input type="text" name="email" value="<%=  teacher.getTeacherEmail()%>"></td>
-                </tr>
-                <tr>
-                    <td><label for="contact">Contact No:</label></td>
-                    <td><input type="tel"name="contact" placeholder="012-3456789" pattern="01[0-9]-[0-9]{7,8}" required></td>
-                </tr>       
-                <tr>
-                    <!--<td><label for="role">Role:</label></td>-->
-                    <td><input type="hidden" name="role" value="<%= teacher.getTeacherRole()%>" ></td>                
-                </tr>       
-                <tr>
-                    <td><label for="username">Username: </label></td>
-                    <td><input type="text" name="username" value="<%= user.getUsername()%>" readonly></td>                
-                </tr>
-                <tr>
-                    <td><label for="password">Password: </label></td>
-                    <td>
-                        <input type="password" name="password" value="<%= user.getPassword()%>">
-                        <i class="fas fa-eye" style="color:#1fb1c4;" onclick="togglePasswordVisibility(this)"></i>
-                    </td>
-                </tr>
-            </table>
-            <br><br>
-            <div id="formButton">
-                <input type="submit" value="Submit">
-                <input style="background-color: #9da0a1" type="reset" value="Cancel" onclick="return goToHome()">
+        <div class="container h-70"> 
+            <div class="row justify-content-center align-items-center">
+                <div class="col-12 col-lg-8 col-xl-9">
+                    <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                        <div class="card-body p-2 p-md-3">
+                            <h3 class="pt-3 pb-md-0 mb-md-1" id="title">Manage Profile</h3>
+                            <form method="post" action="manageProfileServlet">
+                                <div class="form-section">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <input type="hidden" name="teacherId" value="<%= session.getAttribute("teacherId")%>">
+                                            <input type="hidden" name="role" value="<%= teacher.getTeacherRole()%>">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-md-6">
+                                            <label for="name" class="form-label">Name:</label>
+                                            <input type="text" name="name" class="form-control" value="<%= teacher.getTeacherName()%>" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="telegramId" class="form-label">Chat ID (Telegram):</label>
+                                            <input type="text" name="telegramId" class="form-control" value="<%= teacher.getTelegramId()%>" pattern="[0-9]{10}"  required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-">
+                                        <div class="col-md-6">
+                                            <label for="email" class="form-label">Email:</label>
+                                            <input type="email" name="email" class="form-control" value="<%= teacher.getTeacherEmail()%>" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="contact" class="form-label">Contact No:</label>
+                                            <input type="tel" name="contact" class="form-control" value="<%= teacher.getTeacherContact()%>" pattern="01[0-9]-[0-9]{7,8}" required>
+                                        </div>
+                                    </div>
+                                    <div class="container d-flex justify-content-center align-items-center">
+                                        <div class="row col-md-10 d-flex align-items-center" style="background: linear-gradient(to bottom right, #ffffff 0%, #ccffff 100%); border-radius: 10px; box-shadow: 2px 2px 2px black; padding: 20px;">
+                                            <div class="col-md-6 mb-1">
+                                                <label for="username" class="form-label">Username:</label>
+                                                <input type="text" name="username" class="form-control" value="<%= user.getUsername()%>" readonly>
+                                            </div>
+                                            <div class="col-md-6 mb-1">
+                                                <label for="password" class="form-label">Password:</label>
+                                                <input type="password" name="password" class="form-control">" required>
+                                                <i class="fas fa-eye" style="color:#1fb1c4;" onclick="togglePasswordVisibility(this)"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-2 pt-2">
+                                        <div id="formButton">
+                                            <input style="background-color: #9da0a1" type="reset" value="Cancel" onclick='window.location.href = "TEACHERS.jsp"'>
+                                            <input type="submit" value="Confirm">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </form>
+        </div>
+
         <script>
             function goToHome() {
                 window.location.href = "HOME.jsp";
@@ -109,5 +111,4 @@
     <footer>
         <%@ include file="footer.jsp" %>
     </footer>
-
 </html>

@@ -16,6 +16,9 @@
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/form.css">
         <title>Add Staff</title>  
+        <style>
+
+        </style>
     </head>
 
     <header>
@@ -23,46 +26,80 @@
     </header>
 
     <body>
-        <form method="post"action="SaveTeacherServlet">
-            <h1 id="title"> Add New Teacher</h1>
-            <table>
-                <tr>
-                    <td><label for="name">Name: </label></td>
-                    <td><input type="text"name="name"required></td>
-                </tr>
-                <tr>
-                    <td><label for="email">Email: </label></td>
-                    <td><input type="text"name="email"required></td>
-                </tr>
-                <tr>
-                    <td><label for="contactNo">Contact No:</label></td>
-                    <td><input type="tel"name="contactNo" placeholder="012-3456789" pattern="01[0-9]-[0-9]{7,8}" required></td>
-                </tr>
-                <tr>
-                    <td><label for="role">Role: </label></td>
-                    <td><select name="role"required>
-                            <option value="Teacher">Teacher</option>
-                            <option value="Principal">Principal</option>
-                            <option value="Assistant Principal">Assistant Principal</option>
-                        </select></td>
-                </tr>
-                <tr>
-                    <td><label for="username">Username: </label></td>
-                    <td><input type="text" name="username"></td>                
-                </tr>
-                <tr>
-                    <td><label for="password">Password: </label></td>
-                    <td>
-                        <input type="password" name="password">
-                    </td>
-                </tr>
-            </table>
-            <div id="formButton">
-                <input type="submit"value="Add">
-                <input style="background-color: #9da0a1"type="reset"value="Cancel" onclick="return viewTeacher()">
-            </div>
+        <section class="vh-80 gradient-custom">
+            <div class="container h-70"> 
+                <div class="row justify-content-center align-items-center h-60">
+                    <div class="col-12 col-lg-9 col-xl-9">
+                        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                            <div class="card-body p-2 p-md-4">
+                                <h3 class="mb-3 pt-3 pb-md-0 mb-md-3"id="title">Add New Teacher</h3>
+                                <form method="post" action="SaveTeacherServlet">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-2">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <label class="form-label" for="name">Name:</label>
+                                                <input type="text" name="name" class="form-control form-control-lg" required/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-2">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <label class="form-label" for="telegramId">Chat ID(Telegram):</label>
+                                                <input type="text" name="telegramId" class="form-control form-control-lg"  placeholder="eg. 1234567890" pattern="[0-9]{10}" required/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 mb-2 d-flex align-items-center">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="email" name="email" id="email" class="form-control form-control-lg" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-2 d-flex align-items-center">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <label for="contact" class="form-label">Contact:</label>
+                                                <input type="tel" name="contactNo" id="contact" class="form-control form-control-lg" placeholder="eg. 012-3456789" pattern="01[0-9]-[0-9]{7,8}" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-2 d-flex align-items-center">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <label for="role" class="form-label">Role</label>
+                                                <select name="role" id="role" class="select form-control-lg" required>
+                                                    <option value="Teacher">Teacher</option>
+                                                    <option value="Principal">Principal</option>
+                                                    <option value="Assistant Principal">Assistant Principal</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
 
-        </form>
+                                    <div class="container d-flex justify-content-center align-items-center">
+                                        <div class="row col-md-10 d-flex align-items-center" style="background: linear-gradient(to bottom right, #ffffff 0%, #ccffff 100%); border-radius: 10px; box-shadow: 2px 2px 2px black; padding: 20px;">
+                                            <div class="col-md-6 mb-1">
+                                                <label for="username" class="form-label">Username:</label>
+                                                <input type="text" name="username" class="form-control" required>
+                                            </div>
+                                            <div class="col-md-6 mb-1">
+                                                <label for="password" class="form-label">Password:</label>
+                                                <input type="password" name="password" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-0 pt-2">
+                                        <div id="formButton">
+                                            <input style="background-color: #9da0a1" type="reset" value="Cancel" onclick="return viewTeacher()">
+                                            <input type="submit" value="Add">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <script>
             function viewTeacher() {
                 window.location.href = "TEACHERS.jsp";
