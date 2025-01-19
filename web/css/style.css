@@ -28,9 +28,8 @@ footer{
     font-size: 12px;
     text-align: center;
     position: relative;
-    padding:1%;
     bottom:0;
-    margin-top:3%;
+    margin-top:2%;
 }
 #logo{
     font-family: Stardos Stencil;
@@ -45,12 +44,6 @@ footer{
     font-size: 50px;
     font-weight: bolder;
     text-align: center;
-}
-footer {
-    background-color: #1fb1c4;
-    color: white;
-    text-align: center;
-    padding: 5px;
 }
 
 @media only screen and (max-width: 768px) {

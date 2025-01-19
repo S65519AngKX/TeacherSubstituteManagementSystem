@@ -56,6 +56,18 @@
         <servlet-name>ResetPasswordServlet</servlet-name>
         <servlet-class>com.Controller.ResetPasswordServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SaveScheduleServlet</servlet-name>
+        <servlet-class>com.Controller.SaveScheduleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateScheduleServlet</servlet-name>
+        <servlet-class>com.Controller.UpdateScheduleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteScheduleServlet</servlet-name>
+        <servlet-class>com.Controller.DeleteScheduleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TeacherDao</servlet-name>
         <url-pattern>/TeacherDao</url-pattern>
@@ -111,6 +123,18 @@
     <servlet-mapping>
         <servlet-name>ResetPasswordServlet</servlet-name>
         <url-pattern>/ResetPasswordServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveScheduleServlet</servlet-name>
+        <url-pattern>/SaveScheduleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateScheduleServlet</servlet-name>
+        <url-pattern>/UpdateScheduleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteScheduleServlet</servlet-name>
+        <url-pattern>/DeleteScheduleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

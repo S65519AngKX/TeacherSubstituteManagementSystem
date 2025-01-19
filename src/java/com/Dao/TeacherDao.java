@@ -106,6 +106,23 @@ public class TeacherDao {
         return teacher;
     }
 
+    public static int getTeacherIdByName(String name) {
+        int teacherId=0;
+        try {
+            Connection con = TeacherDao.getConnection();
+            PreparedStatement myPS = con.prepareStatement("select teacherId from teacher where teacherName=?");
+            myPS.setString(1, name);
+            ResultSet rs = myPS.executeQuery();
+            if (rs.next()) {
+                teacherId = rs.getInt("teacherId"); 
+            }
+            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return teacherId;
+    }
+
     public static List<Teacher> getAllTeacher() {
         List<Teacher> list = new ArrayList<Teacher>();
 

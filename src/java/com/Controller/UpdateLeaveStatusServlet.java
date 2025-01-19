@@ -32,7 +32,7 @@ public class UpdateLeaveStatusServlet extends HttpServlet {
         } else {
             // Error handling if unable to approve/reject
             response.getWriter().print("<script>alert('Unable to approve/reject the leave request.');</script>");
-            response.sendRedirect("LEAVES.jsp");
+            request.getRequestDispatcher("LEAVES.jsp").include(request, response);
         }
     }
 

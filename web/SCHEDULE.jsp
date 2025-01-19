@@ -1,3 +1,7 @@
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,6 +15,19 @@
         <link rel="stylesheet" href="css/schedule.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <title>Schedule</title>
+        <style>
+            .schedule-table{
+                min-height: 75vh;
+            }
+            .table td{
+                padding: 15px !important;
+                height: auto !important;
+            }
+            .table th{
+                padding: 10px !important;
+                height: auto !important;
+            }
+        </style>
     </head>
 
     <body>
@@ -36,161 +53,49 @@
                         <th class="last">11<br><span>12:40pm - 1:10pm</span></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td class="day">Sunday</td>
-                        <td class="active">
-                            <h4>BM</h4>
-                            <p>10 am - 11 am</p>
-                        </td>
-                        <td></td>
-                        <td class="active">
-                            <h4>BC</h4>
-                            <p>03 pm - 04 pm</p>
-                        </td>
-                        <td class="active">
-                            <h4>BM</h4>
-                            <p>05 pm - 06 pm</p>
-                        </td>
-                        <td></td>
-                        <td class="active">
-                            <h4>Music</h4>
-                            <p>10 am - 11 am</p>
-                        </td>
-                        <td></td>
-                        <td class="active">
-                            <h4>PJ</h4>
-                            <p>03 pm - 04 pm</p>
-                        </td>
-                        <td class="active">
-                            <h4>BI</h4>
-                            <p>05 pm - 06 pm</p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="day">Monday</td>
-                        <td></td>
-                        <td class="active">
-                            <h4>SC</h4>
-                            <p>11 am - 12 pm</p>
-                        </td>
-                        <td class="active">
-                            <h4>MM</h4>
-                            <p>03 pm - 05 pm</p>
-                        </td>
-                        <td></td>
-                        <td class="active">
-                            <h4>PM</h4>
-                            <p>07 pm - 08 pm</p>
-                        </td>
-                        <td></td>
-                        <td class="active">
-                            <h4>ISLAM</h4>
-                            <p>11 am - 12 pm</p>
-                        </td>
-                        <td class="active">
-                            <h4>KH</h4>
-                            <p>03 pm - 05 pm</p>
-                        </td>
-                        <td></td>
-                        <td class="active">
-                            <h4>BI</h4>
-                            <p>07 pm - 08 pm</p>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="day">Tuesday</td>
-                        <td class="active">
-                            <h4>BC</h4>
-                            <p>10 am - 11 am</p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td class="active">
-                            <h4>BC</h4>
-                            <p>05 pm - 06 pm</p>
-                        </td>
-                        <td class="active">
-                            <h4>BC</h4>
-                            <p>07 pm - 08 pm</p>
-                        </td>
-                        <td></td>
-                        <td class="active">
-                            <h4>MUSIC</h4>
-                            <p>11 am - 12 pm</p>
-                        </td>
-                        <td class="active">
-                            <h4>PJ</h4>
-                            <p>03 pm - 05 pm</p>
-                        </td>
-                        <td></td>
-                        <td class="active">
-                            <h4>BM</h4>
-                            <p>07 pm - 08 pm</p>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="day">Wednesday</td>
-                        <td class="active">
-                            <h4>Body Building</h4>
-                            <p>10 am - 12 pm</p>
-                        </td>
-                        <td></td>
-                        <td class="active">
-                            <h4>Dance</h4>
-                            <p>03 pm - 05 pm</p>
-                        </td>
-                        <td></td>
-                        <td class="active">
-                            <h4>Health</h4>
-                            <p>07 pm - 08 pm</p>
-                        </td>
-                        <td></td>
-                        <td class="active">
-                            <h4>Cycling</h4>
-                            <p>11 am - 12 pm</p>
-                        </td>
-                        <td class="active">
-                            <h4>Karate</h4>
-                            <p>03 pm - 05 pm</p>
-                        </td>
-                        <td></td>
-                        <td class="active">
-                            <h4>Crossfit</h4>
-                            <p>07 pm - 08 pm</p>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="day">Thursday</td>
-                        <td></td>
-                        <td class="active">
-                            <h4>Bootcamp</h4>
-                            <p>11 am - 12 pm</p>
-                        </td>
-                        <td></td>
-                        <td class="active">
-                            <h4>Boday Building</h4>
-                            <p>05 pm - 06 pm</p>
-                        </td>
-                        <td></td>
-                        <td class="active">
-                            <h4>Bootcamp</h4>
-                            <p>11 am - 12 pm</p>
-                        </td>
-                        <td></td>
-                        <td class="active">
-                            <h4>Boday Building</h4>
-                            <p>05 pm - 06 pm</p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                <tbody id="schedule-body">
+                    <%
+                        int selectedTeacher = Integer.parseInt(session.getAttribute("teacherId").toString());
+                        try {
+                            Class.forName("com.mysql.jdbc.Driver");
+                            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/substitutemanagement", "root", "admin");
+                            PreparedStatement ps = con.prepareStatement(
+                                    "SELECT scheduleDay, schedulePeriod, scheduleSubject, className FROM schedule WHERE teacherId = ? ORDER BY FIELD(scheduleDay, 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'),schedulePeriod ASC");
+                            ps.setInt(1, selectedTeacher);
+
+                            ResultSet rs = ps.executeQuery();
+
+                            String currentDay = "";
+                            if (rs.next()) {
+                                // Existing Schedule found (update schedule)
+                                do {
+                                    String day = rs.getString("scheduleDay");
+                                    String subject = rs.getString("scheduleSubject") != null ? rs.getString("scheduleSubject") : " ";
+                                    String className = rs.getString("className") != null ? rs.getString("className") : " ";
+
+                                    // Check if the day has changed (to avoid printing the day again)
+                                    if (!day.equals(currentDay)) {
+                                        out.print("<tr><td class='day'>" + day + "</td>");
+                                        currentDay = day;
+                                    }
+
+                                    // Render the schedule for the teacher
+                                    out.print("<td style='text-align:center'><h4 style='font-weight:bold;margin:0'>" + subject + "</h4><p style='font-size:1.1em;color:#636161;margin:0'>" + className + "</p></td>");
+
+                                } while (rs.next());
+                                out.println("</tr>");
+                                } else {
+                                    // No existing schedule found
+                                    out.print("<tr><td colspan='12' style='text-align: center; font-weight: bold;font-size:18px;'>No schedule found for this teacher</td></tr>");
+                                }
+                                rs.close();
+                                ps.close();
+                                con.close();
+                            }catch (Exception e) {
+                            out.println("<td colspan='12'>Error fetching schedule</td>");
+                            e.printStackTrace();
+                        }
+                    %>
                 </tbody>
             </table>
         </div>
@@ -199,6 +104,3 @@
         </footer>
     </body>
 </html>
-
-
-
