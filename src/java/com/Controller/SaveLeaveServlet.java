@@ -54,10 +54,10 @@ public class SaveLeaveServlet extends HttpServlet {
         int result = LeaveDao.save(leave);
         if (result > 0) {
             out.print("<script>alert('Record saved successfully!');</script>");
-            response.sendRedirect("teacherLeaveHistory.jsp");
+            request.getRequestDispatcher("teacherLeaveHistory.jsp").include(request, response);
         } else {
             out.print("<script>alert('Sorry! Unable to save leave record.');</script>");
-            response.sendRedirect("LEAVE.jsp");
+           request.getRequestDispatcher("LEAVE.jsp").include(request, response);
         }
 
         out.close();

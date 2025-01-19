@@ -39,19 +39,19 @@ public class DeleteTeacherServlet extends HttpServlet {
                 int userStatus = UserDao.delete(username);
                 if (userStatus > 0) {
                     response.getWriter().print("<script>alert('Teacher and user record deleted successfully!');</script>");
-                    response.sendRedirect("TEACHERS.jsp");
+                    request.getRequestDispatcher("TEACHERS.jsp").include(request, response);
                 } else {
                     response.getWriter().print("<script>alert('Sorry! Unable to delete user record.');</script>");
-                    response.sendRedirect("TEACHERS.jsp");
+                    request.getRequestDispatcher("TEACHERS.jsp").include(request, response);
                 }
             } else {
                 response.getWriter().print("<script>alert('Sorry! Unable to delete teacher record.');</script>");
-                response.sendRedirect("TEACHERS.jsp");
+                request.getRequestDispatcher("TEACHERS.jsp").include(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
             response.getWriter().print("<script>alert('An error occurred while deleting records.');</script>");
-            response.sendRedirect("TEACHERS.jsp");
+            request.getRequestDispatcher("TEACHERS.jsp").include(request, response);
         }
     }
     
