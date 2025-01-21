@@ -48,15 +48,28 @@
             #delete{
                 text-align: center;
             }
+           
+            @media screen and (max-width: 767px) {
+                #button{
+                    padding:5px;
+                    font-size:12px;
+                    margin-bottom: 10px;
+                    width:20%;
+                }
+                .action-buttons button{
+                    font-size:12px;
+                    width:50px;
+                }
+            }
 
         </style>
     </head>
 
-    <header>
-        <%@include file="header.jsp"%>
-    </header>
-
     <body>
+        <header>
+            <%@include file="header.jsp"%>
+        </header>
+        
         <div id="section">
             <h1 id="title">Manage Leave</h1>
             <table>
@@ -113,10 +126,11 @@
             </table>
             <button id="button" type="button" onclick="window.location.href = 'leaveHistory.jsp';">Leave History</button>
         </div>
+        <footer>
+            <%@ include file="footer.jsp" %>
+        </footer>
     </body>
 
-    <footer>
-        <%@ include file="footer.jsp" %>
-    </footer>
+
 
 </html>

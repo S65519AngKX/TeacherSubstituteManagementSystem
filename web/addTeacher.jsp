@@ -21,12 +21,14 @@
         </style>
     </head>
 
-    <header>
-        <%@include file="header.jsp"%>
-    </header>
+
 
     <body>
-        <section class="vh-80 gradient-custom">
+        <header>
+            <%@include file="header.jsp"%>
+        </header>
+
+        <section id="section" class="vh-80 gradient-custom">
             <div class="container h-70"> 
                 <div class="row justify-content-center align-items-center h-60">
                     <div class="col-12 col-lg-9 col-xl-9">
@@ -105,10 +107,11 @@
                 window.location.href = "TEACHERS.jsp";
             }
         </script>
+        <footer>
+            <%@ include file="footer.jsp" %>
+        </footer>
     </body>
 
-    <footer>
-        <%@ include file="footer.jsp" %>
-    </footer>
+
 
 </html>

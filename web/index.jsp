@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
-       <style>
+        <style>
             body {
                 background-image: url("images/loginBackground.jpg");
                 background-size: cover;
@@ -47,9 +47,10 @@
                 font-size: 15px;
                 margin-top:15%;
             }
+
             @media only screen and (max-width: 768px) {
                 .text-center{
-                        font-size: 10vw;
+                    font-size: 10vw;
                 }
             }
 
@@ -58,7 +59,7 @@
     <body>
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <div class="login-card">
                         <h1 class="text-center" id="logo">Smart<span id="logo1">Sub</span></h1>
                         <form action="doLogin.jsp" method="POST">

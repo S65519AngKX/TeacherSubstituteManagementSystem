@@ -35,7 +35,7 @@
             <%@include file="header.jsp"%>
         </header>
 
-        <div class="schedule-table">
+        <div id="section" class="schedule-table">
             <table class="table">
                 <thead>
                     <tr>

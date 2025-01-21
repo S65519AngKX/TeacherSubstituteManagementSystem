@@ -14,9 +14,11 @@
         <style>
 
             #section {
+                flex-grow: 1;
                 margin: 20px auto;
                 padding: 20px;
-                max-width: 1200px;
+                max-width: 90%;
+                overflow: auto;
             }
 
             #div1 {

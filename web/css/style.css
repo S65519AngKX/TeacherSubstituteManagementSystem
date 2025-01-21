@@ -5,13 +5,19 @@
     margin: 0;
     padding: 0;
 }
-body{
-    min-height: 100vh;
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
     background-color: #95e8f5;
 }
 #section{
-    min-height:77vh;
-    margin-bottom: 5%;
+    flex-grow: 1;
+    min-height:72vh;
+    margin-bottom: 2%;
 }
 header,footer {
     background-color: #1fb1c4;
@@ -33,7 +39,7 @@ footer{
 }
 #logo{
     font-family: Stardos Stencil;
-    font-size:50px;
+    font-size:40px;
     font-weight: bolder;
     text-align: center;
     color:red;
@@ -41,7 +47,7 @@ footer{
 #logo1{
     font-family: Stardos Stencil;
     color: blue;
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bolder;
     text-align: center;
 }

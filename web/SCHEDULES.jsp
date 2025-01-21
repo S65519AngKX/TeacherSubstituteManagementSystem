@@ -22,7 +22,9 @@
         <title>Manage Schedule</title>
         <style>
             #section{
-                min-height: 70vh;
+                flex-grow: 1;
+                min-height:72vh;
+                margin-bottom: 5%;
             }
             .event-display {
                 display: none;
@@ -126,7 +128,6 @@
                 </select>
                 <button id="search" onclick="searchSchedule()"><i class="fa fa-search"></i></button>
             </div>
-
             <!-- Schedule Table -->
             <form action="<%= (scheduleExists(request.getParameter("teacherName")) ? "UpdateScheduleServlet" : "SaveScheduleServlet")%>" method="POST">
                 <div class="schedule-table">
@@ -248,9 +249,10 @@
                         </tbody>
                     </table>
                 </div>
-                <button type="submit" id="button" class="btn btn-primary">Save Schedule</button>
+                <button type="submit" id="button1" class="btn btn-primary">Save Schedule</button>
             </form>
             <button id="button2" class="btn btn-primary" style="background-color:red;" onclick="deleteSchedule()">Delete Schedule</button>
+            <button id="button3" class="btn btn-primary" style="background-color:grey;" onclick="uploadFile()">Upload File</button>
 
         </div>
         <footer>

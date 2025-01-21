@@ -48,13 +48,13 @@ table tr th{
     float: right;
     margin-right:2.5%;
     box-shadow: 2px 2px 2px black;
-
 }
 #button:hover{
     opacity:0.8;
 }
 #section{
     margin-bottom: 30px;
+    overflow:auto;
 }
 .delete-icon i{
     color: red;
@@ -63,4 +63,32 @@ table tr th{
 
 .delete-icon i:hover {
     color: darkred;
+}
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+
+}
+@media screen and (max-width: 767px) {
+    #title {
+        font-size: 25px;
+        margin: 5px;
+    }
+    table {
+        margin: 3px auto;
+    }
+    th, td {
+        padding: 5px;
+        font-size: 12px;
+    }
+    th {
+        font-size: 12px;
+    }
+    .delete-icon i{
+        font-size:10px;
+    }
+    #button{
+        padding:5px;
+        font-size:12px;
+        margin-bottom: 10px;
+        width:15%;
+    }
 }

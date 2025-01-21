@@ -15,20 +15,20 @@
         <link rel="stylesheet" href="css/form.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <title>Manage Profile</title>
+        <style></style>
     </head>
 
-    <header>
-        <%@include file="header.jsp"%>
-    </header>
-
     <body>
+        <header>
+            <%@include file="header.jsp"%>
+        </header>
         <%
             int id = Integer.parseInt((String) session.getAttribute("teacherId"));
             Teacher teacher = TeacherDao.getTeacherById(id);
             User user = UserDao.getUserByTeacherId(id);
         %>
 
-        <div class="container h-70"> 
+        <div id="section" class="container h-70"> 
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-lg-8 col-xl-9">
                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
@@ -70,7 +70,7 @@
                                             </div>
                                             <div class="col-md-6 mb-1">
                                                 <label for="password" class="form-label">Password:</label>
-                                                <input type="password" name="password" class="form-control">" required>
+                                                <input type="password" name="password" class="form-control" required>
                                                 <i class="fas fa-eye" style="color:#1fb1c4;" onclick="togglePasswordVisibility(this)"></i>
                                             </div>
                                         </div>
@@ -106,9 +106,10 @@
                 }
             }
         </script>
+        <footer>
+            <%@ include file="footer.jsp" %>
+        </footer>
     </body>
 
-    <footer>
-        <%@ include file="footer.jsp" %>
-    </footer>
+
 </html>

@@ -30,15 +30,16 @@
             table tr td,th{
                 text-align:  center;
             }
-
+           
         </style>
     </head>
 
-    <header>
-        <%@include file="header.jsp"%>
-    </header>
 
     <body>
+        <header>
+            <%@include file="header.jsp"%>
+        </header>
+
         <div id="section">
             <h1 id="title">Leave History</h1>
             <table>
@@ -79,10 +80,11 @@
             </table>
             <button id="button" type="button" onclick="window.location.href = 'LEAVES.jsp';">BACK</button>
         </div>
+        <footer>
+            <%@ include file="footer.jsp" %>
+        </footer>
     </body>
 
-    <footer>
-        <%@ include file="footer.jsp" %>
-    </footer>
+
 
 </html>

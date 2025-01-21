@@ -20,9 +20,7 @@
                 font-size:30px;
                 margin-left:40%;
             }
-            form{
-                margin-top:0;
-            }
+            
             #formButton #history{
                 font-size:13px;
             }
@@ -35,7 +33,7 @@
             <%@include file="header.jsp"%>
         </header>
 
-        <div class="container mt-5">
+        <div id="section" class="container mt-5">
 
             <form method="post" action="SaveLeaveServlet" id="applyLeaveForm">
                 <div id="top">
