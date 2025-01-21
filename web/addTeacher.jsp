@@ -10,14 +10,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Stardos Stencil">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Stardos Stencil">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/form.css">
         <title>Add Staff</title>  
         <style>
-
+            @media only screen and (max-width: 769px){
+                #section{
+                    flex-grow: 1;
+                    overflow: auto;
+                }
+            }
         </style>
     </head>
 
@@ -46,7 +51,7 @@
                                         <div class="col-md-6 mb-2">
                                             <div data-mdb-input-init class="form-outline">
                                                 <label class="form-label" for="telegramId">Chat ID(Telegram):</label>
-                                                <input type="text" name="telegramId" class="form-control form-control-lg"  placeholder="eg. 1234567890" pattern="[0-9]{10}" required/>
+                                                <input type="text" name="telegramId" class="form-control form-control-lg"  placeholder="eg. 1234567890" pattern="[0-9]{10}"/>
                                             </div>
                                         </div>
                                     </div>

@@ -198,4 +198,10 @@
     .schedule-table table tbody td.day {
         min-width: 135px;
     }
+    #button1, #button2, #button3 {
+        font-size: 9px;
+        width: 18%;
+        margin-right: 1.5%;
+        height: 20px;
+    }
 }

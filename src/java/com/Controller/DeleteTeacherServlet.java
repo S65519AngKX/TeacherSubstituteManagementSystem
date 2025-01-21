@@ -36,14 +36,8 @@ public class DeleteTeacherServlet extends HttpServlet {
         try {
             int teacherStatus = TeacherDao.delete(teacherId);
             if (teacherStatus > 0) {
-                int userStatus = UserDao.delete(username);
-                if (userStatus > 0) {
-                    response.getWriter().print("<script>alert('Teacher and user record deleted successfully!');</script>");
-                    request.getRequestDispatcher("TEACHERS.jsp").include(request, response);
-                } else {
-                    response.getWriter().print("<script>alert('Sorry! Unable to delete user record.');</script>");
-                    request.getRequestDispatcher("TEACHERS.jsp").include(request, response);
-                }
+                response.getWriter().print("<script>alert('Teacher and user record deleted successfully!');</script>");
+                request.getRequestDispatcher("TEACHERS.jsp").include(request, response);
             } else {
                 response.getWriter().print("<script>alert('Sorry! Unable to delete teacher record.');</script>");
                 request.getRequestDispatcher("TEACHERS.jsp").include(request, response);
@@ -54,9 +48,8 @@ public class DeleteTeacherServlet extends HttpServlet {
             request.getRequestDispatcher("TEACHERS.jsp").include(request, response);
         }
     }
-    
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

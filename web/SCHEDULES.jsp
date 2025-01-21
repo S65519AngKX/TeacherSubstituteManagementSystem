@@ -24,7 +24,7 @@
             #section{
                 flex-grow: 1;
                 min-height:72vh;
-                margin-bottom: 5%;
+                margin-bottom: 4%;
             }
             .event-display {
                 display: none;
@@ -87,11 +87,19 @@
                 padding:5px;
                 font-size:13px;
                 width:8%;
-                margin:auto;
+                margin:5% auto;
                 float: right;
                 margin-right:2.5%;
                 box-shadow: 2px 2px 2px black;
             }
+
+            @media only screen and (max-width: 769px){
+                #section{
+                    flex-grow: 1;
+                    overflow: auto;
+                }
+            }
+
         </style>
     </head>
 

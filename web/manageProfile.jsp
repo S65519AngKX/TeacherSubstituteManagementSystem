@@ -15,7 +15,14 @@
         <link rel="stylesheet" href="css/form.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <title>Manage Profile</title>
-        <style></style>
+        <style>
+            @media only screen and (max-width: 769px){
+                #section{
+                    flex-grow: 1;
+                    overflow: auto;
+                }
+            }
+        </style>
     </head>
 
     <body>

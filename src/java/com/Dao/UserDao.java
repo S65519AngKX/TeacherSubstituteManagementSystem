@@ -22,10 +22,9 @@ public class UserDao {
         return con;
     }
 
-    public static int save(User user) {
+    public static int save(User user,Connection con) {
         int status = 0;
         try {
-            Connection con = UserDao.getConnection();
             PreparedStatement myPS = con.prepareStatement("INSERT INTO user(username,password,teacherId)VALUES(?,?,?)");
             myPS.setString(1, user.getUsername());
             myPS.setString(2, user.getPassword());
@@ -33,7 +32,6 @@ public class UserDao {
 
             status = myPS.executeUpdate();
 
-            con.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

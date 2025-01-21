@@ -86,6 +86,14 @@
                 color: #007bff;
                 margin-bottom: 10px;
             }
+            .col-md-4 {
+                text-decoration: none;
+                color:black;
+                
+            }
+            .col-md-4 h4{
+                font-weight: bold;
+            }
 
         </style>
     </head>
@@ -99,35 +107,35 @@
             <div id="div1"></div>
 
             <div class="row text-center mt-5">
-                <div class="col-md-4">
+                <a class="col-md-4" href="LEAVE.jsp">
                     <div class="feature-box">
                         <i class="fas fa-calendar-check feature-icon"></i>
-                        <h4>Efficient Scheduling</h4>
-                        <p>Generate substitution schedules automatically and minimize errors.</p>
+                        <h4>Apply Leave</h4>
+                        <p>Easily submit leave requests through the system, ensuring smooth tracking for approvals.</p>
                     </div>
-                </div>
-                <div class="col-md-4">
+                </a>
+                <a class="col-md-4" href="SCHEDULE.jsp">
                     <div class="feature-box">
                         <i class="fas fa-bullhorn feature-icon"></i>
-                        <h4>Streamlined Communication</h4>
-                        <p>Notify teachers in real-time about schedule updates and changes.</p>
+                        <h4>View Schedule</h4>
+                        <p>Access your teaching schedule in real-time to stay updated on class timings and assignments.</p>
                     </div>
-                </div>
-                <div class="col-md-4">
+                </a>
+                <a class="col-md-4" href="SUBSTITUTION.jsp">
                     <div class="feature-box">
                         <i class="fas fa-cogs feature-icon"></i>
-                        <h4>Flexible Management</h4>
-                        <p>Easily update and modify schedules based on teacher availability.</p>
+                        <h4>View Substitution Assignments</h4>
+                        <p>Quickly check and manage your assigned substitution tasks to ensure seamless class coverage.</p>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div id="div2" class="mt-5">
                 <fieldset>
                     <legend>How It Works</legend>
-                    <p><strong>1. Input:</strong> Admins identify absent teachers and available substitutes via the portal.</p>
+                    <p><strong>1. Input:</strong> Assistant principal identify absent teachers and available substitutes via the portal.</p>
                     <p><strong>2. Generate:</strong> The system creates optimized substitution schedules automatically.</p>
-                    <p><strong>3. Notify:</strong> Teachers are notified through the portal or email instantly.</p>
+                    <p><strong>3. Notify:</strong> Teachers are notified through the portal or Telegram instantly.</p>
                 </fieldset>
             </div>
         </div>

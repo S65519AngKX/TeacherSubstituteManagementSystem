@@ -16,6 +16,11 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <title>Schedule</title>
         <style>
+            #section{
+                flex-grow: 1;
+                min-height:72vh;
+                margin-bottom: 1%;
+            }
             .schedule-table{
                 min-height: 75vh;
             }
@@ -27,6 +32,7 @@
                 padding: 10px !important;
                 height: auto !important;
             }
+            
         </style>
     </head>
 
@@ -84,14 +90,14 @@
 
                                 } while (rs.next());
                                 out.println("</tr>");
-                                } else {
-                                    // No existing schedule found
-                                    out.print("<tr><td colspan='12' style='text-align: center; font-weight: bold;font-size:18px;'>No schedule found for this teacher</td></tr>");
-                                }
-                                rs.close();
-                                ps.close();
-                                con.close();
-                            }catch (Exception e) {
+                            } else {
+                                // No existing schedule found
+                                out.print("<tr><td colspan='12' style='text-align: center; font-weight: bold;font-size:18px;'>No schedule found for this teacher</td></tr>");
+                            }
+                            rs.close();
+                            ps.close();
+                            con.close();
+                        } catch (Exception e) {
                             out.println("<td colspan='12'>Error fetching schedule</td>");
                             e.printStackTrace();
                         }

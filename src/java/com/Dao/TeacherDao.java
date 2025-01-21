@@ -22,10 +22,9 @@ public class TeacherDao {
         return con;
     }
 
-    public static int save(Teacher teacher) {
+    public static int save(Teacher teacher,Connection con) {
         int teacherId = 0;
         try {
-            Connection con = TeacherDao.getConnection();
             PreparedStatement myPS = con.prepareStatement("INSERT INTO teacher(teacherName,teacherEmail,teacherContact,teacherRole,telegramId)VALUES(?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             myPS.setString(1, teacher.getTeacherName());
             myPS.setString(2, teacher.getTeacherEmail());
@@ -40,7 +39,6 @@ public class TeacherDao {
                     teacherId = rs.getInt(1);
                 }
             }
-            con.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

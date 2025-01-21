@@ -115,7 +115,7 @@
                     text-align: center;
                     padding: 15px 10px;
                 }
-
+                
                 .navbar-collapse {
                     background-color: #1fb1c4;
                     width: 100%;
