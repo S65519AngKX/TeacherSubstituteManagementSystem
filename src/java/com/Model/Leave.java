@@ -23,6 +23,30 @@ public class Leave {
     private String teacherName;
     private String TelegramId;
 
+    public Leave() {
+    }
+
+    public Leave(int absentTeacherId, Date leaveStartDate, Date leaveEndDate, String leaveReason, String leaveNotes, String leaveStatus) {
+        super();
+        this.absentTeacherId = absentTeacherId;
+        this.leaveStartDate = leaveStartDate;
+        this.leaveEndDate = leaveEndDate;
+        this.leaveReason = leaveReason;
+        this.leaveNotes = leaveNotes;
+        this.leaveStatus = leaveStatus;
+    }
+
+    public Leave(int leaveId, int absentTeacherId, Date leaveStartDate, Date leaveEndDate, String leaveReason, String leaveNotes, String leaveStatus) {
+        super();
+        this.leaveId = leaveId;
+        this.absentTeacherId = absentTeacherId;
+        this.leaveStartDate = leaveStartDate;
+        this.leaveEndDate = leaveEndDate;
+        this.leaveReason = leaveReason;
+        this.leaveNotes = leaveNotes;
+        this.leaveStatus = leaveStatus;
+    }
+
     public int getLeaveID() {
         return leaveId;
     }
@@ -78,10 +102,10 @@ public class Leave {
     public void setLeaveStatus(String leaveStatus) {
         this.leaveStatus = leaveStatus;
     }
-    
+
     //other method
     //for leave status notification purpose(Telegram API)
-     public String getTeacherName() {
+    public String getTeacherName() {
         return teacherName;
     }
 
@@ -92,7 +116,7 @@ public class Leave {
     public String getTelegramId() {
         return TelegramId;
     }
-    
+
     public void setTelegramId(String TelegramId) {
         this.TelegramId = TelegramId;
     }

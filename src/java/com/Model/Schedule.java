@@ -17,6 +17,28 @@ public class Schedule {
     private String className;
     private int teacherId;
 
+    public Schedule() {
+    }
+
+    public Schedule(String scheduleDay, int schedulePeriod, String scheduleSubject, String className, int teacherId) {
+        super();
+        this.scheduleDay = scheduleDay;
+        this.schedulePeriod = schedulePeriod;
+        this.scheduleSubject = scheduleSubject;
+        this.className = className;
+        this.teacherId = teacherId;
+    }
+
+    public Schedule(int scheduleId, String scheduleDay, int schedulePeriod, String scheduleSubject, String className, int teacherId) {
+        super();
+        this.scheduleId = scheduleId;
+        this.scheduleDay = scheduleDay;
+        this.schedulePeriod = schedulePeriod;
+        this.scheduleSubject = scheduleSubject;
+        this.className = className;
+        this.teacherId = teacherId;
+    }
+
     public int getScheduleId() {
         return this.scheduleId;
     }

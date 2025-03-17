@@ -7,28 +7,15 @@ package com.Dao;
 import com.Model.Leave;
 import java.util.*;
 import java.sql.*;
+import util.Database;
 
 public class LeaveDao {
 
-    public static Connection getConnection() {
-        Connection con = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/substitutemanagement", "root", "admin");
-            System.out.println("Database connection successful.");
-        } catch (Exception e) {
-            System.out.println("Failed to connect to the database: " + e.getMessage());
-        }
-        return con;
-    }
-
     public static int save(Leave leave) {
         int status = 0;
-        try {
-            Connection con = TeacherDao.getConnection();
-            PreparedStatement myPS = con.prepareStatement(
-                    "INSERT INTO `leave`(absentTeacherId,leaveStartDate,leaveEndDate,leaveReason,leaveNotes,leaveStatus) "
-                    + "VALUES(?, ?, ?, ?, ?, ?)");
+        try ( Connection con = Database.getConnection();  PreparedStatement myPS = con.prepareStatement(
+                "INSERT INTO `leave`(absentTeacherId,leaveStartDate,leaveEndDate,leaveReason,leaveNotes,leaveStatus) "
+                + "VALUES(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 
             myPS.setInt(1, leave.getAbsentTeacherID());
             myPS.setDate(2, leave.getLeaveStartDate());
@@ -38,6 +25,7 @@ public class LeaveDao {
             myPS.setString(6, leave.getLeaveStatus());
 
             status = myPS.executeUpdate();
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -47,7 +35,7 @@ public class LeaveDao {
     public static int update(Leave leave) {
         int status = 0;
         try {
-            Connection con = TeacherDao.getConnection();
+            Connection con = Database.getConnection();
             PreparedStatement myPS = con.prepareStatement("UPDATE leave SET absentTeacherId=?,leaveStartDate=?, leaveEndDate=?,leaveReason=?, leaveNotes=?, leaveStatus=? WHERE leaveId=?");
             myPS.setInt(1, leave.getAbsentTeacherID());
             myPS.setDate(2, leave.getLeaveStartDate());
@@ -65,9 +53,9 @@ public class LeaveDao {
         return status;
     }
 
-    public static int updateLeaveStatus(int leaveId, String status) {
+    public static int updateLeaveStatus(int leaveId, String status, Connection con) {
         int statusUpdate = 0;
-        try ( Connection con = TeacherDao.getConnection()) {
+        try {
             PreparedStatement myPS = con.prepareStatement("UPDATE `leave` SET leaveStatus = ? WHERE leaveId = ?");
             myPS.setString(1, status);
             myPS.setInt(2, leaveId);
@@ -83,7 +71,7 @@ public class LeaveDao {
     public static int delete(int id) {
         int status = 0;
         try {
-            Connection con = TeacherDao.getConnection();
+            Connection con = Database.getConnection();
             PreparedStatement myPS = con.prepareStatement("delete from `leave` where leaveId=?");
             myPS.setInt(1, id);
 
@@ -100,7 +88,7 @@ public class LeaveDao {
         List<Leave> list = new ArrayList<Leave>();
 
         try {
-            Connection con = TeacherDao.getConnection();
+            Connection con = Database.getConnection();
             PreparedStatement myPS = con.prepareStatement("select * from `leave` where absentTeacherId=?");
             myPS.setInt(1, id);
             ResultSet rs = myPS.executeQuery();
@@ -126,8 +114,8 @@ public class LeaveDao {
         List<Leave> list = new ArrayList<Leave>();
 
         try {
-            Connection con = TeacherDao.getConnection();
-            PreparedStatement ps = con.prepareStatement("select * from `leave`WHERE leaveStatus IN ('Pending')");
+            Connection con = Database.getConnection();
+            PreparedStatement ps = con.prepareStatement("select * from `leave`WHERE leaveStatus IN ('Pending') ORDER BY leaveStartDate ASC");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Leave leave = new Leave();
@@ -151,8 +139,34 @@ public class LeaveDao {
         List<Leave> list = new ArrayList<Leave>();
 
         try {
-            Connection con = TeacherDao.getConnection();
+            Connection con = Database.getConnection();
             PreparedStatement ps = con.prepareStatement("SELECT * FROM `leave` WHERE leaveStatus NOT IN ('Pending')");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Leave leave = new Leave();
+                leave.setLeaveID(rs.getInt(1));
+                leave.setAbsentTeacherID(rs.getInt(2));
+                leave.setLeaveStartDate(rs.getDate(3));
+                leave.setLeaveEndDate(rs.getDate(4));
+                leave.setLeaveReason(rs.getString(5));
+                leave.setLeaveNotes(rs.getString(6));
+                leave.setLeaveStatus(rs.getString(7));
+                list.add(leave);
+            }
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static List<Leave> getAllTodayLeave() {
+        List<Leave> list = new ArrayList<Leave>();
+
+        try {
+            Connection con = Database.getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM `leave` WHERE CURDATE() BETWEEN leaveStartDate AND leaveEndDate");
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Leave leave = new Leave();
@@ -176,9 +190,9 @@ public class LeaveDao {
         Leave leave = null;
 
         try {
-            Connection con = TeacherDao.getConnection();
+            Connection con = Database.getConnection();
             PreparedStatement ps = con.prepareStatement(
-                    "SELECT leave.leaveId,teacher.teacherName,teacher.telegramId,leave.leaveStartDate,leave.leaveEndDate,leave.leaveStatus FROM `leave` INNER JOIN teacher ON leave.absentTeacherId = teacher.teacherId WHERE leave.leaveId = ?"
+                    "SELECT leave.leaveId,teacher.teacherName, leave.absentTeacherId,teacher.telegramId,leave.leaveStartDate,leave.leaveEndDate,leave.leaveStatus FROM `leave` INNER JOIN teacher ON leave.absentTeacherId = teacher.teacherId WHERE leave.leaveId = ?"
             );
             ps.setInt(1, leaveID);
             ResultSet rs = ps.executeQuery();
@@ -187,6 +201,7 @@ public class LeaveDao {
                 leave = new Leave();
                 leave.setLeaveID(rs.getInt("leaveID"));
                 leave.setTeacherName(rs.getString("teacherName"));
+                leave.setAbsentTeacherID(rs.getInt("absentTeacherId"));
                 leave.setTelegramId(rs.getString("telegramId"));
                 leave.setLeaveStartDate(rs.getDate("leaveStartDate"));
                 leave.setLeaveEndDate(rs.getDate("leaveEndDate"));
