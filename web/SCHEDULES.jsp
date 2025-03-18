@@ -1,3 +1,4 @@
+<%@page import="util.Database"%>
 <%@page import="com.Dao.TeacherDao"%>
 <%@page import="java.util.List"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -21,11 +22,14 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <title>Manage Schedule</title>
         <style>
-            #section{
+            #section {
                 flex-grow: 1;
-                min-height:72vh;
-                margin-bottom: 4%;
+                margin: 0px auto;
+                padding: 10px;
+                width: 100%;
+                overflow: auto;
             }
+
             .event-display {
                 display: none;
                 color: #333;
@@ -43,7 +47,7 @@
                 display: block !important;
             }
             .search-container{
-                margin:1%;
+                margin:0;
                 margin-left: 3%;
                 font-size:14px;
             }
@@ -76,11 +80,11 @@
             }
 
             .table td{
-                padding: 8px !important;
+                padding: 7px !important;
                 height: auto !important;
             }
             .table th{
-                padding: 5px !important;
+                padding: 2px !important;
                 height: auto !important;
             }
             #button{
@@ -92,6 +96,52 @@
                 margin-right:2.5%;
                 box-shadow: 2px 2px 2px black;
             }
+            #uploadSection {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                font-size: 50px;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999; /* Ensures it stays on top */
+            }
+
+            .upload-box {
+                background-color: white;
+                padding: 20px;
+                width: 50%;
+                border-radius: 10px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+                position: relative;
+                text-align: center;
+                margin: auto;
+            }
+            .upload-box label {
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .upload-box input {
+                font-size: 15px;
+                margin:5% auto;
+            }
+
+            .close-btn {
+                position: absolute;
+                top: 10px;
+                right: 15px;
+                font-size: 24px;
+                cursor: pointer;
+            }
+            #submit-btn {
+                font-size: 15px;
+            }
+
 
             @media only screen and (max-width: 769px){
                 #section{
@@ -115,8 +165,7 @@
                     <option value="" selected>Please select a teacher</option>
                     <%
                         try {
-                            Class.forName("com.mysql.jdbc.Driver");
-                            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/substitutemanagement", "root", "admin");
+                            Connection con = Database.getConnection();
                             PreparedStatement ps = con.prepareStatement("SELECT teacherName FROM teacher");
                             ResultSet rs = ps.executeQuery();
                             while (rs.next()) {
@@ -165,8 +214,7 @@
 
                             if (selectedTeacher != null && !selectedTeacher.isEmpty()) {
                                 try {
-                                    Class.forName("com.mysql.jdbc.Driver");
-                                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/substitutemanagement", "root", "admin");
+                                    Connection con = Database.getConnection();
                                     PreparedStatement ps = con.prepareStatement(
                                             "SELECT scheduleId,scheduleDay, schedulePeriod, scheduleSubject, className "
                                             + "FROM schedule "
@@ -196,8 +244,8 @@
                                             // Render the schedule for the teacher
                                             out.print("<input type='hidden' name='teacherId' value='" + teacherId + "'>");
                                             out.print("<input type='hidden' name='" + day.toLowerCase() + "_" + period + "_scheduleId' value='" + scheduleId + "'>");
-                                            out.print("<td><input type='text' name='" + day.toLowerCase() + "_" + period + "_subject' value='" + subject + "' placeholder='Subject' size='5'><br>");
-                                            out.print("<input type='text' name='" + day.toLowerCase() + "_" + period + "_class' value='" + className + "' placeholder='Class' size='5'></td>");
+                                            out.print("<td><input type='text' name='" + day.toLowerCase() + "_" + period + "_subject' value='" + subject + "' placeholder='Subject'size='5' maxlength='5'><br>");
+                                            out.print("<input type='text' name='" + day.toLowerCase() + "_" + period + "_class' value='" + className + "' placeholder='Class' size='5' maxlength='5'></td>");
 
                                         } while (rs.next());
                                         out.println("</tr>");
@@ -205,7 +253,7 @@
                                         // No existing schedule found(create schedule)
                                         out.print("<input type='hidden' name='teacherId' value='" + teacherId + "'>");
 
-                                        out.print("<h5 style='margin:0px auto 5px auto;font-weight:bold;text-align:center;'>No schedule found for this teacher. Please fill in the schedule below:</h5>");
+                                        out.print("<h5 style='margin:0px auto;font-weight:bold;text-align:center;'>No schedule found for this teacher. Please fill in the schedule below:</h5>");
                                         //Sunday
                                         out.print("<tr><td class='day'>Sunday</td>");
                                         for (int i = 1; i <= 11; i++) {
@@ -263,11 +311,31 @@
             <button id="button3" class="btn btn-primary" style="background-color:grey;" onclick="uploadFile()">Upload File</button>
 
         </div>
+        <div id="uploadSection" style="display:none;">
+            <div class="upload-box">
+                <span class="close-btn" onclick="uploadFile()">&times;</span>
+                <form id="uploadForm" action="UploadServlet" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Please upload your schedule file in .csv</label>
+                        <input class="form-control" type="file" id="formFile" name="file" required>
+                        <button id="submit-btn"  type="submit" class="btn btn-success mt-2">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <footer>
             <%@include file="footer.jsp"%>
         </footer>
 
         <script>
+            function uploadFile() {
+                let uploadSection = document.getElementById("uploadSection");
+                if (uploadSection.style.display === "none" || uploadSection.style.display === "") {
+                    uploadSection.style.display = "flex"; // Show the section
+                } else {
+                    uploadSection.style.display = "none"; // Hide the section
+                }
+            }
             function deleteSchedule() {
                 const teacherId = document.querySelector("input[name='teacherId']").value;
 
