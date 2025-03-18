@@ -9,12 +9,36 @@ package com.Model;
  * @author ACER
  */
 public class Teacher {
-    private int teacherId; 
+
+    private int teacherId;
     private String teacherName;
     private String teacherEmail;
     private String teacherContact;
     private String teacherRole;
     private String telegramID;
+    
+    public Teacher(){
+        
+    }
+
+    public Teacher(String teacherName, String teacherEmail, String teacherContact,String teacherRole, String telegramID) {
+        super();
+        this.teacherName = teacherName;
+        this.teacherEmail = teacherEmail;
+        this.teacherContact = teacherContact;
+        this.teacherRole = teacherRole;
+        this.telegramID = telegramID;
+    }
+    
+     public Teacher(int teacherId, String teacherName, String teacherEmail, String teacherContact,String teacherRole, String telegramID) {
+        super();
+        this.teacherId = teacherId;
+        this.teacherName = teacherName;
+        this.teacherEmail = teacherEmail;
+        this.teacherContact = teacherContact;
+        this.teacherRole = teacherRole;
+        this.telegramID = telegramID;
+    }
 
     public int getTeacherID() {
         return teacherId;
@@ -47,6 +71,7 @@ public class Teacher {
     public void setTeacherContact(String teacherContact) {
         this.teacherContact = teacherContact;
     }
+
     public String getTeacherRole() {
         return teacherRole;
     }
@@ -54,6 +79,7 @@ public class Teacher {
     public void setTeacherRole(String teacherRole) {
         this.teacherRole = teacherRole;
     }
+
     public String getTelegramId() {
         return telegramID;
     }

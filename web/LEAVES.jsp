@@ -4,6 +4,8 @@
 <%@page import="com.Model.Leave"%>
 <%@page import="com.Dao.LeaveDao"%>
 <%@page import="com.Dao.TeacherDao"%>  
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +20,26 @@
         <link rel="stylesheet" href="css/list.css">
         <title>Manage Leave</title>
         <style>
+            #top{
+                display: flex;
+                align-items: center;
+            }
+            #title{
+                font-size: 30px;
+                margin:10px auto;
+            }
+            #button{
+                border: 0;
+                border-radius: 10px;
+                padding: 5px 20px;
+                font-size: 13px;
+                width: fit-content;
+                height: fit-content;
+                box-shadow: 2px 2px 2px black;
+                text-align: center;
+                margin: 10px auto 0px auto;
+                margin-right: 3%;
+            }
             .action-buttons {
                 display:flex;
                 flex-direction: row;
@@ -48,7 +70,7 @@
             #delete{
                 text-align: center;
             }
-           
+
             @media screen and (max-width: 767px) {
                 #button{
                     padding:5px;
@@ -69,9 +91,12 @@
         <header>
             <%@include file="header.jsp"%>
         </header>
-        
+
         <div id="section">
-            <h1 id="title">Manage Leave</h1>
+            <div id='top'>
+                <h1 id="title">Manage Leave</h1>
+                <button id="button" type="button" onclick="window.location.href = 'leaveHistory.jsp';">Leave History</button>
+            </div>
             <table>
                 <tr>
                     <th>Leave ID</th>
@@ -85,10 +110,16 @@
                 </tr>
                 <%
                     List<Leave> list = LeaveDao.getAllUnprocessedLeave();
+                    LocalDate today = LocalDate.now(); // Get today's date
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
                     for (Leave e : list) {
                         Teacher teacher = TeacherDao.getTeacherById(e.getAbsentTeacherID());
+                        LocalDate startDate = LocalDate.parse(e.getLeaveStartDate().toString(), formatter);
+                        LocalDate endDate = LocalDate.parse(e.getLeaveEndDate().toString(), formatter);
+                        boolean isCurrentLeave = !today.isBefore(startDate) && !today.isAfter(endDate);
                 %>
-                <tr>
+                <tr <% if (isCurrentLeave) { %> style="background-color:#db9b97;" <% }%> >
                     <td><%= e.getLeaveID()%></td>
                     <td><%= teacher != null ? teacher.getTeacherName() : "Not found"%></td>
                     <td><%= e.getLeaveStartDate()%></td>
@@ -101,13 +132,13 @@
                     <td class="action-buttons">
                         <form action="UpdateLeaveStatusServlet" method="post">
                             <input type="hidden" name="leaveId" value="<%= e.getLeaveID()%>">
-                            <input type="hidden" name="status" value="Approved">
+                            <input type="hidden" name="leaveStatus" value="Approved">
                             <button type="submit" style="background-color:#4CAF50">Approve</button>
                         </form>
 
                         <form action="UpdateLeaveStatusServlet" method="post">
                             <input type="hidden" name="leaveId" value="<%= e.getLeaveID()%>">
-                            <input type="hidden" name="status" value="Rejected">
+                            <input type="hidden" name="leaveStatus" value="Rejected">
                             <button type="submit" onclick="return confirm('Do you want to reject this leave request?');">Reject</button>
                         </form>
                     </td>
@@ -124,7 +155,6 @@
                     }
                 %>
             </table>
-            <button id="button" type="button" onclick="window.location.href = 'leaveHistory.jsp';">Leave History</button>
         </div>
         <footer>
             <%@ include file="footer.jsp" %>

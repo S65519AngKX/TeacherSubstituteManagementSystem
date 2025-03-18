@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
@@ -21,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import util.Database;
 
 @WebServlet(name = "SendResetLinkServlet", urlPatterns = {"/SendResetLinkServlet"})
 public class SendResetLinkServlet extends HttpServlet {
@@ -32,8 +32,7 @@ public class SendResetLinkServlet extends HttpServlet {
 
         try {
             // Database connection
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/substitutemanagement", "root", "admin");
+            Connection con = Database.getConnection();
 
             // Check if email exists
             PreparedStatement ps = con.prepareStatement("SELECT * FROM user INNER JOIN teacher ON user.teacherId = teacher.teacherId WHERE teacher.teacherEmail=?");
@@ -54,7 +53,7 @@ public class SendResetLinkServlet extends HttpServlet {
                 // Send email
                 sendEmail(email, token);
                 response.getWriter().print("<script>alert('A reset link has been sent to your email.');</script>");
-                request.getRequestDispatcher("resetPassword.jsp").include(request, response);
+                request.getRequestDispatcher("index.jsp").include(request, response);
             } else {
                 response.getWriter().print("<script>alert('Email not found.');</script>");
                 request.getRequestDispatcher("resetPassword.jsp").include(request, response);
@@ -98,3 +97,4 @@ public class SendResetLinkServlet extends HttpServlet {
         Transport.send(msg);
     }
 }
+

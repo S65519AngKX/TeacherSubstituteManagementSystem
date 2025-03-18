@@ -1,3 +1,4 @@
+<%@page import="util.Database"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -63,8 +64,7 @@
                     <%
                         int selectedTeacher = Integer.parseInt(session.getAttribute("teacherId").toString());
                         try {
-                            Class.forName("com.mysql.jdbc.Driver");
-                            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/substitutemanagement", "root", "admin");
+                            Connection con = Database.getConnection();
                             PreparedStatement ps = con.prepareStatement(
                                     "SELECT scheduleDay, schedulePeriod, scheduleSubject, className FROM schedule WHERE teacherId = ? ORDER BY FIELD(scheduleDay, 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'),schedulePeriod ASC");
                             ps.setInt(1, selectedTeacher);

@@ -51,7 +51,6 @@
                     <th>Reason</th>
                     <th>Notes</th>
                     <th>Status</th>
-                    <th>Action</th>
                 </tr>
                 <%
                     List<Leave> list = LeaveDao.getAllProcessedLeave();
@@ -66,13 +65,6 @@
                     <td><%= e.getLeaveReason()%></td>
                     <td><%= e.getLeaveNotes()%></td>
                     <td><%= e.getLeaveStatus()%></td> 
-                    <td id="delete">
-                        <a href="DeleteLeaveServlet?leaveId=<%= e.getLeaveID()%>" 
-                           onclick="return confirm('Do you want to delete this leave record?');" 
-                           class="delete-icon">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </td>
                 </tr>
                 <%
                     }
@@ -84,7 +76,4 @@
             <%@ include file="footer.jsp" %>
         </footer>
     </body>
-
-
-
 </html>

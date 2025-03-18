@@ -46,7 +46,6 @@ public class UpdateScheduleServlet extends HttpServlet {
                 // Set subject and className to null if empty
                 subject = (subject == null || subject.isEmpty()) ? null : subject;
                 className = (className == null || className.isEmpty()) ? null : className;
-
                 Schedule schedule = new Schedule();
                 schedule.setScheduleDay(day);
                 schedule.setSchedulePeriod(period);

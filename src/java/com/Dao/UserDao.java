@@ -1,4 +1,4 @@
- /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -7,22 +7,11 @@ package com.Dao;
 import com.Model.User;
 import java.util.*;
 import java.sql.*;
+import util.Database;
 
 public class UserDao {
 
-    public static Connection getConnection() {
-        Connection con = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/substitutemanagement", "root", "admin");
-            System.out.println("Database connection successful.");
-        } catch (Exception e) {
-            System.out.println("Failed to connect to the database: " + e.getMessage());
-        }
-        return con;
-    }
-
-    public static int save(User user,Connection con) {
+    public static int save(User user, Connection con) {
         int status = 0;
         try {
             PreparedStatement myPS = con.prepareStatement("INSERT INTO user(username,password,teacherId)VALUES(?,?,?)");
@@ -41,7 +30,7 @@ public class UserDao {
     public static int update(User user) {
         int status = 0;
         try {
-            Connection con = TeacherDao.getConnection();
+            Connection con = Database.getConnection();
             PreparedStatement myPS = con.prepareStatement("Update user set username=?,password=? where teacherId=?");
             myPS.setString(1, user.getUsername());
             myPS.setString(2, user.getPassword());
@@ -60,7 +49,7 @@ public class UserDao {
         String username = null;
 
         try {
-            Connection con = TeacherDao.getConnection();
+            Connection con = Database.getConnection();
             String query = "SELECT username FROM user WHERE teacherId = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, teacherId);
@@ -81,7 +70,7 @@ public class UserDao {
     public static int delete(String username) {
         int status = 0;
         try {
-            Connection con = TeacherDao.getConnection();
+            Connection con = Database.getConnection();
             PreparedStatement ps = con.prepareStatement("DELETE FROM user WHERE username = ?");
             ps.setString(1, username);
             status = ps.executeUpdate();
@@ -96,7 +85,7 @@ public class UserDao {
         User user = new User();
 
         try {
-            Connection con = TeacherDao.getConnection();
+            Connection con = Database.getConnection();
             PreparedStatement myPS = con.prepareStatement("select * from user where teacherId=?");
             myPS.setInt(1, id);
             ResultSet rs = myPS.executeQuery();
@@ -112,5 +101,21 @@ public class UserDao {
         }
         return user;
     }
-}
 
+    public static boolean isUsernameIsTaken(String username) {
+        boolean taken = false;
+        try {
+            Connection con = Database.getConnection();
+            PreparedStatement myPS = con.prepareStatement("select * from user where username=?");
+            myPS.setString(1, username);
+            ResultSet rs = myPS.executeQuery();
+            if (rs.next()) {
+                taken = true;
+            }
+            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return taken;
+    }
+}

@@ -7,22 +7,11 @@ package com.Dao;
 import com.Model.Teacher;
 import java.util.*;
 import java.sql.*;
+import util.Database;
 
 public class TeacherDao {
 
-    public static Connection getConnection() {
-        Connection con = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/substitutemanagement", "root", "admin");
-            System.out.println("Database connection successful.");
-        } catch (Exception e) {
-            System.out.println("Failed to connect to the database: " + e.getMessage());
-        }
-        return con;
-    }
-
-    public static int save(Teacher teacher,Connection con) {
+    public static int save(Teacher teacher, Connection con) {
         int teacherId = 0;
         try {
             PreparedStatement myPS = con.prepareStatement("INSERT INTO teacher(teacherName,teacherEmail,teacherContact,teacherRole,telegramId)VALUES(?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
@@ -48,7 +37,7 @@ public class TeacherDao {
     public static int update(Teacher teacher) {
         int status = 0;
         try {
-            Connection con = TeacherDao.getConnection();
+            Connection con = Database.getConnection();
             PreparedStatement myPS = con.prepareStatement("Update teacher set teacherName=?,teacherEmail=?,teacherContact=?,teacherRole=?,telegramId=? where teacherId=?");
             myPS.setString(1, teacher.getTeacherName());
             myPS.setString(2, teacher.getTeacherEmail());
@@ -69,7 +58,7 @@ public class TeacherDao {
     public static int delete(int id) {
         int status = 0;
         try {
-            Connection con = TeacherDao.getConnection();
+            Connection con = Database.getConnection();
             PreparedStatement myPS = con.prepareStatement("delete from teacher where teacherId=?");
             myPS.setInt(1, id);
 
@@ -85,7 +74,7 @@ public class TeacherDao {
     public static Teacher getTeacherById(int id) {
         Teacher teacher = new Teacher();
         try {
-            Connection con = TeacherDao.getConnection();
+            Connection con = Database.getConnection();
             PreparedStatement myPS = con.prepareStatement("select * from teacher where teacherId=?");
             myPS.setInt(1, id);
             ResultSet rs = myPS.executeQuery();
@@ -105,14 +94,14 @@ public class TeacherDao {
     }
 
     public static int getTeacherIdByName(String name) {
-        int teacherId=0;
+        int teacherId = 0;
         try {
-            Connection con = TeacherDao.getConnection();
+            Connection con = Database.getConnection();
             PreparedStatement myPS = con.prepareStatement("select teacherId from teacher where teacherName=?");
             myPS.setString(1, name);
             ResultSet rs = myPS.executeQuery();
             if (rs.next()) {
-                teacherId = rs.getInt("teacherId"); 
+                teacherId = rs.getInt("teacherId");
             }
             con.close();
         } catch (Exception ex) {
@@ -121,11 +110,28 @@ public class TeacherDao {
         return teacherId;
     }
 
+    public static String getTeacherNameById(int id) {
+        String teacherName = "";
+        try {
+            Connection con = Database.getConnection();
+            PreparedStatement myPS = con.prepareStatement("select teacherName from teacher where teacherId=?");
+            myPS.setInt(1, id);
+            ResultSet rs = myPS.executeQuery();
+            if (rs.next()) {
+                teacherName = rs.getString("teacherName");
+            }
+            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return teacherName;
+    }
+
     public static List<Teacher> getAllTeacher() {
         List<Teacher> list = new ArrayList<Teacher>();
 
         try {
-            Connection con = TeacherDao.getConnection();
+            Connection con = Database.getConnection();
             PreparedStatement ps = con.prepareStatement("select * from teacher");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -143,5 +149,22 @@ public class TeacherDao {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public static boolean isEmailIsTaken(String email) {
+        boolean taken=false;
+        try {
+            Connection con = Database.getConnection();
+            PreparedStatement myPS = con.prepareStatement("select * from teacher where teacherEmail=?");
+            myPS.setString(1, email);
+            ResultSet rs = myPS.executeQuery();
+            if (rs.next()) {
+                taken=true;
+            }
+            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return taken;
     }
 }
