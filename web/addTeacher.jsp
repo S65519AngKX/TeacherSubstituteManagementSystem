@@ -45,13 +45,13 @@
                                         <div class="col-md-6 mb-2">
                                             <div data-mdb-input-init class="form-outline">
                                                 <label class="form-label" for="name">Name:</label>
-                                                <input type="text" name="name" class="form-control form-control-lg" required/>
+                                                <input type="text" name="name" class="form-control form-control-lg" maxlength="50" required/>
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-2">
                                             <div data-mdb-input-init class="form-outline">
                                                 <label class="form-label" for="telegramId">Chat ID(Telegram):</label>
-                                                <input type="text" name="telegramId" class="form-control form-control-lg"  placeholder="eg. 1234567890" pattern="[0-9]{10}"/>
+                                                <input type="text" name="telegramId" class="form-control form-control-lg"  maxlength="10" placeholder="eg. 1234567890" pattern="[0-9]{10}"/>
                                             </div>
                                         </div>
                                     </div>
@@ -59,13 +59,13 @@
                                         <div class="col-md-4 mb-2 d-flex align-items-center">
                                             <div data-mdb-input-init class="form-outline">
                                                 <label for="email" class="form-label">Email</label>
-                                                <input type="email" name="email" id="email" class="form-control form-control-lg" required />
+                                                <input type="email" name="email" id="email" class="form-control form-control-lg"  maxlength="50" required />
                                             </div>
                                         </div>
                                         <div class="col-md-4 mb-2 d-flex align-items-center">
                                             <div data-mdb-input-init class="form-outline">
                                                 <label for="contact" class="form-label">Contact:</label>
-                                                <input type="tel" name="contactNo" id="contact" class="form-control form-control-lg" placeholder="eg. 012-3456789" pattern="01[0-9]-[0-9]{7,8}" required />
+                                                <input type="tel" name="contactNo" id="contact" class="form-control form-control-lg" maxlength="15" placeholder="eg. 012-3456789" pattern="01[0-9]-[0-9]{7,8}" required />
                                             </div>
                                         </div>
                                         <div class="col-md-4 mb-2 d-flex align-items-center">
@@ -84,7 +84,7 @@
                                         <div class="row col-md-10 d-flex align-items-center" style="background: linear-gradient(to bottom right, #ffffff 0%, #ccffff 100%); border-radius: 10px; box-shadow: 2px 2px 2px black; padding: 20px;">
                                             <div class="col-md-6 mb-1">
                                                 <label for="username" class="form-label">Username:</label>
-                                                <input type="text" name="username" class="form-control" required>
+                                                <input type="text" name="username" class="form-control"  maxlength="15" required>
                                             </div>
                                             <div class="col-md-6 mb-1">
                                                 <label for="password" class="form-label">Password:</label>

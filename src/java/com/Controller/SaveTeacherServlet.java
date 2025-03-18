@@ -56,51 +56,53 @@ public class SaveTeacherServlet extends HttpServlet {
         teacher.setTeacherContact(contactNo);
         teacher.setTeacherRole(role);
         teacher.setTelegramId(telegramID);
-
+        if (TeacherDao.isEmailIsTaken(email)) {
+            out.print("<script>alert('Email is already taken,please use another email');</script>");
+            request.getRequestDispatcher("addTeacher.jsp").include(request, response);
+            return;
+        }
         // Get database connection
         try ( Connection conn = Database.getConnection()) {
-            conn.setAutoCommit(false); 
+            conn.setAutoCommit(false);
 
             int teacherId = TeacherDao.save(teacher, conn);
-            if (teacherId > 0) {
-                User user = new User();
-                user.setUsername(username);
-                user.setPassword(hashedPassword);
-                user.setTeacherId(teacherId);
-
-                int userStatus = UserDao.save(user, conn);
-                System.out.println("User Status: " + userStatus);
-
-                if (userStatus > 0) {
-                    // Commit transaction if both teacher and user save successfully
-                    conn.commit();
-                    out.print("<script>alert('Record saved successfully!');</script>");
-                    request.getRequestDispatcher("TEACHERS.jsp").include(request, response);
-                } else {
-                    // Rollback if user save fails
-                    conn.rollback();
-                    out.print("<script>alert('Sorry! Unable to save user record. Please use another username.');</script>");
-                    request.getRequestDispatcher("addTeacher.jsp").include(request, response);
-                }
-            } else {
-                // Rollback if teacher save fails
+            if (teacherId <= 0) {
                 conn.rollback();
-                out.print("<script>alert('Sorry! Unable to save teacher record. Please use another email address');</script>");
+                out.print("<script>alert('Sorry! Unable to save teacher record.');</script>");
                 request.getRequestDispatcher("addTeacher.jsp").include(request, response);
+                return;
             }
 
-            conn.setAutoCommit(true); // Restore default behavior
+            // Check if username is already taken before saving the user
+            if (UserDao.isUsernameIsTaken(username)) {
+                conn.rollback();
+                out.print("<script>alert('Username is already taken, please use another username');</script>");
+                request.getRequestDispatcher("addTeacher.jsp").include(request, response);
+                return;
+            }
 
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(hashedPassword);
+            user.setTeacherId(teacherId);
+
+            int userStatus = UserDao.save(user, conn);
+            if (userStatus > 0) {
+                // Commit transaction if both teacher and user save successfully
+                conn.commit();
+                out.print("<script>alert('Record saved successfully!');</script>");
+                request.getRequestDispatcher("TEACHERS.jsp").include(request, response);
+            } else {
+                // Rollback if user save fails
+                conn.rollback();
+                out.print("<script>alert('Sorry! Unable to save user record.');</script>");
+                request.getRequestDispatcher("addTeacher.jsp").include(request, response);
+            }
+            conn.setAutoCommit(true); // Restore default behavior
         } catch (Exception e) {
             e.printStackTrace();
-            try {
-                out.print("<script>alert('An unexpected error occurred. Please try again later.');</script>");
-                request.getRequestDispatcher("addTeacher.jsp").include(request, response);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        } finally {
-            out.close();
+            out.print("<script>alert('An unexpected error occurred. Please try again later.');</script>");
+            request.getRequestDispatcher("addTeacher.jsp").include(request, response);
         }
     }
 

@@ -52,28 +52,28 @@
                                     <div class="row mb-2">
                                         <div class="col-md-6">
                                             <label for="name" class="form-label">Name:</label>
-                                            <input type="text" name="name" class="form-control" value="<%= teacher.getTeacherName()%>" required>
+                                            <input type="text" name="name" class="form-control" maxlength='50' value="<%= teacher.getTeacherName()%>" required>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="telegramId" class="form-label">Chat ID (Telegram):</label>
-                                            <input type="text" name="telegramId" class="form-control" value="<%= teacher.getTelegramId()%>" pattern="[0-9]{10}"  required>
+                                            <input type="text" name="telegramId" class="form-control"  maxlength='10' value="<%= teacher.getTelegramId()%>" pattern="[0-9]{10}">
                                         </div>
                                     </div>
                                     <div class="row mb-">
                                         <div class="col-md-6">
                                             <label for="email" class="form-label">Email:</label>
-                                            <input type="email" name="email" class="form-control" value="<%= teacher.getTeacherEmail()%>" required>
+                                            <input type="email" name="email" class="form-control"  maxlength='50' value="<%= teacher.getTeacherEmail()%>" required>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="contact" class="form-label">Contact No:</label>
-                                            <input type="tel" name="contact" class="form-control" value="<%= teacher.getTeacherContact()%>" pattern="01[0-9]-[0-9]{7,8}" required>
+                                            <input type="tel" name="contact" class="form-control"  maxlength='15' value="<%= teacher.getTeacherContact()%>" pattern="01[0-9]-[0-9]{7,8}" required>
                                         </div>
                                     </div>
                                     <div class="container d-flex justify-content-center align-items-center">
                                         <div class="row col-md-10 d-flex align-items-center" style="background: linear-gradient(to bottom right, #ffffff 0%, #ccffff 100%); border-radius: 10px; box-shadow: 2px 2px 2px black; padding: 20px;">
                                             <div class="col-md-6 mb-1">
                                                 <label for="username" class="form-label">Username:</label>
-                                                <input type="text" name="username" class="form-control" value="<%= user.getUsername()%>" readonly>
+                                                <input type="text" name="username" class="form-control" maxlength='15' value="<%= user.getUsername()%>" readonly>
                                             </div>
                                             <div class="col-md-6 mb-1">
                                                 <label for="password" class="form-label">Password:</label>

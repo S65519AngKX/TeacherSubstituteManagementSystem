@@ -57,15 +57,15 @@ public class EditTeacherServlet2 extends HttpServlet {
         out.println("</tr>");
         out.println("<tr>");
         out.println("<td><label for='name'>Name: </label></td>");
-        out.println("<td><input type='text' name='name' value='" + e.getTeacherName() + "' required></td>");
+        out.println("<td><input type='text' name='name' maxlength='50' value='" + e.getTeacherName() + "' required></td>");
         out.println("</tr>");
         out.println("<tr>");
         out.println("<td><label for='email'>Email: </label></td>");
-        out.println("<td><input type='text' name='email' value='" + e.getTeacherEmail() + "' required></td>");
+        out.println("<td><input type='text' name='email' maxlength='50' value='" + e.getTeacherEmail() + "' required></td>");
         out.println("</tr>");
         out.println("<tr>");
         out.println("<td><label for='contactNo'>Contact No:</label></td>");
-        out.println("<td><input type='text' name='contactNo' value='" + e.getTeacherContact() + "' pattern=\"01[0-9]-[0-9]{7,8}\" required></td>");
+        out.println("<td><input type='text' name='contactNo' maxlength='15' value='" + e.getTeacherContact() + "' pattern=\"01[0-9]-[0-9]{7,8}\" required></td>");
         out.println("</tr>");
         out.println("<tr>");
         out.println("<td><label for='role'>Role: </label></td>");
@@ -87,7 +87,7 @@ public class EditTeacherServlet2 extends HttpServlet {
         out.println("</tr>");
         out.println("<tr>");
         out.println("<td><label for='telegramId'>Chat ID(Telegram): </label></td>");
-        out.println("<td><input type='text' name='telegramId' value='" + e.getTelegramId()+ "'pattern=\"[0-9]{10}\"  required></td>");
+        out.println("<td><input type='text' name='telegramId' maxlength='10' value='" + e.getTelegramId()+ "'pattern=\"[0-9]{10}\" ></td>");
         out.println("</tr>");
         out.println("</table>");
         out.println("<br><br>");
