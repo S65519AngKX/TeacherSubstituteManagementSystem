@@ -12,7 +12,7 @@
                 padding: 10px;
                 bottom: 0px;
                 width: 100%;
-                margin-top: 2%;
+                margin-top: 0;
                 position:relative;
             }
 

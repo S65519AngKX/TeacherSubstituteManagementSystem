@@ -12,12 +12,11 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <title>Teacher Substitution Management System</title>
         <style>
-
             #section {
                 flex-grow: 1;
-                margin: 20px auto;
+                margin: 0px auto;
                 padding: 20px;
-                max-width: 90%;
+                max-width: 100%;
                 overflow: auto;
             }
 
