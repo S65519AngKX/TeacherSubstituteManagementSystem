@@ -51,7 +51,7 @@ public class SubstitutionRequestServlet extends HttpServlet {
                     saveSubstitutionRequest(request, response);
                     break;
                 default:
-                    listSubstitutionRequest(request, response);
+                    showSubstitutionRequestForm(request, response);
                     break;
             }
         } catch (SQLException ex) {
@@ -59,12 +59,9 @@ public class SubstitutionRequestServlet extends HttpServlet {
         }
     }
 
-    private void listSubstitutionRequest(HttpServletRequest request, HttpServletResponse response)
+    private void showSubstitutionRequestForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List< SubstitutionRequest> listReq = SubstitutionRequestDao.getSubstitutionRequestByTeacherId(Integer.parseInt(request.getParameter("requestTeacherId")));
-        request.setAttribute("listReq", listReq);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("substitutionRequestHistory.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect("requestSubstitution.jsp");
     }
 
     private void saveSubstitutionRequest(HttpServletRequest request, HttpServletResponse response)

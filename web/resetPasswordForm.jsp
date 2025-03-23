@@ -80,7 +80,7 @@
                         <div class="card">
                             <div class="card-header">Reset Password</div>
                             <div class="card-body">
-                                <form action="ResetPasswordServlet" method="POST" onsubmit="return validatePasswords()">
+                                <form action="LoginServlet" method="POST" onsubmit="return validatePasswords()">
                                     <div class="form-group row">
                                         <input type="hidden" id="token" name="token" class="form-control" value="${param.token}"> 
                                         <label>New Password</label>&nbsp;&nbsp;&nbsp;
@@ -98,9 +98,7 @@
                                     </div>
 
                                     <div class="col-md-6 offset-md-4">
-                                        <button type="submit" class="btn btn-primary">
-                                            Confirm
-                                        </button>
+                                        <button type="submit" name='action' value='reset' class="btn btn-primary">Confirm</button>
                                     </div>
                                     <span id="errorMsg"></span>
                                 </form>

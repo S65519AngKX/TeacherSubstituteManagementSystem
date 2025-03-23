@@ -26,7 +26,7 @@
                                 <h2 class="text-center">Forgot Password?</h2>
                                 <p>You can reset your password here.</p>
                                 <div class="panel-body">
-                                    <form action="SendResetLinkServlet" method="POST">
+                                    <form action="LoginServlet" method="POST">
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
@@ -34,7 +34,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
+                                            <button type='submit' name="action" value='getLink' class="btn btn-lg btn-primary btn-block">Reset Password"</button>
                                         </div>
 
                                         <input type="hidden" class="hide" name="token" id="token" value=""> 

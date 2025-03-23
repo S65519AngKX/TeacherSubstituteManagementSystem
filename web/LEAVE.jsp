@@ -21,8 +21,25 @@
                 margin-left:40%;
             }
 
-            #formButton #history{
+            #history{
                 font-size:13px;
+            }
+
+            #button,#history{
+                background-color: #1fbfdb;
+                color:white;
+                border: 0px;
+                border-radius:10px;
+                padding:5px 15px;
+                font-size:15px;
+                width:fit-content;
+                height:fit-content;
+                box-shadow: 2px 2px 2px black;
+                align-items: center;
+                margin: 2% auto;
+            }
+            #button:hover, #history:hover{
+                opacity:0.8;
             }
             @media only screen and (max-width: 768px) {
                 #section {
@@ -50,7 +67,7 @@
 
         <div id="section" class="container mt-3 mb-0">
 
-            <form method="post" action="SaveLeaveServlet" id="applyLeaveForm">
+            <form method="post" action="LeaveServlet" id="applyLeaveForm">
                 <div id="top">
                     <h1 id="title">Apply Leave</h1>
                     <div  id="formButton" class="d-flex justify-content-end mb-2">
@@ -93,7 +110,7 @@
                     <input type="hidden" id="leaveStatus" name="leaveStatus" value="Pending">
 
                     <div id="formButton">
-                        <input type="submit" value="Apply">
+                        <button type="submit" id='button' name="action" value="save">Apply</button>
                     </div>
                 </div>
             </form>

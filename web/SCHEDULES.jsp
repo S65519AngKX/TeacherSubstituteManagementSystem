@@ -183,10 +183,9 @@
                         }
                     %>
                 </select>
-                <button id="search" onclick="searchSchedule()"><i class="fa fa-search"></i></button>
             </div>
             <!-- Schedule Table -->
-            <form action="<%= (scheduleExists(request.getParameter("teacherName")) ? "UpdateScheduleServlet" : "SaveScheduleServlet")%>" method="POST">
+            <form action="<%= (scheduleExists(request.getParameter("teacherName")) ? "ScheduleServlet?action=update" : "ScheduleServlet?action=save")%>" method="POST">
                 <div class="schedule-table">
                     <table class="table">
                         <thead>
@@ -314,11 +313,11 @@
         <div id="uploadSection" style="display:none;">
             <div class="upload-box">
                 <span class="close-btn" onclick="uploadFile()">&times;</span>
-                <form id="uploadForm" action="UploadServlet" method="post" enctype="multipart/form-data">
+                <form id="uploadForm" action="ScheduleServlet" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Please upload your schedule file in .csv</label>
                         <input class="form-control" type="file" id="formFile" name="file" required>
-                        <button id="submit-btn"  type="submit" class="btn btn-success mt-2">Submit</button>
+                        <button id="submit-btn"  type="submit" name="action" value="upload" class="btn btn-success mt-2">Submit</button>
                     </div>
                 </form>
             </div>
@@ -340,37 +339,15 @@
                 const teacherId = document.querySelector("input[name='teacherId']").value;
 
                 if (confirm('Are you sure you want to delete the schedule?')) {
-                    window.location.href = 'DeleteScheduleServlet?teacherId=' + teacherId;
+                    window.location.href = '<%= request.getContextPath()%>/ScheduleServlet?action=delete&teacherId=' + teacherId;
                 }
             }
-            function searchSchedule() {
-                const teacherName = document.querySelector("select[name='teacherName']").value;
-                if (teacherName) {
-                    window.location.href = "SCHEDULES.jsp?teacherName=" + encodeURIComponent(teacherName);
-                } else {
-                    alert("Please select a teacher.");
+            document.getElementById("teacherSelect").addEventListener("change", function () {
+                var selectedTeacher = this.value;
+                if (selectedTeacher) {
+                    window.location.href = "SCHEDULES.jsp?teacherName=" + encodeURIComponent(selectedTeacher);
                 }
-            }
-
-
-            // Function to check if a teacher is selected and show/hide the button
-            function checkTeacherNameFromURL() {
-                const urlParams = new URLSearchParams(window.location.search);
-
-                if (urlParams.has('teacherName') && urlParams.get('teacherName').trim() !== "") {
-                    document.getElementById('button').style.display = 'block';
-                    document.getElementById('button2').style.display = 'block';
-                    document.getElementById('scheduleContent').style.display = 'block'; // Show schedule content
-                } else {
-                    // If no teacher is selected, hide the Save button and hide schedule content
-                    document.getElementById('button').style.display = 'none';
-                    document.getElementById('button2').style.display = 'none';
-                    document.getElementById('scheduleContent').style.display = 'none'; // Hide schedule content
-                }
-            }
-            window.onload = function () {
-                checkTeacherNameFromURL();
-            };
+            });
         </script>   
         <%!
             public boolean scheduleExists(String teacherName) {

@@ -30,7 +30,7 @@
                     <th>Contact No</th>
                     <th>Role</th>
                     <th>Telegram ID</th>
-                    <th colspan="2">Action</th>
+                    <th>Action</th>
                 </tr>
                 <%
                     List<Teacher> list = TeacherDao.getAllTeacher();
@@ -44,7 +44,7 @@
                     <td><%= e.getTeacherRole()%></td>
                     <td><%= e.getTelegramId()%></td>
                     <td>
-                        <a href="DeleteTeacherServlet?teacherId=<%= e.getTeacherID()%>" 
+                        <a href="<%= request.getContextPath()%>/TeacherServlet?action=delete&teacherId=<%= e.getTeacherID()%>" 
                            onclick="return confirm('Do you want to delete this teacher?');" 
                            class="delete-icon">
                             <i class="fas fa-trash-alt"></i>
@@ -71,7 +71,7 @@
                         return;
                     }
                     var teacher = row.getAttribute('data-teacher-id');
-                    window.location.href = 'EditTeacherServlet2?teacherId=' + teacher;
+                    window.location.href = 'editTeacher.jsp?teacherId=' + teacher;
                 });
             });
         });

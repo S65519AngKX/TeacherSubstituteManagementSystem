@@ -57,5 +57,18 @@ input,select,option{
     padding-left: .75em;
     padding-right: .75em;
 }
+#button{
+    background-color: #1fbfdb;
+    color:white;
+    border: 0px;
+    border-radius:10px;
+    padding:8px 20px;
+    font-size:15px;
+    width:fit-content;
+    height:fit-content;
+    margin:5px 20px 0px 20px;
+    box-shadow: 2px 2px 2px black;
+}
+
 
 

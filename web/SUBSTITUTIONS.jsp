@@ -212,13 +212,13 @@
                                         Integer selectedTeacherId = e.getSubstituteTeacherID();
                                         String remarks = (e.getRemarks() != null) ? e.getRemarks() : "";
 
-                                            if (selectedTeacherId != null && selectedTeacherId != 0) {
+                                        if (selectedTeacherId != null && selectedTeacherId != 0) {
                                 %>
                                 <option value="<%= selectedTeacherId%>" selected>
                                     <%= TeacherDao.getTeacherNameById(selectedTeacherId)%>
                                 </option>
                                 <%
-                                        }
+                                    }
                                     if ((selectedTeacherId == null || selectedTeacherId == 0)
                                             && (remarks.equalsIgnoreCase("Split Class")
                                             || remarks.equalsIgnoreCase("Cancelled")
@@ -234,6 +234,9 @@
                                     for (Teacher teacher : teachers) {
                                         int teacherId = teacher.getTeacherID();
                                         String teacherName = teacher.getTeacherName();
+                                        if (selectedTeacherId == teacherId) {
+                                            continue;
+                                        }
                                 %>
                                 <option value="<%= teacherId%>"><%= teacherName%></option>
                                 <%

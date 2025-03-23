@@ -175,9 +175,9 @@
                                     String currentRole = (String) session.getAttribute("role");
                                 %>
                                 <% if ("Teacher".equals(tempRole)) { %>
-                                <a href="ExitTeacherRoleServlet" onclick="return confirm('Exit Teacher Mode?')">Exit Teacher Mode</a>
+                                <a href="<%= request.getContextPath()%>/TeacherServlet?action=exitRole" onclick="return confirm('Exit Teacher Mode?')">Exit Teacher Mode</a>
                                 <% } else if ("Principal".equals(currentRole) || "Assistant Principal".equals(currentRole)) { %>
-                                <a href="SwitchRoleServlet" onclick="return confirm('Switch to Teacher Mode?')">Switch to Teacher Mode</a>
+                                <a href="<%= request.getContextPath()%>/TeacherServlet?action=switchRole" onclick="return confirm('Switch to Teacher Mode?')">Switch to Teacher Mode</a>
                                 <% }%>
                                 <a href="index.jsp">Logout</a>
                             </div>

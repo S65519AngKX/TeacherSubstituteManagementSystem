@@ -27,6 +27,7 @@
             #title{
                 font-size: 30px;
                 margin:10px auto;
+                margin-left: 38%;
             }
             #button{
                 border: 0;
@@ -130,20 +131,20 @@
 
                     <!-- Action buttons in one column -->
                     <td class="action-buttons">
-                        <form action="UpdateLeaveStatusServlet" method="post">
+                        <form action="LeaveServlet" method="post">
                             <input type="hidden" name="leaveId" value="<%= e.getLeaveID()%>">
                             <input type="hidden" name="leaveStatus" value="Approved">
-                            <button type="submit" style="background-color:#4CAF50">Approve</button>
+                            <button type="submit" style="background-color:#4CAF50" name="action" value="update">Approve</button>
                         </form>
 
-                        <form action="UpdateLeaveStatusServlet" method="post">
+                        <form action="LeaveServlet" method="post">
                             <input type="hidden" name="leaveId" value="<%= e.getLeaveID()%>">
                             <input type="hidden" name="leaveStatus" value="Rejected">
-                            <button type="submit" onclick="return confirm('Do you want to reject this leave request?');">Reject</button>
+                            <button type="submit" name="action" value="update" onclick="return confirm('Do you want to reject this leave request?');">Reject</button>
                         </form>
                     </td>
                     <td>
-                        <a href="DeleteLeaveServlet?leaveId=<%= e.getLeaveID()%>" 
+                        <a href="<%= request.getContextPath()%>/LeaveServlet?action=delete&leaveId=<%= e.getLeaveID()%>" 
                            onclick="return confirm('Do you want to delete this leave record?');" 
                            class="delete-icon">
                             <i class="fas fa-trash-alt"></i>

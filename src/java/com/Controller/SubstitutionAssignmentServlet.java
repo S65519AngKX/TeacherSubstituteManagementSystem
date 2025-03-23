@@ -53,11 +53,10 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        System.out.println("Action received: " + action); // Debugging output
 
         try {
             if (action == null) {
-                response.sendRedirect("SUBSTITUTIONS.jsp");
+                response.sendRedirect("SUBSTITUTION.jsp");
                 return;
             }
 
@@ -89,10 +88,7 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
 
     private void listSubstitutionAssignment(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List<SubstitutionAssignments> listAssgn = SubstitutionAssignmentDao.displayAllSubstitutionAssignment();
-        request.setAttribute("listAssgn", listAssgn);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("substitutionAssignmentHistory.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect("SUBSTITUTION.jsp");
     }
 
     private void updateSubstitutionAssignment(HttpServletRequest request, HttpServletResponse response)

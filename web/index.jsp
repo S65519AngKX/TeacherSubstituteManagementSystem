@@ -73,7 +73,7 @@
                                 <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
                             </div>
                             <div class="d-grid" id="button">
-                                <button type="submit" class="btn btn-primary">Login</button>
+                                <button type="submit" class="btn btn-primary" name="action" value="login">Login</button>
                             </div>
                             <div class="text-center mt-3">
                                 <a href="resetPassword.jsp">Forgot Password?</a>

@@ -41,7 +41,7 @@
                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                         <div class="card-body p-2 p-md-3">
                             <h3 class="pt-3 pb-md-0 mb-md-1" id="title">Manage Profile</h3>
-                            <form method="post" action="manageProfileServlet">
+                            <form method="post" action="TeacherServlet">
                                 <div class="form-section">
                                     <div class="row mb-3">
                                         <div class="col-md-6">
@@ -86,7 +86,7 @@
                                     <div class="mt-2 pt-2">
                                         <div id="formButton">
                                             <input style="background-color: #9da0a1" type="reset" value="Cancel" onclick='window.location.href = "TEACHERS.jsp"'>
-                                            <input type="submit" value="Confirm">
+                                            <button type="submit" id="button" name="action" value="manageProfile">Confirm</button>
                                         </div>
                                     </div>
                                 </div>

@@ -4,7 +4,11 @@
     Author     : ACER
 --%>
 
+<%@page import="com.Dao.TeacherDao"%>
+<%@page import="com.Model.Teacher"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri ="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,6 +21,9 @@
         <link rel="stylesheet" href="css/form.css">
         <title>Add Staff</title>  
         <style>
+            .card-registration{
+                margin-top:5%;
+            }
             @media only screen and (max-width: 769px){
                 #section{
                     flex-grow: 1;
@@ -25,13 +32,19 @@
             }
         </style>
     </head>
-
-
-
     <body>
         <header>
             <%@include file="header.jsp"%>
         </header>
+        <%
+            String teacherId = request.getParameter("teacherId");
+            Teacher teacher = null;
+            if (teacherId != null && !teacherId.isEmpty()) {
+                int id = Integer.parseInt(teacherId);
+                teacher = TeacherDao.getTeacherById(id);
+                request.setAttribute("teacher", teacher);
+            }
+        %>
 
         <section id="section" class="vh-80 gradient-custom">
             <div class="container h-70"> 
@@ -39,19 +52,21 @@
                     <div class="col-12 col-lg-9 col-xl-9">
                         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                             <div class="card-body p-2 p-md-4">
-                                <h3 class="mb-3 pt-3 pb-md-0 mb-md-3"id="title">Add New Teacher</h3>
+                                <h3 class="mb-3 pt-3 pb-md-0 mb-md-3"id="title">Update Teacher</h3>
                                 <form method="post" action="TeacherServlet">
+                                    <input type="hidden" name="teacherId" value='<%=teacher.getTeacherID()%>'>
+
                                     <div class="row">
                                         <div class="col-md-6 mb-2">
                                             <div data-mdb-input-init class="form-outline">
                                                 <label class="form-label" for="name">Name:</label>
-                                                <input type="text" name="name" class="form-control form-control-lg" maxlength="50" required/>
+                                                <input type="text" name="name" value='<%=teacher.getTeacherName()%>' class="form-control form-control-lg" maxlength="50" required/>
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-2">
                                             <div data-mdb-input-init class="form-outline">
                                                 <label class="form-label" for="telegramId">Chat ID(Telegram):</label>
-                                                <input type="text" name="telegramId" class="form-control form-control-lg"  maxlength="10" placeholder="eg. 1234567890" pattern="[0-9]{10}"/>
+                                                <input type="text" name="telegramId" value='<%=teacher.getTelegramId()%>' class="form-control form-control-lg"  maxlength="10" placeholder="eg. 1234567890" pattern="[0-9]{10}"/>
                                             </div>
                                         </div>
                                     </div>
@@ -59,36 +74,23 @@
                                         <div class="col-md-4 mb-2 d-flex align-items-center">
                                             <div data-mdb-input-init class="form-outline">
                                                 <label for="email" class="form-label">Email</label>
-                                                <input type="email" name="email" id="email" class="form-control form-control-lg"  maxlength="50" required />
+                                                <input type="email" name="email" id="email" value='<%=teacher.getTeacherEmail()%>' class="form-control form-control-lg"  maxlength="50" required />
                                             </div>
                                         </div>
                                         <div class="col-md-4 mb-2 d-flex align-items-center">
                                             <div data-mdb-input-init class="form-outline">
                                                 <label for="contact" class="form-label">Contact:</label>
-                                                <input type="tel" name="contactNo" id="contact" class="form-control form-control-lg" maxlength="15" placeholder="eg. 012-3456789" pattern="01[0-9]-[0-9]{7,8}" required />
+                                                <input type="tel" name="contactNo" id="contact" value='<%=teacher.getTeacherContact()%>' class="form-control form-control-lg" maxlength="15" placeholder="eg. 012-3456789" pattern="01[0-9]-[0-9]{7,8}" required />
                                             </div>
                                         </div>
                                         <div class="col-md-4 mb-2 d-flex align-items-center">
                                             <div data-mdb-input-init class="form-outline">
                                                 <label for="role" class="form-label">Role</label>
                                                 <select name="role" id="role" class="select form-control-lg" required>
-                                                    <option value="Teacher">Teacher</option>
-                                                    <option value="Principal">Principal</option>
-                                                    <option value="Assistant Principal">Assistant Principal</option>
+                                                    <option value="Teacher" <%= (teacher != null && "Teacher".equals(teacher.getTeacherRole())) ? "selected" : ""%>>Teacher</option>
+                                                    <option value="Principal" <%= (teacher != null && "Principal".equals(teacher.getTeacherRole())) ? "selected" : ""%>>Principal</option>
+                                                    <option value="Assistant Principal" <%= (teacher != null && "Assistant Principal".equals(teacher.getTeacherRole())) ? "selected" : ""%>>Assistant Principal</option>
                                                 </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="container d-flex justify-content-center align-items-center">
-                                        <div class="row col-md-10 d-flex align-items-center" style="background: linear-gradient(to bottom right, #ffffff 0%, #ccffff 100%); border-radius: 10px; box-shadow: 2px 2px 2px black; padding: 20px;">
-                                            <div class="col-md-6 mb-1">
-                                                <label for="username" class="form-label">Username:</label>
-                                                <input type="text" name="username" class="form-control"  maxlength="15" required>
-                                            </div>
-                                            <div class="col-md-6 mb-1">
-                                                <label for="password" class="form-label">Password:</label>
-                                                <input type="password" name="password" class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
@@ -96,7 +98,7 @@
                                     <div class="mb-0 pt-2">
                                         <div id="formButton">
                                             <input style="background-color: #9da0a1" type="reset" value="Cancel" onclick="return viewTeacher()">
-                                            <button type="submit" id='button' name='action' value="save">Add</button>
+                                            <button type="submit" id="button" name="action" value="update">Update</button>
                                         </div>
                                     </div>
                                 </form>

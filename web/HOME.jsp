@@ -101,8 +101,8 @@
         <header>
             <%@ include file="header.jsp" %>
         </header>
-
-        <div class="container" id="section">
+        
+        <div id="section">
             <div id="div1"></div>
 
             <div class="row text-center mt-5">

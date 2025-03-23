@@ -8,6 +8,22 @@
         <servlet-name>SubstitutionServlet</servlet-name>
         <servlet-class>com.Controller.SubstitutionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReportServlet</servlet-name>
+        <servlet-class>com.Controller.ReportServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LeaveServlet</servlet-name>
+        <servlet-class>com.Controller.LeaveServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ScheduleSerlvet</servlet-name>
+        <servlet-class>com.Controller.ScheduleSerlvet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ScheduleServlet</servlet-name>
+        <servlet-class>com.Controller.ScheduleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/images/*</url-pattern>
@@ -85,8 +101,8 @@
         <servlet-class>com.Controller.DeleteScheduleServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>teacherServlet</servlet-name>
-        <servlet-class>com.Controller.teacherServlet</servlet-class>
+        <servlet-name>TeacherServlet</servlet-name>
+        <servlet-class>com.Controller.TeacherServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UploadServlet</servlet-name>
@@ -173,8 +189,8 @@
         <url-pattern>/DeleteScheduleServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>teacherServlet</servlet-name>
-        <url-pattern>/teacherServlet</url-pattern>
+        <servlet-name>TeacherServlet</servlet-name>
+        <url-pattern>/TeacherServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UploadServlet</servlet-name>
@@ -199,6 +215,22 @@
     <servlet-mapping>
         <servlet-name>SubstitutionServlet</servlet-name>
         <url-pattern>/SubstitutionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportServlet</servlet-name>
+        <url-pattern>/ReportServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LeaveServlet</servlet-name>
+        <url-pattern>/LeaveServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScheduleSerlvet</servlet-name>
+        <url-pattern>/ScheduleSerlvet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScheduleServlet</servlet-name>
+        <url-pattern>/ScheduleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
