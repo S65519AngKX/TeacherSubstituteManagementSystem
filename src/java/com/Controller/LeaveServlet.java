@@ -117,10 +117,10 @@ public class LeaveServlet extends HttpServlet {
         int status = LeaveDao.delete(leaveId);
         if (status > 0) {
             response.getWriter().print("<script>alert('Leave record deleted successfully!');</script>");
-            request.getRequestDispatcher("LEAVES.jsp").include(request, response);
+            request.getRequestDispatcher("leaveHistory.jsp").include(request, response);
         } else {
             response.getWriter().print("<script>alert('Sorry! Unable to delete leave record.');</script>");
-            request.getRequestDispatcher("LEAVES.jsp").include(request, response);
+            request.getRequestDispatcher("leaveHistory.jsp").include(request, response);
         }
     }
 

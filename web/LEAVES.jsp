@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/list.css">
-        <title>Manage Leave</title>
+        <title>Leave Approval/Rejection</title>
         <style>
             #top{
                 display: flex;
@@ -43,17 +43,19 @@
             }
             .action-buttons {
                 display:flex;
-                flex-direction: row;
-                gap: 10px;
+                justify-content: space-between;
+                align-items: center;
+                margin:0 10%;
             }
             .action-buttons button {
                 background-color: grey;
                 color: white;
-                padding: 5px;
+                font-weight: bold;
+                padding: 5px 15px;
                 border: none;
                 font-size: 13px;
                 border-radius: 5px;
-                width:70px;
+                width:fit-content;
                 box-shadow: 2px 2px 2px black;
 
             }
@@ -95,7 +97,7 @@
 
         <div id="section">
             <div id='top'>
-                <h1 id="title">Manage Leave</h1>
+                <h1 id="title">Leave Approval/Rejection</h1>
                 <button id="button" type="button" onclick="window.location.href = 'leaveHistory.jsp';">Leave History</button>
             </div>
             <table>
@@ -107,7 +109,6 @@
                     <th>Reason</th>
                     <th>Notes</th>
                     <th>Status</th>
-                    <th colspan="2">Action</th>
                 </tr>
                 <%
                     List<Leave> list = LeaveDao.getAllUnprocessedLeave();
@@ -127,7 +128,6 @@
                     <td><%= e.getLeaveEndDate()%></td>
                     <td><%= e.getLeaveReason()%></td>
                     <td><%= e.getLeaveNotes()%></td>
-                    <td><%= e.getLeaveStatus()%></td> 
 
                     <!-- Action buttons in one column -->
                     <td class="action-buttons">
@@ -142,14 +142,6 @@
                             <input type="hidden" name="leaveStatus" value="Rejected">
                             <button type="submit" name="action" value="update" onclick="return confirm('Do you want to reject this leave request?');">Reject</button>
                         </form>
-                    </td>
-                    <td>
-                        <a href="<%= request.getContextPath()%>/LeaveServlet?action=delete&leaveId=<%= e.getLeaveID()%>" 
-                           onclick="return confirm('Do you want to delete this leave record?');" 
-                           class="delete-icon">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-
                     </td>
                 </tr>
                 <%
