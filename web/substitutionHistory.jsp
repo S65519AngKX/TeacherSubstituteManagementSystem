@@ -1,3 +1,5 @@
+<%@page import="com.Model.Leave"%>
+<%@page import="com.Dao.LeaveDao"%>
 <%@page import="com.Model.SubstitutionRequestPeriod"%>
 <%@page import="com.Dao.SubstitutionRequestPeriodDao"%>
 <%@page import="com.Model.Substitution"%>
@@ -21,7 +23,8 @@
         <link rel="stylesheet" href="css/list.css">
         <title>Substitution Assignment History</title>
         <style>
-            #title {
+            
+            #title,#title2 {
                 font-size: 27px;
                 margin: 5px auto;
             }
@@ -85,7 +88,7 @@
                     if (lastSubstitutionDate == null || !currentSubstitutionDate.equals(lastSubstitutionDate)) {
                 %>
                 <tr class="date-separator">
-                    <td colspan="6" class="date-header"><%= currentSubstitutionDate%></td>
+                    <td colspan="7" class="date-header"><%= currentSubstitutionDate%></td>
                 </tr>
                 <% }%>
 
@@ -102,7 +105,7 @@
                         <%
                             }
                         } else {
-                            List<Integer> periodLeave = SubstitutionDao.getLeavePeriod(e.getSubstitutionDate(),e.getTeacherID()); 
+                            List<Integer> periodLeave = SubstitutionDao.getLeavePeriod(e.getSubstitutionDate(), e.getTeacherID());
                             for (Integer pl : periodLeave) {
                         %>
                         <%= pl%>&nbsp;
@@ -112,7 +115,6 @@
                         %>
                     </td>                    
                     <td><%= e.getReason()%></td>
-
                     <td><%= (e.getNotes() == null) ? "" : e.getNotes()%></td>
                     <td>
                         <a href="<%= request.getContextPath()%>/SubstitutionServlet?action=delete&substitutionId=<%= e.getSubstitutionId()%>"
@@ -120,11 +122,51 @@
                            onclick="return confirm('Do you want to delete this substitution record?');">
                             <i class="fas fa-trash-alt"></i>
                         </a>
-                    </td>                </tr>
-                    <% lastSubstitutionDate = currentSubstitutionDate; %> 
-                    <% }%>
+                    </td>                
+                </tr>
+                <% lastSubstitutionDate = currentSubstitutionDate; %> 
+                <% }%>
             </table>
-
+            <br>
+            <h1 id="title2">Unprocessed Leave</h1>
+            <table>
+                <tr>
+                    <th>Leave ID</th>
+                    <th>Teacher Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Reason</th>
+                    <th>Notes</th>
+                    <th>Status</th>
+                </tr>
+                <%
+                    List<Leave> list1 = LeaveDao.getAllTodayUnprocessedLeave();
+                    for (Leave e : list1) {
+                        Teacher teacher = TeacherDao.getTeacherById(e.getAbsentTeacherID());
+                %>
+                <tr>
+                    <td><%= e.getLeaveID()%></td>
+                    <td><%= teacher != null ? teacher.getTeacherName() : "Not found"%></td>
+                    <td><%= e.getLeaveStartDate()%></td>
+                    <td><%= e.getLeaveEndDate()%></td>
+                    <td><%= e.getLeaveReason()%></td>
+                    <td><%= e.getLeaveNotes()%></td>
+                    <%
+                        if (e.getLeaveStatus().equalsIgnoreCase("Pending")) {
+                    %>                    
+                    <td style='color:red;font-weight: bold'><%= e.getLeaveStatus()%></td>
+                    <%
+                    } else {
+                    %>                    
+                    <td><%= e.getLeaveStatus()%></td>
+                    <%
+                        }
+                    %>
+                </tr>
+                <%
+                    }
+                %>
+            </table>
             <button id="button" class="btn btn-primary" onclick="window.location.href = 'SUBSTITUTIONS.jsp'">BACK</button>
         </div>
 

@@ -102,11 +102,12 @@
                 height: fit-content;
                 box-shadow: 2px 2px 2px black;
                 text-align: center;
-                margin-right:3%;
-                float: right;
+                margin-right:1%;
+                float: left;
                 margin-bottom: 10px;
                 clear: both;
                 font-weight:500;
+                display:inline-block;
             }
             @media (min-width: 480px) and (max-width: 767px){
                 h5{
@@ -160,8 +161,8 @@
             <div id="top">
                 <h1 id="title">Substitution Assignment</h1>
                 <div  id="formButton" class="d-flex justify-content-end mb-0">
-                    <input id="button4" type="button" style="background-color:#8d9394;" value="Substitution History" onclick="window.location.href = 'substitutionHistory.jsp'"> 
-                    <input id="button5" type="button" style="background-color:#8d9394;" value="Leave History" onclick="window.location.href = 'todayLeave.jsp'"> 
+                    <input id="button4" type="button" style="background-color:#8d9394;" value="Today Substitution" onclick="window.location.href = 'substitutionHistory.jsp'"> 
+                    <input id="button5" type="button" style="background-color:#8d9394;" value="Assignment History" onclick="window.location.href = 'assignmentHistory.jsp'"> 
                 </div>
             </div>            
             <form method="post" action="SubstitutionAssignmentServlet">
@@ -280,14 +281,18 @@
                     %>
                     <% }%>
                 </table>
-                <button type="submit" id="button1" class="btn btn-primary" name="action" value="update">
-                    Save Changes
-                </button>
-                <button type="submit" id="button2" class="btn btn-primary" style="background-color:red;" name="action" value="confirm">
-                    Post
-                </button>
+                <div id="buttonContainer" style="display: flex; justify-content: flex-end; gap: 5px; margin-top: 10px;margin-right:3%;">
+
+                    <button type="submit" id="button1" class="btn btn-primary" name="action" value="update">
+                        Save Changes
+                    </button>
+                    <button type="submit" id="button2" class="btn btn-primary" style="background-color:red;" name="action" value="confirm">
+                        Post
+                    </button>
+                    <button id="button3" class="btn btn-primary" style="background-color:grey;" name="action" value="updateAll">Others</button>
+                </div>
             </form>
-            <button id="button3" class="btn btn-primary" style="background-color:grey;" onclick="window.location.href = 'manageAssignments.jsp'">Others</button>
+
         </div>
         <footer>
             <%@include file="footer.jsp"%>

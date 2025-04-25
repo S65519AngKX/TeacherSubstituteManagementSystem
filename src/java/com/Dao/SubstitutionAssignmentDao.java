@@ -329,69 +329,6 @@ public class SubstitutionAssignmentDao {
         return list;
     }
 
-    public static List<SubstitutionAssignments> displayAllSubstitutionAssignment() {//to display all assigned substitution (confirmed)
-        List<SubstitutionAssignments> list = new ArrayList<>();
-        try {
-            Connection con = Database.getConnection();
-            String sql = "SELECT \n"
-                    + "    sa.substitutionId, \n"
-                    + "    sa.scheduleId, sa.status, sa.remarks, sch.scheduleDay, \n"
-                    + "    s.substitutionDate,  \n"
-                    + "    CASE \n"
-                    + "        WHEN ROW_NUMBER() OVER (PARTITION BY sa.substitutionId ORDER BY sch.schedulePeriod) = 1 \n"
-                    + "        THEN COALESCE(l.absentTeacherId, sr.requestTeacherId) \n"
-                    + "        ELSE '' \n"
-                    + "    END AS absentTeacherId, \n"
-                    + "    CASE \n"
-                    + "        WHEN ROW_NUMBER() OVER (PARTITION BY sa.substitutionId ORDER BY sch.schedulePeriod) = 1 \n"
-                    + "        THEN COALESCE(l.leaveReason, sr.substitutionRequestReason) \n"
-                    + "        ELSE '' \n"
-                    + "    END AS reason, \n"
-                    + "    CASE \n"
-                    + "        WHEN ROW_NUMBER() OVER (PARTITION BY sa.substitutionId ORDER BY sch.schedulePeriod) = 1 \n"
-                    + "        THEN COALESCE(l.leaveNotes, sr.substitutionRequestNotes) \n"
-                    + "        ELSE '' \n"
-                    + "    END AS notes, \n"
-                    + "    sch.schedulePeriod, \n"
-                    + "    sch.className, \n"
-                    + "    sch.scheduleSubject,  \n"
-                    + "    sa.substituteTeacherId \n"
-                    + "FROM substitutionAssignments sa \n"
-                    + "LEFT JOIN substitution s ON sa.substitutionId = s.substitutionId  \n"
-                    + "LEFT JOIN `leave` l ON s.leaveId = l.leaveId \n"
-                    + "LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
-                    + "LEFT JOIN schedule sch ON sa.scheduleId = sch.scheduleId \n"
-                    + "WHERE sa.status = 'CONFIRMED'\n"
-                    + "ORDER BY s.substitutionDate DESC, sa.substitutionId, sch.schedulePeriod;";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            int rowCount = 0;
-            while (rs.next()) {
-                rowCount++;
-
-                SubstitutionAssignments sa = new SubstitutionAssignments();
-                sa.setSubstitutionId(rs.getInt("substitutionId"));
-                sa.setScheduleId(rs.getInt("scheduleId"));
-                sa.setStatus(rs.getString("status"));
-                sa.setRemarks(rs.getString("remarks"));
-                sa.setAbsentTeacherID(rs.getInt("absentTeacherId"));
-                sa.setReason(rs.getString("reason"));
-                sa.setNotes(rs.getString("notes"));
-                sa.setPeriod(rs.getInt("schedulePeriod"));
-                sa.setClassName(rs.getString("className"));
-                sa.setSubjectName(rs.getString("scheduleSubject"));
-                sa.setScheduleDay(rs.getString("scheduleDay"));
-                sa.setSubstituteTeacherID(rs.getInt("substituteTeacherId"));
-                sa.setSubstitutionDate(rs.getDate("substitutionDate"));
-                list.add(sa);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return list;
-    }
-
     public static List<Teacher> getSuggestedSubstitute(Date substitutionDate, int schedulePeriod, String scheduleDay, String className, String scheduleSubject) {//to display all suggested substitute teacher
         List<Teacher> list = new ArrayList<>();
         try {
@@ -487,7 +424,7 @@ public class SubstitutionAssignmentDao {
         return assignedPeriods;
     }
 
-    public static SubstitutionAssignments getSubstitutionAssigmentDetailsBySubstitutionIdAndScheduleId(int substitutionId, int scheduleId) {
+    public static SubstitutionAssignments getSubstitutionAssigmentDetailsBySubstitutionIdAndScheduleId(int substitutionId, int scheduleId) {//for telegram notification
         SubstitutionAssignments assgn = new SubstitutionAssignments();
 
         try {
@@ -534,4 +471,79 @@ public class SubstitutionAssignmentDao {
 
         return assgn;
     }
+
+    public static List<SubstitutionAssignments> getSubstitutionAssignmentRecord(Date startDate, Date endDate) {
+        List<SubstitutionAssignments> list = new ArrayList<>();
+        try {
+            Connection con = Database.getConnection();
+            String sql = "SELECT \n"
+                    + "    sa.substitutionId, \n"
+                    + "    sa.scheduleId, sa.status, sa.remarks, sch.scheduleDay, \n"
+                    + "    s.substitutionDate,  \n"
+                    + "    CASE \n"
+                    + "        WHEN ROW_NUMBER() OVER (PARTITION BY sa.substitutionId ORDER BY sch.schedulePeriod) = 1 \n"
+                    + "        THEN COALESCE(l.absentTeacherId, sr.requestTeacherId) \n"
+                    + "        ELSE '' \n"
+                    + "    END AS absentTeacherId, \n"
+                    + "    CASE \n"
+                    + "        WHEN ROW_NUMBER() OVER (PARTITION BY sa.substitutionId ORDER BY sch.schedulePeriod) = 1 \n"
+                    + "        THEN COALESCE(l.leaveReason, sr.substitutionRequestReason) \n"
+                    + "        ELSE '' \n"
+                    + "    END AS reason, \n"
+                    + "    CASE \n"
+                    + "        WHEN ROW_NUMBER() OVER (PARTITION BY sa.substitutionId ORDER BY sch.schedulePeriod) = 1 \n"
+                    + "        THEN COALESCE(l.leaveNotes, sr.substitutionRequestNotes) \n"
+                    + "        ELSE '' \n"
+                    + "    END AS notes, \n"
+                    + "    sch.schedulePeriod, \n"
+                    + "    sch.className, \n"
+                    + "    sch.scheduleSubject,  \n"
+                    + "    sa.substituteTeacherId \n"
+                    + "FROM substitutionAssignments sa \n"
+                    + "LEFT JOIN substitution s ON sa.substitutionId = s.substitutionId  \n"
+                    + "LEFT JOIN `leave` l ON s.leaveId = l.leaveId \n"
+                    + "LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
+                    + "LEFT JOIN schedule sch ON sa.scheduleId = sch.scheduleId \n"
+                    + "WHERE sa.status = 'CONFIRMED' ";
+
+            if (startDate != null && endDate != null) {
+                sql += "AND (s.substitutionDate BETWEEN ? AND ? OR s.substitutionDate IS NULL) ";
+            } else {
+                sql += "AND (s.substitutionDate IS NULL OR s.substitutionDate IS NOT NULL) "; // Returns all records
+            }
+
+            sql += "ORDER BY s.substitutionDate DESC, sa.substitutionId, sch.schedulePeriod;";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            if (startDate != null && endDate != null) {
+                ps.setDate(1, startDate);
+                ps.setDate(2, endDate);
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SubstitutionAssignments sa = new SubstitutionAssignments();
+                sa.setSubstitutionId(rs.getInt("substitutionId"));
+                sa.setScheduleId(rs.getInt("scheduleId"));
+                sa.setStatus(rs.getString("status"));
+                sa.setRemarks(rs.getString("remarks"));
+                sa.setAbsentTeacherID(rs.getInt("absentTeacherId"));
+                sa.setReason(rs.getString("reason"));
+                sa.setNotes(rs.getString("notes"));
+                sa.setPeriod(rs.getInt("schedulePeriod"));
+                sa.setClassName(rs.getString("className"));
+                sa.setSubjectName(rs.getString("scheduleSubject"));
+                sa.setScheduleDay(rs.getString("scheduleDay"));
+                sa.setSubstituteTeacherID(rs.getInt("substituteTeacherId"));
+                sa.setSubstitutionDate(rs.getDate("substitutionDate"));
+                list.add(sa);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
 }

@@ -55,14 +55,12 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         try {
-            if (action == null) {
-                response.sendRedirect("SUBSTITUTION.jsp");
-                return;
-            }
-
             switch (action) {
                 case "update":
                     updateSubstitutionAssignment(request, response);
+                    break;
+                case "updateAll":
+                    updateAllSubstitutionAssignment(request, response);
                     break;
                 case "modify":
                     modifySubstitutionAssignment(request, response);
@@ -75,6 +73,9 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
                     break;
                 case "delete2":
                     deleteSubstitutionAssignment2(request, response);
+                    break;
+                case "filter":
+                    filterSubstitutionAssignment(request, response);
                     break;
                 default:
                     listSubstitutionAssignment(request, response);
@@ -89,6 +90,32 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
     private void listSubstitutionAssignment(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         response.sendRedirect("SUBSTITUTION.jsp");
+    }
+
+    private void filterSubstitutionAssignment(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        response.setContentType("text/html");
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+
+        Date start = null;
+        Date end = null;
+        if (startDate != null && !startDate.trim().isEmpty()) {
+            start = Date.valueOf(startDate);
+        }
+        if (endDate != null && !endDate.trim().isEmpty()) {
+            end = Date.valueOf(endDate);
+        }
+        List<SubstitutionAssignments> subAssignList = null;
+        subAssignList = SubstitutionAssignmentDao.getSubstitutionAssignmentRecord(start, end);
+
+        if (subAssignList == null || subAssignList.isEmpty()) {
+            response.getWriter().print("<script>alert('No record found for the selected date! Please try another date'); window.location.href='assignmentHistory.jsp';</script>");
+            return;
+        } else {
+            request.setAttribute("assgnList", subAssignList);
+            request.getRequestDispatcher("assignmentHistory.jsp").forward(request, response);
+        }
     }
 
     private void updateSubstitutionAssignment(HttpServletRequest request, HttpServletResponse response)
@@ -413,5 +440,9 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
             e.printStackTrace();
             System.out.println("Error sending Telegram notification: " + e.getMessage());
         }
+    }
+
+    private void updateAllSubstitutionAssignment(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect("manageAssignments.jsp");
     }
 }
