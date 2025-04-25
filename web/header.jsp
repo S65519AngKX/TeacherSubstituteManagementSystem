@@ -39,13 +39,13 @@
 
             #logo {
                 font-family: 'Stardos Stencil', sans-serif;
-                font-size: 20px;
+                font-size: 18px;
                 font-weight: bolder;
                 color: red;
             }
 
             #logo1 {
-                font-size: 20px;
+                font-size: 18px;
                 font-weight: bolder;
                 color: blue;
             }
@@ -58,8 +58,11 @@
             }
 
             .navbar-nav .nav-link:hover {
-                background-color: #167f80;
+                background-color: #7de0e8;
                 border-radius: 5px;
+            }
+            .navbar-nav .nav-link.active {
+                color:white;
             }
 
             .dropdown {
@@ -71,7 +74,7 @@
                 border: none;
                 outline: none;
                 color: white;
-                padding: 15px 20px;
+                padding: 0px 20px;
                 background-color: inherit;
                 font-family: inherit;
                 cursor: pointer;
@@ -174,9 +177,9 @@
                                     String tempRole = (String) session.getAttribute("tempRole");
                                     String currentRole = (String) session.getAttribute("role");
                                 %>
-                                <% if ("Teacher".equals(tempRole)) { %>
+                                <% if ("Teacher".equals(tempRole)) {%>
                                 <a href="<%= request.getContextPath()%>/TeacherServlet?action=exitRole" onclick="return confirm('Exit Teacher Mode?')">Exit Teacher Mode</a>
-                                <% } else if ("Principal".equals(currentRole) || "Assistant Principal".equals(currentRole)) { %>
+                                <% } else if ("Principal".equals(currentRole) || "Assistant Principal".equals(currentRole)) {%>
                                 <a href="<%= request.getContextPath()%>/TeacherServlet?action=switchRole" onclick="return confirm('Switch to Teacher Mode?')">Switch to Teacher Mode</a>
                                 <% }%>
                                 <a href="index.jsp">Logout</a>
@@ -196,13 +199,19 @@
             };
 
             var navList = document.getElementById('nav-list');
+            var currentPage = window.location.pathname.split('/').pop(); // Get the current page file name 
+
             navItems[userRole].forEach(function (item) {
                 var li = document.createElement('li');
                 li.classList.add('nav-item');
-                li.innerHTML = '<a class="nav-link" href="' + item + '.jsp">' + item + '</a>';
+
+                var page = item + '.jsp'; 
+                var isActive = (currentPage.toUpperCase() === page.toUpperCase()); 
+                li.innerHTML = '<a class="nav-link' + (isActive ? ' active' : '') + '" href="' + page + '">' + item + '</a>';
                 navList.appendChild(li);
             });
         </script>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     </body>
