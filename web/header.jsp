@@ -204,11 +204,18 @@
             navItems[userRole].forEach(function (item) {
                 var li = document.createElement('li');
                 li.classList.add('nav-item');
+                var page = item + '.jsp';
+                var comparePage = item;
 
-                var page = item + '.jsp'; 
-                var isActive = (currentPage.toUpperCase() === page.toUpperCase()); 
+                if (item === 'REPORT') {
+                    page = '<%= request.getContextPath()%>/ReportServlet';
+                    comparePage = 'ReportServlet'; 
+                }
+
+                var isActive = currentPage.toUpperCase().includes(comparePage.toUpperCase());
                 li.innerHTML = '<a class="nav-link' + (isActive ? ' active' : '') + '" href="' + page + '">' + item + '</a>';
                 navList.appendChild(li);
+
             });
         </script>
 

@@ -4,6 +4,7 @@
  */
 package com.Dao;
 
+import com.Model.Report;
 import com.Model.Schedule;
 import com.Model.SubstitutionAssignments;
 import com.Model.Teacher;
@@ -537,6 +538,176 @@ public class SubstitutionAssignmentDao {
                 sa.setScheduleDay(rs.getString("scheduleDay"));
                 sa.setSubstituteTeacherID(rs.getInt("substituteTeacherId"));
                 sa.setSubstitutionDate(rs.getDate("substitutionDate"));
+                list.add(sa);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public static List<Report> getSubstitutionAssignmentReport(Date startDate, Date endDate) {
+        List<Report> list = new ArrayList<>();
+        try {
+            Connection con = Database.getConnection();
+            String sql = "SELECT \n"
+                    + "    t.teacherId,\n"
+                    + "    COALESCE(absent_counts.numClassesSubstituted, 0) AS numClassesSubstituted,\n"
+                    + "    COALESCE(substitute_counts.numArrangedForSubstitution, 0) AS numArrangedForSubstitution\n"
+                    + "FROM teacher t\n"
+                    + "LEFT JOIN (\n"
+                    + "    SELECT \n"
+                    + "        COALESCE(l.absentTeacherId, sr.requestTeacherId) AS teacherId,\n"
+                    + "        COUNT(DISTINCT CONCAT(sa.substitutionId, '-', sa.scheduleId)) AS numClassesSubstituted\n"
+                    + "    FROM substitutionAssignments sa\n"
+                    + "    JOIN substitution s ON sa.substitutionId = s.substitutionId\n"
+                    + "    LEFT JOIN `leave` l ON s.leaveId = l.leaveId\n"
+                    + "    LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId\n"
+                    + "    WHERE sa.status = 'CONFIRMED'\n";
+
+            if (startDate != null && endDate != null) {
+                sql += "    AND s.substitutionDate BETWEEN ? AND ?\n";
+            }
+
+            sql += "    GROUP BY COALESCE(l.absentTeacherId, sr.requestTeacherId)\n"
+                    + ") absent_counts ON absent_counts.teacherId = t.teacherId\n"
+                    + "LEFT JOIN (\n"
+                    + "    SELECT \n"
+                    + "        sa.substituteTeacherId AS teacherId,\n"
+                    + "        COUNT(DISTINCT CONCAT(sa.substitutionId, '-', sa.scheduleId)) AS numArrangedForSubstitution\n"
+                    + "    FROM substitutionAssignments sa\n"
+                    + "    JOIN substitution s ON sa.substitutionId = s.substitutionId\n"
+                    + "    WHERE sa.status = 'CONFIRMED'\n";
+
+            if (startDate != null && endDate != null) {
+                sql += "    AND s.substitutionDate BETWEEN ? AND ?\n";
+            }
+
+            sql += "    GROUP BY sa.substituteTeacherId\n" // Explicitly specify table alias
+                    + ") substitute_counts ON substitute_counts.teacherId = t.teacherId\n"
+                    + "ORDER BY t.teacherName;";
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            if (startDate != null && endDate != null) {
+                ps.setDate(1, startDate);
+                ps.setDate(2, endDate);
+                ps.setDate(3, startDate);
+                ps.setDate(4, endDate);
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Report sa = new Report();
+                sa.setTeacherId(rs.getInt("teacherId"));
+                sa.setNumSubstitute(rs.getInt("numArrangedForSubstitution"));
+                sa.setNumApply(rs.getInt("numClassesSubstituted"));
+                list.add(sa);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public static List<Report> getSubstitutionAssignmentRanking(Date startDate, Date endDate) {
+        List<Report> list = new ArrayList<>();
+        try {
+            Connection con = Database.getConnection();
+            String sql = "SELECT \n"
+                    + "    sa.substituteTeacherId, \n"
+                    + "    COUNT(*) AS numArrangedForSubstitution, \n"
+                    + "    (SELECT COUNT(*) \n"
+                    + "     FROM substitutionassignments sa2 \n"
+                    + "     INNER JOIN substitution s2 ON sa2.substitutionId = s2.substitutionId \n"
+                    + "     WHERE sa2.status = 'CONFIRMED' \n";
+
+            if (startDate != null && endDate != null) {
+                sql += "     AND s2.substitutionDate BETWEEN ? AND ? \n";
+            }
+
+            sql += "    ) AS totalRecords \n"
+                    + "FROM substitutionassignments sa \n"
+                    + "INNER JOIN substitution s ON sa.substitutionId = s.substitutionId \n"
+                    + "INNER JOIN teacher t ON sa.substituteTeacherId = t.teacherId \n"
+                    + "WHERE sa.status = 'CONFIRMED' \n";
+
+            if (startDate != null && endDate != null) {
+                sql += "AND s.substitutionDate BETWEEN ? AND ? \n";
+            }
+
+            sql += "GROUP BY sa.substituteTeacherId \n"
+                    + "ORDER BY numArrangedForSubstitution DESC \n"
+                    + "LIMIT 3";
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            if (startDate != null && endDate != null) {
+                ps.setDate(1, startDate);
+                ps.setDate(2, endDate);
+                ps.setDate(3, startDate);
+                ps.setDate(4, endDate);
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Report sa = new Report();
+                sa.setSubstitutionTeacherId(rs.getInt("substituteTeacherId"));
+                sa.setNumSubstitute(rs.getInt("numArrangedForSubstitution"));
+                sa.setTotalSubstitute(rs.getInt("totalRecords"));
+                list.add(sa);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public static List<Report> getSubstitutionTypePercentage(Date startDate, Date endDate) {
+        List<Report> list = new ArrayList<>();
+        try {
+            Connection con = Database.getConnection();
+            String sql = "SELECT \n"
+                    + "    COALESCE(NULLIF(sa.remarks, ''), 'Substituted') AS remarks,\n"
+                    + "    COUNT(*) * 100.0 / NULLIF(total.total_count, 0) AS percentage\n"
+                    + "FROM \n"
+                    + "    substitutionassignments sa\n"
+                    + "INNER JOIN \n"
+                    + "    substitution s ON sa.substitutionId = s.substitutionId\n"
+                    + "CROSS JOIN (\n"
+                    + "    SELECT COUNT(*) AS total_count\n"
+                    + "    FROM substitutionassignments sa2\n"
+                    + "    INNER JOIN substitution s2 ON sa2.substitutionId = s2.substitutionId\n"
+                    + "    WHERE sa2.status = 'Confirmed' \n";
+            if (startDate != null && endDate != null) {
+                sql += " AND s2.substitutionDate BETWEEN ? AND ?\n";
+            }
+            sql += ") AS total\n"
+                    + "WHERE \n"
+                    + "    sa.status = 'Confirmed'\n";
+
+            if (startDate != null && endDate != null) {
+                sql += " AND s.substitutionDate BETWEEN ? AND ?\n";
+            }
+            sql += "GROUP BY sa.remarks,total.total_count\n"
+                    + "ORDER BY \n"
+                    + "    percentage DESC;";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            if (startDate != null && endDate != null) {
+                ps.setDate(1, startDate);
+                ps.setDate(2, endDate);
+                ps.setDate(3, startDate);
+                ps.setDate(4, endDate);
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Report sa = new Report();
+                sa.setSubstitutionTypes(rs.getString("remarks"));
+                sa.setSubstitutionTypePercentage(rs.getDouble("percentage"));
                 list.add(sa);
             }
         } catch (Exception e) {
