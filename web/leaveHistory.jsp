@@ -30,7 +30,7 @@
             table tr td,th{
                 text-align:  center;
             }
-           
+
         </style>
     </head>
 
@@ -41,6 +41,11 @@
         </header>
 
         <div id="section">
+            <ul class="breadcrumb">
+                <li><a href="HOME.jsp">Home</a></li>
+                <li><a href="LEAVES.jsp">Leaves</a></li>
+                <li>Leave History</li>
+            </ul>
             <h1 id="title">Leave History</h1>
             <table>
                 <tr>
@@ -66,7 +71,7 @@
                     <td><%= e.getLeaveReason()%></td>
                     <td><%= e.getLeaveNotes()%></td>
                     <td><%= e.getLeaveStatus()%></td> 
-                     <td>
+                    <td>
                         <a href="<%= request.getContextPath()%>/LeaveServlet?action=delete&leaveId=<%= e.getLeaveID()%>" 
                            onclick="return confirm('Do you want to delete this leave record?');" 
                            class="delete-icon">

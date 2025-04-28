@@ -23,7 +23,7 @@
         <link rel="stylesheet" href="css/list.css">
         <title>Substitution Assignment History</title>
         <style>
-            
+
             #title,#title2 {
                 font-size: 27px;
                 margin: 5px auto;
@@ -66,6 +66,11 @@
         </header>
 
         <div id="section">
+            <ul class="breadcrumb">
+                <li><a href="HOME.jsp">Home</a></li>
+                <li><a href="SUBSTITUTIONS.jsp">Substitutions</a></li>
+                <li>Today Substitutions Requests</li>
+            </ul>
             <h1 id="title">Substitution Request & Leave Application History</h1>
             <table>
                 <tr>

@@ -88,6 +88,11 @@
         </header>
 
         <div id="section">
+            <ul class="breadcrumb">
+                <li><a href="HOME.jsp">Home</a></li>
+                <li><a href="SUBSTITUTIONS.jsp">Substitutions</a></li>
+                <li>Substitution Assignments History</li>
+            </ul>
             <form id="dateForm" style='margin-bottom:10px;' method="GET" action="SubstitutionAssignmentServlet">
                 <label for="startDate">Start Date:</label>
                 <input type="date" id="startDate" name="startDate">
@@ -188,7 +193,7 @@
                     case "all":
                         document.getElementById("startDate").value = "";
                         document.getElementById("endDate").value = "";
-                        return; 
+                        return;
                     default:
                         return;
                 }

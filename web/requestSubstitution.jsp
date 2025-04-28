@@ -83,8 +83,13 @@
                 <%@include file="header.jsp"%>
             </header>
 
-            <div id="section" class="container mt-3 mb-0">
-                <form method="post" action="saveSubstitutionRequest" id="requestSubstitutionForm">
+            <div id="section" >
+                <ul class="breadcrumb" style="margin:0;">
+                    <li><a href="HOME.jsp">Home</a></li>
+                    <li><a href="SUBSTITUTION.jsp">View Substitution Assignments</a></li>
+                    <li>Request Substitution</li>
+                </ul>
+                <form method="post" action="saveSubstitutionRequest" id="requestSubstitutionForm" class="container mt-3 mb-0">
                     <div id="top">
                         <h1 id="title">Request Substitution</h1>
                         <div  id="formButton" class="d-flex justify-content-end mb-0">

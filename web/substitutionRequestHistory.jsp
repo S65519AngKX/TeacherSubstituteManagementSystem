@@ -29,7 +29,7 @@
             #title{
                 font-size: 30px;
             }
-            
+
             table tr td,th{
                 text-align:  center;
             }
@@ -43,6 +43,12 @@
 
     <body>
         <div id="section">
+            <ul class="breadcrumb" style="margin:0;">
+                <li><a href="HOME.jsp">Home</a></li>
+                <li><a href="SUBSTITUTION.jsp">View Substitution Assignments</a></li>
+                <li><a href="requestSubstitution.jsp">Request Substitution</a></li>
+                <li>Substitution Requests History</li>
+            </ul>
             <h1 id="title">Substitution Request History</h1>
             <table>
                 <tr>
@@ -61,11 +67,11 @@
                     <td><%= e.getSubstitutionRequestId()%></td>
                     <td><%= e.getSubstitutionRequestDate()%></td>
                     <td>
-                    <%
-                        List<SubstitutionRequestPeriod> periods = SubstitutionRequestPeriodDao.getSubstitutionRequestPeriod(e.getSubstitutionRequestId());
-                        for (SubstitutionRequestPeriod p : periods) {%>
+                        <%
+                            List<SubstitutionRequestPeriod> periods = SubstitutionRequestPeriodDao.getSubstitutionRequestPeriod(e.getSubstitutionRequestId());
+                            for (SubstitutionRequestPeriod p : periods) {%>
                         <%= p.getSubstitutionRequestPeriod()%>&nbsp;
-                    <%}%></td>
+                        <%}%></td>
                     <td><%= e.getSubstitutionRequestReason()%></td>
                     <td><%= e.getSubstitutionRequestNotes()%></td>
                 </tr>

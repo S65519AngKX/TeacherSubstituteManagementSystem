@@ -147,6 +147,11 @@
         </header>
 
         <div id="section">
+             <ul class="breadcrumb">
+                <li><a href="HOME.jsp">Home</a></li>
+                <li><a href="SUBSTITUTIONS.jsp">Substitutions</a></li>
+                <li>Manage All Substitutions</li>
+            </ul>
             <h1 id="title">Substitution Assignments</h1>                        
             <form method="post" action="SubstitutionAssignmentServlet">
                 <table>

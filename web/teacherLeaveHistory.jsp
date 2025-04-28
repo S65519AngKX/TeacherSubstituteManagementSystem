@@ -31,6 +31,11 @@
 
     <body>
         <div id="section">
+            <ul class="breadcrumb">
+                <li><a href="HOME.jsp">Home</a></li>
+                <li><a href="LEAVE.jsp">Leave</a></li>
+                <li>Leave History</li>
+            </ul>
             <h1 id="title">Leave History</h1>
             <table>
                 <tr>

@@ -34,7 +34,12 @@
         </header>
 
         <section id="section" class="vh-80 gradient-custom">
-            <div class="container h-70"> 
+            <ul class="breadcrumb">
+                <li><a href="HOME.jsp">Home</a></li>
+                <li><a href="TEACHERS.jsp">Teachers</a></li>
+                <li>Add Teacher</li>
+            </ul>
+            <div class="container h-60"> 
                 <div class="row justify-content-center align-items-center h-60">
                     <div class="col-12 col-lg-9 col-xl-9">
                         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
