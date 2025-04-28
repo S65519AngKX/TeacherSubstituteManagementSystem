@@ -199,8 +199,22 @@
 
                         <td><%= TeacherDao.getTeacherNameById(e.getAbsentTeacherId())%></td>
                         <td><%= e.getReason()%></td>
-                        <td><%= e.getPeriod()%></td>
-                        <td><%= e.getSubjectName()%></td>
+                         <%   String time="";
+                            switch(e.getPeriod()){
+                            case 1: time="7:40-8:10";break;
+                                case 2: time="8:10-8:40";break;
+                                case 3: time="8:40-9:10";break;
+                                case 4: time="9:10-9:40";break;
+                                case 5: time="9:40-10:10";break;
+                                case 6: time="10:10-10:40";break; 
+                                case 7: time="10:40-11:10";break;
+                                case 8: time="11:10-11:40";break; 
+                                case 9: time="11:40-12:10";break;
+                                case 10: time="12:10-12:40";break;
+                                case 11: time="12:40-13:10";break; 
+                            }
+                        %>
+                        <td style="text-align: left"><span style="font-weight: bold"><%= e.getPeriod()%></span> (<%=time%>)</td>                        <td><%= e.getSubjectName()%></td>
                         <td><%= e.getClassName()%></td>
                         <td>
                             <select name="substituteTeacherId" id='teacherSelect'>
