@@ -17,6 +17,9 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Stardos+Stencil">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <!--to print file as pdf-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/list.css">
         <title>Substitution Assignment History</title>
@@ -113,44 +116,46 @@
                     SimpleDateFormat formatter = new SimpleDateFormat("EEEE, yyyy-MM-dd");
                     String todayDate = formatter.format(new java.util.Date());
                 %>
-                <h5>Date: <%= todayDate%></h5>               
-                <table>
-                    <tr>
-                        <th>Absent Teacher </th>
-                        <th>Reason</th>
-                        <th>Period</th>
-                        <th>Subject</th>
-                        <th>Class</th>
-                        <th>Substitute Teacher</th>
-                        <th>Remarks</th>
-                    </tr>
+                <div id="printSection">
+                    <h5>Date: <%= todayDate%></h5>               
+                    <table>
+                        <tr>
+                            <th>Absent Teacher </th>
+                            <th>Reason</th>
+                            <th>Period</th>
+                            <th>Subject</th>
+                            <th>Class</th>
+                            <th>Substitute Teacher</th>
+                            <th>Remarks</th>
+                        </tr>
 
-                    <%
-                        List<SubstitutionAssignments> list = SubstitutionAssignmentDao.displayTodaySubstitutionAssignment();
-                        int lastSubstitutionId = 0;
-                    %>
+                        <%
+                            List<SubstitutionAssignments> list = SubstitutionAssignmentDao.displayTodaySubstitutionAssignment();
+                            int lastSubstitutionId = 0;
+                        %>
 
-                    <% for (SubstitutionAssignments e : list) {%>
-                    <tr class="editable-row assignment-row
-                        <% if (e.getSubstitutionId() != lastSubstitutionId) { %>
-                        new-substitution
-                        <% }%>" 
-                        data-assignment-id="<%= e.getSubstitutionId()%>" 
-                        data-schedule-id="<%= e.getScheduleId()%>">
+                        <% for (SubstitutionAssignments e : list) {%>
+                        <tr class="editable-row assignment-row
+                            <% if (e.getSubstitutionId() != lastSubstitutionId) { %>
+                            new-substitution
+                            <% }%>" 
+                            data-assignment-id="<%= e.getSubstitutionId()%>" 
+                            data-schedule-id="<%= e.getScheduleId()%>">
 
-                        <td><%= TeacherDao.getTeacherNameById(e.getAbsentTeacherId())%></td>
-                        <td><%= e.getReason()%></td>
-                        <td><%= e.getPeriod()%></td>
-                        <td><%= e.getSubjectName()%></td>
-                        <td><%= e.getClassName()%></td>
-                        <td><%= (e.getSubstituteTeacherID() != 0) ? TeacherDao.getTeacherNameById(e.getSubstituteTeacherID()) : ""%></td>
-                        <td><%= (e.getRemarks() == null) ? "" : e.getRemarks()%></td>
-                    </tr>
-                    <%
-                        lastSubstitutionId = e.getSubstitutionId();
-                    %>
-                    <% }%>
-                </table>
+                            <td><%= TeacherDao.getTeacherNameById(e.getAbsentTeacherId())%></td>
+                            <td><%= e.getReason()%></td>
+                            <td><%= e.getPeriod()%></td>
+                            <td><%= e.getSubjectName()%></td>
+                            <td><%= e.getClassName()%></td>
+                            <td><%= (e.getSubstituteTeacherID() != 0) ? TeacherDao.getTeacherNameById(e.getSubstituteTeacherID()) : ""%></td>
+                            <td><%= (e.getRemarks() == null) ? "" : e.getRemarks()%></td>
+                        </tr>
+                        <%
+                            lastSubstitutionId = e.getSubstitutionId();
+                        %>
+                        <% }%>
+                    </table>
+                </div>
                 <button id="button4" class="btn btn-primary" style="margin-right:3%;" onclick="printPage()">Print</button>
             </div>
             <footer>
@@ -159,20 +164,17 @@
         </body>
         <script>
             function printPage() {
-                // Hide buttons before printing
-                let buttons = document.querySelectorAll("#section button, #section input[type='button'],#section input[type='submit']");
-                buttons.forEach(button => button.style.display = 'none');
+                const currentDate = new Date().toDateString();
+                var fileName = currentDate + "_SubstitutionAssignemts.pdf";
+                var element = document.getElementById('printSection');
+                var opt = {
+                    margin: 0.5,
+                    filename: fileName,
+                    html2canvas: {scale: 2},
+                    jsPDF: {unit: 'in', format: 'letter', orientation: 'portrait'}
+                };
 
-                // Print only the section
-                let section = document.getElementById('section').innerHTML;
-                let originalContent = document.body.innerHTML;
-
-                document.body.innerHTML = section;
-                window.print();
-
-                // Restore original content after printing
-                document.body.innerHTML = originalContent;
-                location.reload(); // Reload to restore event listeners and styling
+                html2pdf().set(opt).from(element).save();
             }
 
         </script>
