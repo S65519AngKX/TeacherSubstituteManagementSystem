@@ -365,7 +365,8 @@ public class SubstitutionAssignmentDao {
                     + "    SELECT t.teacherId, t.teacherName, "
                     + "        COALESCE(MAX(ms.totalAssignments), 0) AS totalAssignments, "
                     + "        MAX(CASE WHEN s.className = ? THEN 1 ELSE 0 END) AS classMatch, "
-                    + "        MAX(CASE WHEN s.scheduleSubject = ? THEN 1 ELSE 0 END) AS subjectMatch "
+                    + "        MAX(CASE WHEN s.scheduleSubject = ? THEN 1 ELSE 0 END) AS subjectMatch, "
+                    + "        MAX(CASE WHEN t.teacherRole = 'Part Time' THEN 1 ELSE 0 END) AS isPartTime "
                     + "    FROM teacher t "
                     + "    LEFT JOIN schedule s ON s.teacherId = t.teacherId "
                     + "    LEFT JOIN MonthlySubCount ms ON t.teacherId = ms.substituteTeacherId "
@@ -373,7 +374,7 @@ public class SubstitutionAssignmentDao {
                     + "    GROUP BY t.teacherId, t.teacherName "
                     + ") "
                     + "SELECT * FROM AvailableTeachers "
-                    + "ORDER BY classMatch DESC, totalAssignments ASC, subjectMatch DESC;";
+                    + "ORDER BY classMatch DESC, isPartTime DESC, totalAssignments ASC, subjectMatch DESC;";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setDate(1, substitutionDate);
@@ -384,6 +385,16 @@ public class SubstitutionAssignmentDao {
             ps.setString(6, scheduleSubject);
 
             ResultSet rs = ps.executeQuery();
+            String finalQuery = sql;
+            finalQuery = finalQuery.replaceFirst("\\?", "'" + substitutionDate.toString() + "'");
+            finalQuery = finalQuery.replaceFirst("\\?", "'" + substitutionDate.toString() + "'");
+            finalQuery = finalQuery.replaceFirst("\\?", "'" + scheduleDay + "'");
+            finalQuery = finalQuery.replaceFirst("\\?", String.valueOf(schedulePeriod));
+            finalQuery = finalQuery.replaceFirst("\\?", "'" + className + "'");
+            finalQuery = finalQuery.replaceFirst("\\?", "'" + scheduleSubject + "'");
+
+            System.out.println("Executed SQL: " + finalQuery +"\n");
+
             while (rs.next()) {
                 Teacher teacher = new Teacher();
                 teacher.setTeacherID(rs.getInt(1));

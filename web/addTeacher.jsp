@@ -80,6 +80,7 @@
                                                     <option value="Teacher">Teacher</option>
                                                     <option value="Principal">Principal</option>
                                                     <option value="Assistant Principal">Assistant Principal</option>
+                                                    <option value="Part Time">Assistant Principal</option>
                                                 </select>
                                             </div>
                                         </div>

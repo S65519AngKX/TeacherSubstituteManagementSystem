@@ -95,6 +95,7 @@
                                                     <option value="Teacher" <%= (teacher != null && "Teacher".equals(teacher.getTeacherRole())) ? "selected" : ""%>>Teacher</option>
                                                     <option value="Principal" <%= (teacher != null && "Principal".equals(teacher.getTeacherRole())) ? "selected" : ""%>>Principal</option>
                                                     <option value="Assistant Principal" <%= (teacher != null && "Assistant Principal".equals(teacher.getTeacherRole())) ? "selected" : ""%>>Assistant Principal</option>
+                                                    <option value="Part Time" <%= (teacher != null && "Part Time".equals(teacher.getTeacherRole())) ? "selected" : ""%>>Part Time</option>
                                                 </select>
                                             </div>
                                         </div>
