@@ -162,6 +162,22 @@ public class LeaveDao {
         return list;
     }
 
+    public static int getNumOfTodayUnprocessedLeave() {
+        int num = 0;
+        try ( Connection con = Database.getConnection();  PreparedStatement ps = con.prepareStatement(
+                "SELECT COUNT(*) as num FROM `leave` WHERE CURDATE() BETWEEN leaveStartDate AND leaveEndDate AND leaveStatus='PENDING'")) {
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                num = rs.getInt("num");  
+            }
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return num;
+    }
+
     public static List<Leave> getAllTodayUnprocessedLeave() {
         List<Leave> list = new ArrayList<Leave>();
 

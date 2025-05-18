@@ -1,3 +1,4 @@
+<%@page import="com.Dao.LeaveDao"%>
 <%@page import="util.Database"%>
 <%@page import="com.Model.Teacher"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -112,6 +113,7 @@
             @media (min-width: 480px) and (max-width: 767px){
                 h5{
                     padding: 5px 10px;
+                    margin:3%;
                     font-size: 0.95em !important;
                 }
                 #teacherSelect{
@@ -125,7 +127,8 @@
                     font-size: 11px;
                 }
                 #title {
-                    font-size: 23px;
+                    font-size: 20px;
+                    margin-bottom:1%;
                 }
                 table {
                     margin: 3px auto;
@@ -138,11 +141,12 @@
                 }
                 #button1, #button2, #button3{
                     padding:5px 8px;
+                    width: 80px;
                     font-size:11px;
                     margin-bottom: 10px;
                 }
-                #button4, button5{
-                    padding:5px 10px;
+                #button4, #button5{
+                    padding:5px;
                     font-size: 11px;
                     margin-right: 15px;
                 }
@@ -156,18 +160,27 @@
         <header>
             <%@include file="header.jsp"%>
         </header>
-
+        <%
+            int n = LeaveDao.getNumOfTodayUnprocessedLeave();
+        %>
         <div id="section">
             <div id="top">
                 <h1 id="title">Substitution Assignment</h1>
                 <div  id="formButton" class="d-flex justify-content-end mb-0">
-                    <input id="button4" type="button" style="background-color:#8d9394;" value="Today Substitution" onclick="window.location.href = 'substitutionHistory.jsp'"> 
+                    <button id="button4" onclick="window.location.href = 'substitutionHistory.jsp'" style="background-color:#8d9394; position: relative;">
+                        Today Substitution
+                        <% if (n > 0) {%>
+                        <span style="position: absolute; top: -5px; right: -5px; background-color: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px;">
+                            <%= n%>
+                        </span>
+                        <% } %>
+                    </button>
+
                     <input id="button5" type="button" style="background-color:#8d9394;" value="Assignment History" onclick="window.location.href = 'assignmentHistory.jsp'"> 
                 </div>
             </div>            
             <form method="post" action="SubstitutionAssignmentServlet">
-                <%
-                    SimpleDateFormat formatter = new SimpleDateFormat("EEEE, yyyy-MM-dd");
+                <%                    SimpleDateFormat formatter = new SimpleDateFormat("EEEE, yyyy-MM-dd");
                     String todayDate = formatter.format(new java.util.Date());
                 %>
                 <h5>Date: <%= todayDate%></h5>      
@@ -199,19 +212,41 @@
 
                         <td><%= TeacherDao.getTeacherNameById(e.getAbsentTeacherId())%></td>
                         <td><%= e.getReason()%></td>
-                         <%   String time="";
-                            switch(e.getPeriod()){
-                            case 1: time="7:40-8:10";break;
-                                case 2: time="8:10-8:40";break;
-                                case 3: time="8:40-9:10";break;
-                                case 4: time="9:10-9:40";break;
-                                case 5: time="9:40-10:10";break;
-                                case 6: time="10:10-10:40";break; 
-                                case 7: time="10:40-11:10";break;
-                                case 8: time="11:10-11:40";break; 
-                                case 9: time="11:40-12:10";break;
-                                case 10: time="12:10-12:40";break;
-                                case 11: time="12:40-13:10";break; 
+                        <%   String time = "";
+                            switch (e.getPeriod()) {
+                                case 1:
+                                    time = "7:40-8:10";
+                                    break;
+                                case 2:
+                                    time = "8:10-8:40";
+                                    break;
+                                case 3:
+                                    time = "8:40-9:10";
+                                    break;
+                                case 4:
+                                    time = "9:10-9:40";
+                                    break;
+                                case 5:
+                                    time = "9:40-10:10";
+                                    break;
+                                case 6:
+                                    time = "10:10-10:40";
+                                    break;
+                                case 7:
+                                    time = "10:40-11:10";
+                                    break;
+                                case 8:
+                                    time = "11:10-11:40";
+                                    break;
+                                case 9:
+                                    time = "11:40-12:10";
+                                    break;
+                                case 10:
+                                    time = "12:10-12:40";
+                                    break;
+                                case 11:
+                                    time = "12:40-13:10";
+                                    break;
                             }
                         %>
                         <td style="text-align: left"><span style="font-weight: bold"><%= e.getPeriod()%></span> (<%=time%>)</td>                        <td><%= e.getSubjectName()%></td>
