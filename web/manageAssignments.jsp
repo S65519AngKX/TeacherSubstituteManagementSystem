@@ -34,19 +34,6 @@
                 font-size: 30px;
                 margin:5px auto;
             }
-            #button4{
-                color: white;
-                border: 0;
-                border-radius: 10px;
-                padding: 5px 20px;
-                font-size: 12px;
-                width: fit-content;
-                height: fit-content;
-                box-shadow: 2px 2px 2px black;
-                text-align: center;
-                margin:auto;
-                margin-right: 30px;
-            }
             table tr td,th{
                 text-align:  center;
             }
@@ -85,7 +72,7 @@
             option {
                 font-size: 12px;
             }
-            #button, #button2, #button3 {
+            #button, #button3 {
                 background-color: #1fbfdb;
                 color: white;
                 border: 0;
@@ -125,15 +112,11 @@
                 .delete-icon i{
                     font-size:10px;
                 }
-                #button, #button2, #button3{
+                #button, #button3{
                     padding:5px 8px;
+                    width:80px;
                     font-size:11px;
                     margin-bottom: 10px;
-                }
-                #button4{
-                    padding:5px 10px;
-                    font-size: 11px;
-                    margin-right: 15px;
                 }
             }
 
@@ -147,7 +130,7 @@
         </header>
 
         <div id="section">
-             <ul class="breadcrumb">
+            <ul class="breadcrumb">
                 <li><a href="HOME.jsp">Home</a></li>
                 <li><a href="SUBSTITUTIONS.jsp">Substitutions</a></li>
                 <li>Manage All Substitutions</li>
@@ -185,20 +168,42 @@
                     <tr class="editable-row assignment-row">
                         <td><%= TeacherDao.getTeacherNameById(e.getAbsentTeacherId())%></td>
                         <td><%= e.getReason()%></td>
-                        <%   String time="";
-                            switch(e.getPeriod()){
-                            case 1: time="7:40-8:10";break;
-                            case 2: time="8:10-8:40";break;
-                            case 3: time="8:40-9:10";break;
-                            case 4: time="9:10-9:40";break;
-                            case 5: time="9:40-10:10";break;
-                            case 6: time="10:10-10:40";break; 
-                            case 7: time="10:40-11:10";break;
-                            case 8: time="11:10-11:40";break; 
-                            case 9: time="11:40-12:10";break;
-                            case 10: time="12:10-12:40";break;
-                            case 11: time="12:40-13:10";break; 
-                        }
+                        <%   String time = "";
+                            switch (e.getPeriod()) {
+                                case 1:
+                                    time = "7:40-8:10";
+                                    break;
+                                case 2:
+                                    time = "8:10-8:40";
+                                    break;
+                                case 3:
+                                    time = "8:40-9:10";
+                                    break;
+                                case 4:
+                                    time = "9:10-9:40";
+                                    break;
+                                case 5:
+                                    time = "9:40-10:10";
+                                    break;
+                                case 6:
+                                    time = "10:10-10:40";
+                                    break;
+                                case 7:
+                                    time = "10:40-11:10";
+                                    break;
+                                case 8:
+                                    time = "11:10-11:40";
+                                    break;
+                                case 9:
+                                    time = "11:40-12:10";
+                                    break;
+                                case 10:
+                                    time = "12:10-12:40";
+                                    break;
+                                case 11:
+                                    time = "12:40-13:10";
+                                    break;
+                            }
                         %>
                         <td style="text-align: left"><span style="font-weight: bold"><%= e.getPeriod()%></span> (<%=time%>)</td>
                         <td><%= e.getSubjectName()%></td>
@@ -276,11 +281,14 @@
                     <% lastSubstitutionDate = currentSubstitutionDate; %> 
                     <% }%>
                 </table>
-                <button type="submit" id="button" class="btn btn-primary" name="action" value="modify">
-                    Save Changes
-                </button>
+                <div id="buttonContainer" style="display: flex; justify-content: flex-end; gap: 5px; margin-top: 10px;margin-right:2%;">
+
+                    <button type="submit" id="button" class="btn btn-primary" name="action" value="modify">
+                        Save Changes
+                    </button>
+                    <a id="button3" class="btn btn-primary" style="background-color:grey;" onclick="window.location.href = 'SUBSTITUTIONS.jsp'">Back</a>
+                </div>
             </form>
-            <button id="button3" class="btn btn-primary" style="background-color:grey;" onclick="window.location.href = 'SUBSTITUTIONS.jsp'">Back</button>
         </div>
         <footer>
             <%@include file="footer.jsp"%>

@@ -83,7 +83,7 @@
                 </tr>
 
                 <%
-                    List<Substitution> list = SubstitutionDao.displayAllSubstitution();
+                    List<Substitution> list = SubstitutionDao.displayAllTodaySubstitution();
                     Date lastSubstitutionDate = null;
                 %>
 

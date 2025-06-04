@@ -51,6 +51,9 @@
             table tr td,th{
                 text-align:  center;
             }
+            td span{
+                font-size:15px;
+            }
             #section {
                 flex-grow: 1;
                 margin: 0px auto;
@@ -110,6 +113,22 @@
                 font-weight:500;
                 display:inline-block;
             }
+            #tips{
+                margin-left:50%;
+            }
+            @media (min-width: 769px) and (max-width: 991px) {
+                th, td {
+                    padding: 3px;
+                    font-size: 12px;
+                }
+                td span{
+                    font-size:12px;
+                }
+                #tips{
+                    margin-left:30%;
+                }
+            }
+
             @media (min-width: 480px) and (max-width: 767px){
                 h5{
                     padding: 5px 10px;
@@ -124,7 +143,10 @@
                 }
                 th, td {
                     padding: 2px;
-                    font-size: 11px;
+                    font-size: 10px;
+                }
+                td span{
+                    font-size:10px;
                 }
                 #title {
                     font-size: 20px;
@@ -149,6 +171,12 @@
                     padding:5px;
                     font-size: 11px;
                     margin-right: 15px;
+                }
+                #tips{
+                    margin-left:10%;
+                }
+                #tips, #tips span{
+                    font-size:10px;
                 }
             }
 
@@ -183,7 +211,7 @@
                 <%                    SimpleDateFormat formatter = new SimpleDateFormat("EEEE, yyyy-MM-dd");
                     String todayDate = formatter.format(new java.util.Date());
                 %>
-                <h5>Date: <%= todayDate%></h5>      
+                <h5>Date: <%= todayDate%></h5><span id='tips'><span style='color:blue'>Subject Match</span>/<span style='color:red'>Part Time Teacher</span>/<span style='color:green'>Subject Match</span></span>
                 <table style="margin-top:0px;">
                     <tr>
                         <th>Absent Teacher </th>
@@ -249,7 +277,7 @@
                                     break;
                             }
                         %>
-                        <td style="text-align: left"><span style="font-weight: bold"><%= e.getPeriod()%></span> (<%=time%>)</td>                        <td><%= e.getSubjectName()%></td>
+                        <td style="text-align: left"><span style="font-weight: bold;"><%= e.getPeriod()%></span> (<%=time%>)</td><td><%= e.getSubjectName()%></td>
                         <td><%= e.getClassName()%></td>
                         <td>
                             <select name="substituteTeacherId" id='teacherSelect'>
@@ -284,11 +312,19 @@
                                     for (Teacher teacher : teachers) {
                                         int teacherId = teacher.getTeacherID();
                                         String teacherName = teacher.getTeacherName();
-                                        if (selectedTeacherId == teacherId) {
-                                            continue;
+                                        String textColour = "black";
+
+                                        if (teacher.getClassMatch() == 1) {
+                                            textColour = "blue";
+                                        }
+                                        if (teacher.getPartTime() == 1) {
+                                            textColour = "red";
+                                        }
+                                        if (teacher.getSubjectMatch() == 1) {
+                                            textColour = "green";
                                         }
                                 %>
-                                <option value="<%= teacherId%>"><%= teacherName%></option>
+                                <option style="color:<%= textColour%>" value="<%= teacherId%>"><%= teacherName%></option>
                                 <%
                                         }
                                     }

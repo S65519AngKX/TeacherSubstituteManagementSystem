@@ -20,13 +20,11 @@
         <link rel="stylesheet" href="css/list.css">
         <title>Assignment History</title>
         <style>
-
             .delete-icon i{
                 color: red;
                 font-size:13px;
                 align-items: center;
             }
-
             .delete-icon i:hover {
                 color: darkred;
             }
@@ -64,8 +62,6 @@
                 font-size: 13px;
                 padding: 6px;
             }
-
-
             #button2{
                 background-color: #1fbfdb;
                 color:white;
@@ -76,7 +72,21 @@
                 margin-left 5%;
                 width:fit-content;
                 box-shadow: 2px 2px 2px black;
+            }
 
+            @media (min-width: 480px) and (max-width: 767px){
+                #dateForm label{
+                    font-size: 10px;
+                }
+                select {
+                    margin-left:20%;
+                    font-size: 10px;
+                    padding: 3px 8px;
+                }
+                select option {
+                    font-size: 10px;
+                    padding: 6px;
+                }
             }
         </style>
     </head>

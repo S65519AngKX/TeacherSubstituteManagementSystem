@@ -399,6 +399,9 @@ public class SubstitutionAssignmentDao {
                 Teacher teacher = new Teacher();
                 teacher.setTeacherID(rs.getInt(1));
                 teacher.setTeacherName(rs.getString(2));
+                teacher.setClassMatch(rs.getInt(4));
+                teacher.setPartTime(rs.getInt(6));
+                teacher.setSubjectMatch(rs.getInt(5));
                 list.add(teacher);
             }
         } catch (Exception e) {

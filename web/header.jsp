@@ -7,6 +7,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
         <link href="https://fonts.googleapis.com/css2?family=Stardos+Stencil&display=swap" rel="stylesheet">
         <title>Header</title>
         <style>
@@ -112,46 +114,32 @@
                 flex-grow: 1;
             }
 
+           
             @media (max-width: 768px) {
                 header {
                     flex-direction: column;
-                    text-align: center;
-                    padding: 15px 10px;
+                    padding: 5px 10px !important; 
                 }
 
-                .navbar-collapse {
-                    background-color: #1fb1c4;
-                    width: 100%;
-                }
-
-                .navbar-nav .nav-item {
-                    text-align: center;
-                    margin: 1% 0;
-                }
-
-                .navbar-nav {
-                    display: block;
-                    width: 100%;
-                }
-
-                .navbar-toggler-icon {
-                    color: white;
+                .navbar {
+                    padding-top: 0 !important;
+                    padding-bottom: 0 !important;
                 }
 
                 .navbar-brand {
-                    text-align: center;
-                    flex-grow: 1;
+                    padding: 0 !important;
+                    margin: 0 auto !important;
                 }
 
-                .dropdown-content {
-                    right: 0.5%;
+                .navbar-collapse {
+                    margin-top: 0 !important;
                 }
 
-                .dropdown-content a {
-                    padding: 10px 12px;
-                    font-size: 11px;
+                .dropdown {
+                    margin-top: 5px; /* adjust as needed */
                 }
             }
+
         </style>
     </head>
 
@@ -195,7 +183,8 @@
             var navItems = {
                 'Principal': ['HOME', 'LEAVES', 'REPORT'],
                 'Assistant Principal': ['HOME', 'TEACHERS', 'SCHEDULES', 'SUBSTITUTIONS', 'REPORT'],
-                'Teacher': ['HOME', 'LEAVE', 'SCHEDULE', 'SUBSTITUTION']
+                'Teacher': ['HOME', 'LEAVE', 'SCHEDULE', 'SUBSTITUTION'],
+                'Part Time': ['HOME', 'LEAVE', 'SCHEDULE', 'SUBSTITUTION']
             };
 
             var navList = document.getElementById('nav-list');
@@ -209,7 +198,7 @@
 
                 if (item === 'REPORT') {
                     page = '<%= request.getContextPath()%>/ReportServlet';
-                    comparePage = 'ReportServlet'; 
+                    comparePage = 'ReportServlet';
                 }
 
                 var isActive = currentPage.toUpperCase().includes(comparePage.toUpperCase());

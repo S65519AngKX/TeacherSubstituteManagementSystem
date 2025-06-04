@@ -23,7 +23,9 @@
             .login-card {
                 background-image: radial-gradient(white, rgb(158, 219, 214));
                 border-radius: 20px;
-                padding: 30px 60px;
+                padding: 50px 60px;
+                width:35%;
+                margin:0 auto;
                 box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             }
             .login-card h1 {
@@ -48,10 +50,28 @@
                 font-size: 15px;
                 margin-top:15%;
             }
-
+            
             @media only screen and (max-width: 768px) {
-                .text-center{
-                    font-size: 10vw;
+                .login-card {
+                    padding: 30px 50px;
+                    width: 85%;
+                    margin: 0 auto;
+                }
+            }
+
+            @media (min-width: 769px) and (max-width: 991px) {
+                .login-card {
+                    width: 50%;
+                    padding: 40px 55px;
+                    margin: 0 auto;
+                }
+            }
+
+            @media (min-width: 992px) {
+                .login-card {
+                    width: 40%;
+                    padding: 50px 60px;
+                    margin: auto;
                 }
             }
 
@@ -60,26 +80,24 @@
     <body>
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-5">
-                    <div class="login-card">
-                        <h1 class="text-center" id="logo">Smart<span id="logo1">Sub</span></h1>
-                        <form action="LoginServlet" method="POST">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" id="username" name="username" class="form-control" maxlength="15" placeholder="Enter your username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
-                            </div>
-                            <div class="d-grid" id="button">
-                                <button type="submit" class="btn btn-primary" name="action" value="login">Login</button>
-                            </div>
-                            <div class="text-center mt-3">
-                                <a href="resetPassword.jsp">Forgot Password?</a>
-                            </div>
-                        </form>
-                    </div>
+                <div class="login-card">
+                    <h1 class="text-center" id="logo">Smart<span id="logo1">Sub</span></h1>
+                    <form action="LoginServlet" method="POST">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" id="username" name="username" class="form-control" maxlength="15" placeholder="Enter your username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+                        </div>
+                        <div class="d-grid" id="button">
+                            <button type="submit" class="btn btn-primary" name="action" value="login">Login</button>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="resetPassword.jsp">Forgot Password?</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

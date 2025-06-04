@@ -24,7 +24,9 @@
                 background-image: url('images/education.jpg');
                 background-size: cover;
                 background-position: center;
-                height: 420px;
+                width: 80%;
+                height:280px;
+                margin: 0 auto;
                 border-radius: 10px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
@@ -39,6 +41,10 @@
             .mt-5 legend{
                 font-size:30px;
                 font-weight: bold;
+            }
+            #div2,#div-3{
+                width:80%;
+                margin:auto;
             }
 
             #div2 fieldset {
@@ -88,10 +94,18 @@
             .col-md-4 {
                 text-decoration: none;
                 color:black;
-                
+
             }
             .col-md-4 h4{
                 font-weight: bold;
+            }
+            @media (min-width: 480px) and (max-width: 767px){
+                .mt-5 *{
+                    font-size: 18px;
+                }
+                .mt-5 legend{
+                    font-size:23px;
+                }
             }
 
         </style>
@@ -101,11 +115,11 @@
         <header>
             <%@ include file="header.jsp" %>
         </header>
-        
+
         <div id="section">
             <div id="div1"></div>
 
-            <div class="row text-center mt-5">
+            <div class="row text-center mt-5" id="div-3">
                 <a class="col-md-4" href="LEAVE.jsp">
                     <div class="feature-box">
                         <i class="fas fa-calendar-check feature-icon"></i>
