@@ -24,9 +24,9 @@ public class ScheduleDao {
 
     public static int save(Schedule schedule) {
         int status = 0;
-        try {
+        try (
             Connection con = Database.getConnection();
-            PreparedStatement myPS = con.prepareStatement("INSERT INTO schedule(scheduleDay,schedulePeriod,scheduleSubject,className,teacherId)VALUES(?,?,?,?,?)");
+            PreparedStatement myPS = con.prepareStatement("INSERT INTO schedule(scheduleDay,schedulePeriod,scheduleSubject,className,teacherId)VALUES(?,?,?,?,?)");){
             myPS.setString(1, schedule.getScheduleDay());
             myPS.setInt(2, schedule.getSchedulePeriod());
             myPS.setString(3, schedule.getScheduleSubject());

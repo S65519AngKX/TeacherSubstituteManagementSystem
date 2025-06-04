@@ -13,8 +13,8 @@ public class UserDao {
 
     public static int save(User user, Connection con) {
         int status = 0;
-        try {
-            PreparedStatement myPS = con.prepareStatement("INSERT INTO user(username,password,teacherId)VALUES(?,?,?)");
+        try (
+            PreparedStatement myPS = con.prepareStatement("INSERT INTO user(username,password,teacherId)VALUES(?,?,?)");){
             myPS.setString(1, user.getUsername());
             myPS.setString(2, user.getPassword());
             myPS.setInt(3, user.getTeacherId());
@@ -29,9 +29,9 @@ public class UserDao {
 
     public static int update(User user) {
         int status = 0;
-        try {
+        try (
             Connection con = Database.getConnection();
-            PreparedStatement myPS = con.prepareStatement("Update user set username=?,password=? where teacherId=?");
+            PreparedStatement myPS = con.prepareStatement("Update user set username=?,password=? where teacherId=?");){
             myPS.setString(1, user.getUsername());
             myPS.setString(2, user.getPassword());
             myPS.setInt(3, user.getTeacherId());
@@ -48,10 +48,9 @@ public class UserDao {
     public static String getUsernameByTeacherId(int teacherId) {
         String username = null;
 
-        try {
+        try (
             Connection con = Database.getConnection();
-            String query = "SELECT username FROM user WHERE teacherId = ?";
-            PreparedStatement ps = con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement("SELECT username FROM user WHERE teacherId = ?");){
             ps.setInt(1, teacherId);
             ResultSet rs = ps.executeQuery();
 
@@ -69,9 +68,9 @@ public class UserDao {
 
     public static int delete(String username) {
         int status = 0;
-        try {
+        try (
             Connection con = Database.getConnection();
-            PreparedStatement ps = con.prepareStatement("DELETE FROM user WHERE username = ?");
+            PreparedStatement ps = con.prepareStatement("DELETE FROM user WHERE username = ?");){
             ps.setString(1, username);
             status = ps.executeUpdate();
             con.close();
@@ -84,9 +83,9 @@ public class UserDao {
     public static User getUserByTeacherId(int id) {
         User user = new User();
 
-        try {
+        try (
             Connection con = Database.getConnection();
-            PreparedStatement myPS = con.prepareStatement("select * from user where teacherId=?");
+            PreparedStatement myPS = con.prepareStatement("select * from user where teacherId=?");){
             myPS.setInt(1, id);
             ResultSet rs = myPS.executeQuery();
             if (rs.next()) {
@@ -104,9 +103,9 @@ public class UserDao {
 
     public static boolean isUsernameIsTaken(String username) {
         boolean taken = false;
-        try {
+        try (
             Connection con = Database.getConnection();
-            PreparedStatement myPS = con.prepareStatement("select * from user where username=?");
+            PreparedStatement myPS = con.prepareStatement("select * from user where username=?");){
             myPS.setString(1, username);
             ResultSet rs = myPS.executeQuery();
             if (rs.next()) {

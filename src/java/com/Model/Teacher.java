@@ -16,6 +16,10 @@ public class Teacher {
     private String teacherContact;
     private String teacherRole;
     private String telegramID;
+    //add variable to improve the substitute teacher selection
+    private int classmatch;
+    private int partTime;
+    private int subjectMatch;
     
     public Teacher(){
         
@@ -87,4 +91,31 @@ public class Teacher {
     public void setTelegramId(String telegramID) {
         this.telegramID = telegramID;
     }
+    
+    //to filter sugester teacher in substitution assignment
+    public int getClassMatch() {
+        return classmatch;
+    }
+
+    public void setClassMatch(int classmatch) {
+        this.classmatch = classmatch;
+    }
+    
+    public int getPartTime() {
+        return partTime;
+    }
+    
+    public void setPartTime(int partTime) {
+        this.partTime = partTime;
+    }
+    
+     public int getSubjectMatch() {
+        return subjectMatch;
+    }
+    
+    public void setSubjectMatch(int subjectMatch) {
+        this.subjectMatch = subjectMatch;
+    }
+    
+    
 }

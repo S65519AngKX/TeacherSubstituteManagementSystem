@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Utility class for managing database connections and queries.
+ * Bug fix: Refactored code to centralize and improve database access.
+ */
 public class Database {
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/substitutemanagement";
