@@ -89,6 +89,21 @@
                 clear: both;
                 font-weight:500;
             }
+            #tips{
+                margin-left:75%;
+            }
+            @media (min-width: 769px) and (max-width: 991px) {
+                th, td {
+                    padding: 3px;
+                    font-size: 12px;
+                }
+                td span{
+                    font-size:12px;
+                }
+                #tips{
+                    margin-left:65%;
+                }
+            }
             @media (min-width: 480px) and (max-width: 767px){
                 #teacherSelect{
                     width:120px;
@@ -118,6 +133,12 @@
                     font-size:11px;
                     margin-bottom: 10px;
                 }
+                #tips{
+                    margin-left:55%;
+                }
+                #tips, #tips span{
+                    font-size:10px;
+                }
             }
 
         </style>
@@ -137,6 +158,7 @@
             </ul>
             <h1 id="title">Substitution Assignments</h1>                        
             <form method="post" action="SubstitutionAssignmentServlet">
+                <p><span id='tips'><span style='color:blue'>Subject Match</span>/<span style='color:red'>Part Time Teacher</span>/<span style='color:green'>Subject Match</span></span></p>
                 <table>
                     <tr>
                         <th>Absent Teacher </th>
@@ -241,8 +263,17 @@
                                     for (Teacher teacher : teachers) {
                                         int teacherId = teacher.getTeacherID();
                                         String teacherName = teacher.getTeacherName();
+                                        String textColour = "black";
+
+                                        if (teacher.getClassMatch() == 1) {
+                                            textColour = "blue";
+                                        } else if (teacher.getPartTime() == 1) {
+                                            textColour = "red";
+                                        } else if (teacher.getSubjectMatch() == 1) {
+                                            textColour = "green";
+                                        }
                                 %>
-                                <option value="<%= teacherId%>"><%= teacherName%></option>
+                                <option style="color:<%= textColour%>" value="<%= teacherId%>"><%= teacherName%></option>
                                 <%
                                         }
                                     }

@@ -316,11 +316,9 @@
 
                                         if (teacher.getClassMatch() == 1) {
                                             textColour = "blue";
-                                        }
-                                        if (teacher.getPartTime() == 1) {
+                                        } else if (teacher.getPartTime() == 1) {
                                             textColour = "red";
-                                        }
-                                        if (teacher.getSubjectMatch() == 1) {
+                                        } else if (teacher.getSubjectMatch() == 1) {
                                             textColour = "green";
                                         }
                                 %>

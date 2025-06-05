@@ -77,10 +77,9 @@ public class SubstitutionAssignmentDao {
         }
     }
 
-    public static int update(SubstitutionAssignments assignment) {
+    public static int update(Connection con, SubstitutionAssignments assignment) {
         int status = 0;
         try {
-            Connection con = Database.getConnection();
             PreparedStatement myPS = con.prepareStatement(
                     "UPDATE substitutionAssignments SET substituteTeacherId=?, remarks=?, status=? WHERE substitutionId=? AND scheduleId=?"
             );
@@ -101,7 +100,6 @@ public class SubstitutionAssignmentDao {
             status = myPS.executeUpdate();
 
             myPS.close();
-            con.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -374,7 +372,7 @@ public class SubstitutionAssignmentDao {
                     + "    GROUP BY t.teacherId, t.teacherName "
                     + ") "
                     + "SELECT * FROM AvailableTeachers "
-                    + "ORDER BY classMatch DESC, isPartTime DESC, totalAssignments ASC, subjectMatch DESC;";
+                    + "ORDER BY classMatch DESC, isPartTime DESC, totalAssignments ASC, subjectMatch DESC, RAND();";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setDate(1, substitutionDate);

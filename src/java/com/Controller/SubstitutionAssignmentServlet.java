@@ -121,8 +121,12 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
     private void updateSubstitutionAssignment(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         PrintWriter out = response.getWriter();
+        Connection conn = null;
 
         try {
+            conn = Database.getConnection();
+            conn.setAutoCommit(false);
+
             String[] substitutionIds = request.getParameterValues("substitutionId");
             String[] scheduleIds = request.getParameterValues("scheduleId");
             String[] substituteTeacherIds = request.getParameterValues("substituteTeacherId");
@@ -130,8 +134,7 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
             String[] status1 = request.getParameterValues("status");
 
             boolean allSuccess = true;
-
-            Map<Date, Set<Integer>> teacherAssignments = new HashMap<>(); // Key: Date, Value: Set of periods assigned
+            Map<Integer, Map<Date, Set<Integer>>> teacherAssignments = new HashMap<>();
 
             for (int i = 0; i < substitutionIds.length; i++) {
                 int substitutionId = Integer.parseInt(substitutionIds[i]);
@@ -146,6 +149,7 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
 
                 // Check if assignment is made
                 if (substituteTeacherId == 0 && (remarks == null || remarks.trim().isEmpty())) {
+                    conn.rollback();
                     out.print("<script>");
                     out.print("alert(\"Period " + period + " for teacher " + absentTeacherName
                             + " is not yet assigned for substitution. Please revise your substitution assignment.\");");
@@ -158,7 +162,7 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
                 if (substituteTeacherId != 0 && (remarks.equalsIgnoreCase("Split Class")
                         || remarks.equalsIgnoreCase("Cancelled")
                         || remarks.equalsIgnoreCase("Event"))) {
-
+                    conn.rollback();
                     out.print("<script>");
                     out.print("alert(\"Conflicting substitution assignment detected!Please revise your substitution at period " + period + " for teacher " + absentTeacherName + ".\");");
                     out.print("window.history.back();");
@@ -167,55 +171,70 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
                 }
                 boolean conflictExists = false;
 
-                // only check conflicts for valid teachers
                 if (substituteTeacherId != 0) {
-                    // Get assigned periods for the teacher(only period with duplicated teacher will be saved)
-                    if (!teacherAssignments.containsKey(substitutionDate)) {
-                        teacherAssignments.put(substitutionDate, SubstitutionAssignmentDao.getAssignedPeriodsForTeacher(substituteTeacherId, substitutionDate));
-                    }
+                    teacherAssignments.putIfAbsent(substituteTeacherId, new HashMap<>());
+                    Map<Date, Set<Integer>> dateToPeriods = teacherAssignments.get(substituteTeacherId);
 
-                    Set<Integer> assignedPeriods = teacherAssignments.get(substitutionDate);
+                    dateToPeriods.putIfAbsent(substitutionDate, SubstitutionAssignmentDao.getAssignedPeriodsForTeacher(substituteTeacherId, substitutionDate));
+                    Set<Integer> assignedPeriods = dateToPeriods.get(substitutionDate);
 
-                    // Check if teacher is already assigned to the same period
-                    if (assignedPeriods != null && assignedPeriods.contains(period)) {
+                    // Check if same teacher is already assigned for the same period
+                    if (assignedPeriods.contains(period)) {
                         if (!remarks.equalsIgnoreCase("Combine class")) {
+                            conn.rollback();
                             String conflictTeacherName = TeacherDao.getTeacherNameById(substituteTeacherId);
-                            out.print("<script>alert(\"Teacher " + conflictTeacherName + " is already assigned for period " + period + ". "
-                                    + "Please change another teacher or change the remarks to 'Combine class'\"); window.history.back();</script>");
+                            out.print("<script>alert(\"Teacher " + conflictTeacherName + " is already assigned for period " + period
+                                    + ". Please change another teacher or change the remarks to 'Combine class'\"); window.history.back();</script>");
                             return;  // Stop execution if conflict is found
                         }
-                        conflictExists = true;
-                    }
-
-                    // No conflict, add the period to prevent future duplicates
-                    if (!conflictExists) {
+                    } else {
+                        // No conflict, add new period to prevent future duplicates
                         assignedPeriods.add(period);
                     }
                 }
+
                 SubstitutionAssignments newAssgn = new SubstitutionAssignments(substitutionId, scheduleId, substituteTeacherId, remarks, status);
 
-                int success = SubstitutionAssignmentDao.update(newAssgn);
+                int success = SubstitutionAssignmentDao.update(conn, newAssgn);
                 if (success <= 0) {
+                    conn.rollback();
                     allSuccess = false;
                 }
             }
 
             if (allSuccess) {
+                conn.commit();
                 out.print("<script>alert('Substitution Assignments updated successfully!'); window.location.href='SUBSTITUTIONS.jsp';</script>");
             } else {
                 out.print("<script>alert('Failed to update some assignments. Please try again!'); window.location.href='SUBSTITUTIONS.jsp';</script>");
             }
         } catch (Exception e) {
             e.printStackTrace();
+            if (conn != null) {
+                try {
+                    conn.rollback();  // Rollback on error
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
+                }
+            }
             out.print("<script>alert('An error occurred while updating. Please try again!'); window.location.href='SUBSTITUTIONS.jsp';</script>");
+        } finally {
+            if (conn != null) {
+                conn.setAutoCommit(true);  // Restore default
+                conn.close();
+            }
         }
     }
 
     private void modifySubstitutionAssignment(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         PrintWriter out = response.getWriter();
+        Connection conn = null;
 
         try {
+            conn = Database.getConnection();
+            conn.setAutoCommit(false);
+
             String[] substitutionIds = request.getParameterValues("substitutionId");
             String[] scheduleIds = request.getParameterValues("scheduleId");
             String[] substituteTeacherIds = request.getParameterValues("substituteTeacherId");
@@ -223,8 +242,7 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
             String[] status1 = request.getParameterValues("status");
 
             boolean allSuccess = true;
-
-            Map<Date, Set<Integer>> teacherAssignments = new HashMap<>(); // Key: Date, Value: Set of periods assigned
+            Map<Integer, Map<Date, Set<Integer>>> teacherAssignments = new HashMap<>();
 
             for (int i = 0; i < substitutionIds.length; i++) {
                 int substitutionId = Integer.parseInt(substitutionIds[i]);
@@ -234,11 +252,12 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
                 String status = status1[i];
 
                 int period = ScheduleDao.getPeriodByScheduleId(scheduleId);
-                String absentTeacherName = TeacherDao.getTeacherNameById(SubstitutionDao.getAbsentTeacherBySubstitutionId(substitutionId));
                 Date substitutionDate = SubstitutionDao.getSubstitutionDateById(substitutionId);
+                String absentTeacherName = TeacherDao.getTeacherNameById(SubstitutionDao.getAbsentTeacherBySubstitutionId(substitutionId));
 
                 // Check if assignment is made
                 if (substituteTeacherId == 0 && (remarks == null || remarks.trim().isEmpty())) {
+                    conn.rollback();
                     out.print("<script>");
                     out.print("alert(\"Period " + period + " on " + substitutionDate + " for teacher " + absentTeacherName
                             + " is not yet assigned for substitution. Please revise your substitution assignment.\");");
@@ -251,7 +270,7 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
                 if (substituteTeacherId != 0 && (remarks.equalsIgnoreCase("Split Class")
                         || remarks.equalsIgnoreCase("Cancelled")
                         || remarks.equalsIgnoreCase("Event"))) {
-
+                    conn.rollback();
                     out.print("<script>");
                     out.print("alert(\"Conflicting substitution assignment detected!Please revise your substitution at period " + period + " on " + substitutionDate
                             + " for teacher " + absentTeacherName + ".\");");
@@ -259,50 +278,60 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
                     out.print("</script>");
                     return;  // Stop execution 
                 }
-
                 boolean conflictExists = false;
 
-                // only check conflicts for valid teachers
                 if (substituteTeacherId != 0) {
-                    // Get assigned periods for the teacher(only period with duplicated teacher will be saved)
-                    if (!teacherAssignments.containsKey(substitutionDate)) {
-                        teacherAssignments.put(substitutionDate, SubstitutionAssignmentDao.getAssignedPeriodsForTeacher(substituteTeacherId, substitutionDate));
-                    }
+                    teacherAssignments.putIfAbsent(substituteTeacherId, new HashMap<>());
+                    Map<Date, Set<Integer>> dateToPeriods = teacherAssignments.get(substituteTeacherId);
 
-                    Set<Integer> assignedPeriods = teacherAssignments.get(substitutionDate);
+                    dateToPeriods.putIfAbsent(substitutionDate, SubstitutionAssignmentDao.getAssignedPeriodsForTeacher(substituteTeacherId, substitutionDate));
+                    Set<Integer> assignedPeriods = dateToPeriods.get(substitutionDate);
 
-                    // Check if teacher is already assigned to the same period
-                    if (assignedPeriods != null && assignedPeriods.contains(period)) {
+                    // Check if same teacher is already assigned for the same period
+                    if (assignedPeriods.contains(period)) {
                         if (!remarks.equalsIgnoreCase("Combine class")) {
+                            conn.rollback();
                             String conflictTeacherName = TeacherDao.getTeacherNameById(substituteTeacherId);
                             out.print("<script>alert(\"Teacher " + conflictTeacherName + " is already assigned for period " + period + " on " + substitutionDate + ". "
                                     + "Please change another teacher or change the remarks to 'Combine class'\"); window.history.back();</script>");
-                            return;  // Stop execution if conflict is found
+                            return;   // Stop execution if conflict is found
                         }
-                        conflictExists = true;
-                    }
-
-                    // No conflict, add the period to prevent future duplicates
-                    if (!conflictExists) {
+                    } else {
+                        // No conflict, add new period to prevent future duplicates
                         assignedPeriods.add(period);
                     }
                 }
+
                 SubstitutionAssignments newAssgn = new SubstitutionAssignments(substitutionId, scheduleId, substituteTeacherId, remarks, status);
 
-                int success = SubstitutionAssignmentDao.update(newAssgn);
+                int success = SubstitutionAssignmentDao.update(conn, newAssgn);
                 if (success <= 0) {
+                    conn.rollback();
                     allSuccess = false;
                 }
             }
 
             if (allSuccess) {
-                out.print("<script>alert('Substitution Assignments updated successfully!'); window.location.href='manageAssignments.jsp';</script>");
+                conn.commit();
+                out.print("<script>alert('Substitution Assignments updated successfully!'); window.location.href='SUBSTITUTIONS.jsp';</script>");
             } else {
-                out.print("<script>alert('Failed to update some assignments. Please try again!'); window.location.href='manageAssignments.jsp';</script>");
+                out.print("<script>alert('Failed to update some assignments. Please try again!'); window.location.href='SUBSTITUTIONS.jsp';</script>");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            out.print("<script>alert('An error occurred while updating. Please try again!'); window.location.href='manageAssignments.jsp';</script>");
+            if (conn != null) {
+                try {
+                    conn.rollback();  // Rollback on error
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
+                }
+            }
+            out.print("<script>alert('An error occurred while updating. Please try again!'); window.location.href='SUBSTITUTIONS.jsp';</script>");
+        } finally {
+            if (conn != null) {
+                conn.setAutoCommit(true);  // Restore default
+                conn.close();
+            }
         }
     }
 
