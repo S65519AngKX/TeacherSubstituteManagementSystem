@@ -154,6 +154,7 @@ public class LoginServlet extends HttpServlet {
             if (rs.next()) {
                 // Generate reset token and save in the database
                 String token = UUID.randomUUID().toString();
+                String username=rs.getString("username");
                 long expirationTime = System.currentTimeMillis() + (60 * 60 * 1000); // Token valid for 1 hour
                 Timestamp expirationTimestamp = new Timestamp(expirationTime);
                 PreparedStatement updatePs = con.prepareStatement("UPDATE user INNER JOIN teacher ON user.teacherId = teacher.teacherId SET token=?, token_expiry=? WHERE teacher.teacherEmail=?");
@@ -163,7 +164,7 @@ public class LoginServlet extends HttpServlet {
                 updatePs.executeUpdate();
 
                 // Send email
-                sendEmail(email, token);
+                sendEmail(email, username, token);
                 response.getWriter().print("<script>alert('A reset link has been sent to your email.');</script>");
                 request.getRequestDispatcher("index.jsp").include(request, response);
             } else {
@@ -239,11 +240,12 @@ public class LoginServlet extends HttpServlet {
     }
 
     //other method
-    private void sendEmail(String recipient, String token) throws MessagingException, UnsupportedEncodingException {
+    private void sendEmail(String recipient, String username, String token) throws MessagingException, UnsupportedEncodingException {
         String subject = "SmartSub Password Reset Request";
         String resetLink = "http://localhost:8080/S65519_TeacherSubstituteManagementSystem/resetPasswordForm.jsp?token=" + token;
 
         String message = "<p>Dear user, please kindly click the link below to reset your password:</p>"
+                + "<p>Username :"+username+"</p>"
                 + "<a href='" + resetLink + "'>Reset Password</a>";
 
         // Configure mail server settings

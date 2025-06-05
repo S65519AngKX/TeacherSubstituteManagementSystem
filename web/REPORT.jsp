@@ -349,10 +349,15 @@
 
 
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                new DataTable('#assgnTable');
-                new DataTable('#leaveTable');
+            $(document).ready(function () {
+                $('#assgnTable').DataTable({
+                    "pageLength": 5
+                });
+                $('#leaveTable').DataTable({
+                    "pageLength": 5
+                });
             });
+
             function formatDateToInput(date) {
                 return date.toISOString().split('T')[0];
             }
@@ -413,7 +418,7 @@
                     datasets: [{
                             label: 'Leave Type Distribution',
                             data: leaveData.map(item => item.leaveTypePercentage),
-                            backgroundColor: leaveData.map(item => getRandomColor()), 
+                            backgroundColor: leaveData.map(item => getRandomColor()),
                             borderWidth: 1
                         }]
                 };

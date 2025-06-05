@@ -26,6 +26,9 @@
             #section {
                 overflow-x: hidden;
             }
+            .edit-icon{
+                color:grey;
+            }
 
             @media (max-width: 767px) {
                 .card {
@@ -87,6 +90,8 @@
                                             <td><%= e.getTeacherRole()%></td>
                                             <td><%= e.getTelegramId()%></td>
                                             <td>
+                                                <a href="editTeacher.jsp?teacherId=<%= e.getTeacherID()%>" class="edit-icon">
+                                                    <i class="fas fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
                                                 <a href="<%= request.getContextPath()%>/TeacherServlet?action=delete&teacherId=<%= e.getTeacherID()%>" 
                                                    onclick="return confirm('Do you want to delete this teacher?');" 
                                                    class="delete-icon">

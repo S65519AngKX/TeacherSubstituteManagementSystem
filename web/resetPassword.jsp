@@ -34,7 +34,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <button type='submit' name="action" value='getLink' class="btn btn-lg btn-primary btn-block">Reset Password"</button>
+                                            <button type='submit' name="action" value='getLink' class="btn btn-lg btn-primary btn-block">Reset Password</button>
                                         </div>
 
                                         <input type="hidden" class="hide" name="token" id="token" value=""> 

@@ -66,54 +66,63 @@
         </header>
 
         <div id="section" class="container mt-3 mb-0">
+            <div class="container h-60"> 
+                <div class="row justify-content-center align-items-center h-60">
+                    <div class="col-12 col-lg-11 col-xl-11">
+                        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                            <div class="card-body p-2 p-md-4">
+                                <form method="post" action="LeaveServlet" id="applyLeaveForm">
+                                    <div id="top">
+                                        <h1 id="title">Apply Leave</h1>
+                                        <div  id="formButton" class="d-flex justify-content-end mb-2">
+                                            <input id="history" type="button" style="background-color:#8d9394;" value="History" onclick="window.location.href = 'teacherLeaveHistory.jsp'"> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 mb-0">
+                                            <input type="hidden" name="teacherId" value="<%=session.getAttribute("teacherId")%>">
+                                        </div>
 
-            <form method="post" action="LeaveServlet" id="applyLeaveForm">
-                <div id="top">
-                    <h1 id="title">Apply Leave</h1>
-                    <div  id="formButton" class="d-flex justify-content-end mb-2">
-                        <input id="history" type="button" style="background-color:#8d9394;" value="History" onclick="window.location.href = 'teacherLeaveHistory.jsp'"> 
+                                        <div class="col-md-6 mb-2">
+                                            <label for="leaveStartDate" class="form-label">Leave Start Date:</label>
+                                            <input type="date" id="leaveStartDate" name="leaveStartDate" class="form-control" required>
+                                        </div>
+
+                                        <div class="col-md-6 mb-2">
+                                            <label for="leaveEndDate" class="form-label">Leave End Date:</label>
+                                            <input type="date" id="leaveEndDate" name="leaveEndDate" class="form-control" required>
+                                        </div>
+
+                                        <div class="col-12 mb-2">
+                                            <label for="leaveReason" class="form-label">Leave Reason:</label>
+                                            <select name="leaveReason" class="form-select" required>
+                                                <option value="">Select a Reason</option>
+                                                <option value="Medical Leave">Medical Leave</option>
+                                                <option value="Special Leave">Special Leave</option>
+                                                <option value="Annual Leave">Annual Leave</option>
+                                                <option value="Event Leave">Event Leave</option>
+                                                <option value="Development Leave">Development Leave</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-12 mb-2">
+                                            <label for="leaveNotes" class="form-label">Notes:</label>
+                                            <textarea name="leaveNotes" class="form-control" placeholder="Please enter your special requests for substitution assignments" maxlength="200" rows="4"></textarea>
+                                        </div>
+
+                                        <!--Assign default status for leave-->
+                                        <input type="hidden" id="leaveStatus" name="leaveStatus" value="Pending">
+
+                                        <div id="formButton">
+                                            <button type="submit" id='button' name="action" value="save">Apply</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12 mb-0">
-                        <input type="hidden" name="teacherId" value="<%=session.getAttribute("teacherId")%>">
-                    </div>
-
-                    <div class="col-md-6 mb-2">
-                        <label for="leaveStartDate" class="form-label">Leave Start Date:</label>
-                        <input type="date" id="leaveStartDate" name="leaveStartDate" class="form-control" required>
-                    </div>
-
-                    <div class="col-md-6 mb-2">
-                        <label for="leaveEndDate" class="form-label">Leave End Date:</label>
-                        <input type="date" id="leaveEndDate" name="leaveEndDate" class="form-control" required>
-                    </div>
-
-                    <div class="col-12 mb-2">
-                        <label for="leaveReason" class="form-label">Leave Reason:</label>
-                        <select name="leaveReason" class="form-select" required>
-                            <option value="">Select a Reason</option>
-                            <option value="Medical Leave">Medical Leave</option>
-                            <option value="Special Leave">Special Leave</option>
-                            <option value="Annual Leave">Annual Leave</option>
-                            <option value="Event Leave">Event Leave</option>
-                            <option value="Development Leave">Development Leave</option>
-                        </select>
-                    </div>
-
-                    <div class="col-12 mb-2">
-                        <label for="leaveNotes" class="form-label">Notes:</label>
-                        <textarea name="leaveNotes" class="form-control" placeholder="Please enter your special requests for substitution assignments" maxlength="200" rows="4"></textarea>
-                    </div>
-
-                    <!--Assign default status for leave-->
-                    <input type="hidden" id="leaveStatus" name="leaveStatus" value="Pending">
-
-                    <div id="formButton">
-                        <button type="submit" id='button' name="action" value="save">Apply</button>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
 
         <script>
