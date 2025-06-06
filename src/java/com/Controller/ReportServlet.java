@@ -4,10 +4,8 @@
  */
 package com.Controller;
 
-import com.Dao.LeaveDao;
-import com.Dao.SubstitutionAssignmentDao;
+import com.Dao.ReportDao;
 import com.Model.Report;
-import com.Model.SubstitutionAssignments;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.sql.Date;
@@ -49,17 +47,17 @@ public class ReportServlet extends HttpServlet {
         }
 
         try {
-            List<Report> leaveRank = LeaveDao.getLeaveRanking(start, end);
+            List<Report> leaveRank = ReportDao.getLeaveRanking(start, end);
             request.setAttribute("leaveRanking", leaveRank);
-            List<Report> subAssignRank = SubstitutionAssignmentDao.getSubstitutionAssignmentRanking(start, end);
+            List<Report> subAssignRank = ReportDao.getSubstitutionAssignmentRanking(start, end);
             request.setAttribute("substitutionRanking", subAssignRank);
-            List<Report> leaveReport = LeaveDao.getLeaveReport(start, end);
+            List<Report> leaveReport = ReportDao.getLeaveReport(start, end);
             request.setAttribute("leaveReport", leaveReport);
-            List<Report> subAssignList = SubstitutionAssignmentDao.getSubstitutionAssignmentReport(start, end);
+            List<Report> subAssignList = ReportDao.getSubstitutionAssignmentReport(start, end);
             request.setAttribute("assgnReport", subAssignList);
-            List<Report> leaveType = LeaveDao.getLeaveTypePercentage(start, end);
+            List<Report> leaveType = ReportDao.getLeaveTypePercentage(start, end);
             request.setAttribute("leaveTypeJson", new Gson().toJson(leaveType));
-             List<Report> substitutionType = SubstitutionAssignmentDao.getSubstitutionTypePercentage(start, end);
+             List<Report> substitutionType = ReportDao.getSubstitutionTypePercentage(start, end);
             request.setAttribute("substitutionTypeJson", new Gson().toJson(substitutionType));
 
         } catch (Exception e) {
