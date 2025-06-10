@@ -1,12 +1,13 @@
-# Build WAR using Maven
-FROM maven:3.9.4-eclipse-temurin-17 AS build
-WORKDIR /app
-COPY . .
-RUN mvn clean package -DskipTests
+# Start with a base image that has Java and WildFly.
+FROM wildfly/wildfly-runtime:latest
 
-# Deploy to Tomcat
-FROM tomcat:9.0-jdk17
-RUN rm -rf /usr/local/tomcat/webapps/*
-COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
+# Set up a special place for WildFly inside the transport box.
+ENV WILDFLY_HOME=/opt/jboss/wildfly
+
+COPY dist/S65519_TeacherSubstituteManagementSystem.war $WILDFLY_HOME/standalone/deployments/S65519_TeacherSubstituteManagementSystem.war
+
+# Tell the "transport box" that your app will be talking on port 8080.
 EXPOSE 8080
-CMD ["catalina.sh", "run"]
+
+# This command starts the WildFly server when the "transport box" runs.
+CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]
