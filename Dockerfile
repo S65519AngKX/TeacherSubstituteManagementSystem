@@ -1,10 +1,20 @@
-FROM eclipse-temurin:17-jdk-jammy AS build
+# Use an official OpenJDK base image
+FROM openjdk:17-slim
+
+# Install Apache Ant
 RUN apt-get update && \
     apt-get install -y ant && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+# Set working directory
 WORKDIR /app
+
+# Copy the project files to the container
 COPY . .
-RUN ant dist
+
+# Build the Java project using Ant
+RUN ant
 
 FROM tomcat:9.0-jdk17
 RUN rm -rf /usr/local/tomcat/webapps/*
