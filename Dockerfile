@@ -4,7 +4,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY . .
-RUN ant war
+RUN ant dist
 
 FROM tomcat:9.0-jdk17
 RUN rm -rf /usr/local/tomcat/webapps/*
