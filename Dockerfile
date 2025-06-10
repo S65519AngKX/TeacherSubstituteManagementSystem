@@ -1,9 +1,9 @@
 # Stage 1: Build with Ant
-FROM openjdk:17-jdk-slim as build
+FROM ant:1.10.9-jdk17 AS builder
 WORKDIR /app
-RUN apt-get update && apt-get install -y ant
 COPY . .
-RUN ant -Dj2ee.server.home=/usr/share/tomcat
+RUN mkdir -p /usr/share/tomcat && \
+    ant -Dj2ee.server.home=/usr/share/tomcat
 
 # Stage 2: Deploy to Tomcat
 FROM tomcat:9.0-jdk17
