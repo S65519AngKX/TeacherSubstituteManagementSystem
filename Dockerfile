@@ -1,8 +1,6 @@
-FROM tomcat:9.0-jdk17-openjdk-slim
-
+ Deploy to Tomcat
+FROM tomcat:9.0-jdk17
 RUN rm -rf /usr/local/tomcat/webapps/*
-
-# Copy your WAR file (renamed as ROOT.war)
-COPY dist/S65519_TeacherSubstituteManagementSystem.war /usr/local/tomcat/webapps/ROOT.war
-
-CMD ["bash", "-c", "sed -i \"s/port=\"8080\"/port=\\\"$PORT\\\"/\" /usr/local/tomcat/conf/server.xml && catalina.sh run"]
+COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
