@@ -88,7 +88,7 @@
                 background-color: #f9f9f9;
                 box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
                 z-index: 1;
-                right: 0;
+                right: 0 ;
                 min-width: 150px;
                 border-radius: 5px;
             }
@@ -113,12 +113,28 @@
             .main-content {
                 flex-grow: 1;
             }
+            .navbar-inner {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+            }
 
-           
+            .navbar-nav {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-grow: 1;
+            }
+
+            #nav-list {
+                margin: 0 auto;
+            }
+
             @media (max-width: 768px) {
                 header {
                     flex-direction: column;
-                    padding: 5px 10px !important; 
+                    padding: 5px 10px !important;
                 }
 
                 .navbar {
@@ -136,7 +152,7 @@
                 }
 
                 .dropdown {
-                    margin-top: 5px; /* adjust as needed */
+                    margin-top: 5px;
                 }
             }
 
@@ -145,9 +161,9 @@
 
     <body>
         <header>
-            <nav class="navbar navbar-expand-lg navbar-light">
+            <nav class="navbar navbar-expand-lg navbar-light container navbar-inner">
                 <div class="container">
-                    <a class="navbar-brand">
+                    <a class="navbar-brand d-flex align-items-center">
                         <div id="logo"><span id="logo1">Smart</span>Sub</div>
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -155,9 +171,9 @@
                         <i class="fas fa-bars"></i>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav" id="nav-list">
+                        <ul class="navbar-nav mx-auto" id="nav-list">
                         </ul>
-                        <div id="profile" class="dropdown">
+                        <div id="profile" class="dropdown ms-auto">
                             <button class="dropbtn"><i class="far fa-user-circle fa-lg"></i><span><%= session.getAttribute("name")%></span></button>
                             <div class="dropdown-content">
                                 <a href="manageProfile.jsp">Manage Profile</a>

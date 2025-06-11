@@ -83,7 +83,6 @@
                                 <table class="table table-bordered" id="LeaveTable" width="90%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Leave ID</th>
                                             <th>Teacher Name</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
@@ -100,7 +99,6 @@
                                                 Teacher teacher = TeacherDao.getTeacherById(e.getAbsentTeacherID());
                                         %>
                                         <tr>
-                                            <td><%= e.getLeaveID()%></td>
                                             <td><%= teacher != null ? teacher.getTeacherName() : "Not found"%></td>
                                             <td><%= e.getLeaveStartDate()%></td>
                                             <td><%= e.getLeaveEndDate()%></td>
