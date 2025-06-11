@@ -68,36 +68,4 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <!-- Project directories -->
-    <property name="src.dir" value="src"/>
-    <property name="web.dir" value="WebContent"/>
-    <property name="build.dir" value="build"/>
-    <property name="dist.dir" value="dist"/>
-
-    <!-- Clean previous builds -->
-    <target name="clean">
-        <delete dir="${build.dir}"/>
-        <delete dir="${dist.dir}"/>
-    </target>
-
-    <!-- Compile Java source files -->
-    <target name="compile">
-        <mkdir dir="${build.dir}/WEB-INF/classes"/>
-        <javac srcdir="${src.dir}" destdir="${build.dir}/WEB-INF/classes"/>
-    </target>
-
-    <!-- Build WAR file -->
-    <target name="war" depends="compile">
-        <mkdir dir="${dist.dir}"/>
-
-        <!-- Copy HTML, JSP, and other static files -->
-        <copy todir="${build.dir}">
-            <fileset dir="${web.dir}"/>
-        </copy>
-
-        <!-- Create WAR file with safe name for Docker -->
-        <war destfile="${dist.dir}/S65519_TeacherSubstituteManagementSystem"
-             webxml="${web.dir}/WEB-INF/web.xml"
-             basedir="${build.dir}"/>
-    </target>
 </project>
