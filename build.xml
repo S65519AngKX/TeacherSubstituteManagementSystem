@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="S65519_TeacherSubstituteManagementSystem" default="war" basedir=".">
+<project name="S65519_TeacherSubstituteManagementSystem" default="default" basedir=".">
     <description>Builds and packages the Teacher Substitute Management System (TSMS).</description>
 
-    <!-- Directories -->
+    <!-- Project paths -->
     <property name="src.dir" value="src/java"/>
     <property name="web.dir" value="web"/>
     <property name="build.dir" value="build/classes"/>
     <property name="dist.dir" value="dist"/>
+    <property name="lib.dir" value="lib"/>
 
-    <!-- Clean target -->
+    <!-- Clean task -->
     <target name="clean">
         <delete dir="${build.dir}"/>
         <delete dir="${dist.dir}"/>
     </target>
 
-    <!-- Initialize build directories -->
+    <!-- Init task -->
     <target name="init">
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${dist.dir}"/>
     </target>
 
-    <!-- Compile Java source with servlet classpath -->
+    <!-- Compile Java sources -->
     <target name="compile" depends="init">
         <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
             <classpath>
-                <fileset dir="lib">
-                    <include name="*.jar"/>
-                </fileset>
+                <fileset dir="${lib.dir}" includes="**/*.jar"/>
             </classpath>
         </javac>
     </target>
 
-    <!-- Copy compiled classes into web/WEB-INF/classes -->
+    <!-- Copy compiled classes -->
     <target name="copy-classes" depends="compile">
         <mkdir dir="${web.dir}/WEB-INF/classes"/>
         <copy todir="${web.dir}/WEB-INF/classes">
@@ -39,15 +38,25 @@
         </copy>
     </target>
 
-    <!-- Build WAR file -->
+    <!-- Build WAR -->
     <target name="war" depends="copy-classes">
         <mkdir dir="${dist.dir}"/>
         <war destfile="${dist.dir}/S65519_TeacherSubstituteManagementSystem.war" webxml="${web.dir}/WEB-INF/web.xml">
             <fileset dir="${web.dir}"/>
+            <lib dir="${lib.dir}" includes="**/*.jar"/>
         </war>
     </target>
 
-    <!-- Default target to build WAR -->
+    <!-- Run message -->
+    <target name="run" depends="war">
+        <echo message="App built. Opening in browser..."/>
+        <exec executable="rundll32">
+            <arg value="url.dll,FileProtocolHandler"/>
+            <arg value="http://localhost:8080/"/>
+        </exec>
+    </target>
+
+
     <target name="default" depends="war"/>
     <target name="dist" depends="war"/>
 </project>
