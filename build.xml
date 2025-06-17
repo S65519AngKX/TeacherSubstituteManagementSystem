@@ -68,4 +68,11 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <target name="war">
+        <mkdir dir="dist"/>
+        <war destfile="dist/S65519_TeacherSubstituteManagementSystem.war" webxml="web/WEB-INF/web.xml">
+            <fileset dir="web"/>
+        </war>
+    </target>
+
 </project>
