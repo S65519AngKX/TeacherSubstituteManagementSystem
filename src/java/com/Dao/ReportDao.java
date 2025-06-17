@@ -192,7 +192,7 @@ public class ReportDao {
                     + "    SELECT \n"
                     + "        sa.substituteTeacherId AS teacherId,\n"
                     + "        COUNT(DISTINCT CONCAT(sa.substitutionId, '-', sa.scheduleId)) AS numArrangedForSubstitution\n"
-                    + "    FROM substitutionAssignments sa\n"
+                    + "    FROM substitutionassignments sa\n"
                     + "    JOIN substitution s ON sa.substitutionId = s.substitutionId\n"
                     + "    WHERE sa.status = 'CONFIRMED'\n";
 
