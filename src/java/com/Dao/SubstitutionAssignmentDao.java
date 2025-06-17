@@ -36,7 +36,7 @@ public class SubstitutionAssignmentDao {
 
             if (schedule != null) {
                 PreparedStatement ps = con.prepareStatement(
-                        "INSERT INTO substitutionAssignments (substitutionId, scheduleId, substituteTeacherId, remarks, status) VALUES (?, ?, NULL, NULL, 'PENDING')"
+                        "INSERT INTO substitutionassignments (substitutionId, scheduleId, substituteTeacherId, remarks, status) VALUES (?, ?, NULL, NULL, 'PENDING')"
                 );
                 ps.setInt(1, substitutionId);
                 ps.setInt(2, schedule.getScheduleId());
@@ -48,7 +48,7 @@ public class SubstitutionAssignmentDao {
 
     public static void createSubstitutionAssignmentsForLeave(int substitutionId, int absentTeacherId, Date substitutionDate, Connection con) throws SQLException {
         String getScheduleQuery = "SELECT scheduleId FROM schedule WHERE teacherId = ? AND scheduleDay = ? AND scheduleSubject IS NOT NULL AND TRIM(scheduleSubject) <> '';";
-        String insertAssignmentQuery = "INSERT INTO substitutionAssignments (substitutionId, scheduleId, substituteTeacherId, remarks, status) VALUES (?, ?, NULL , NULL, 'PENDING')";
+        String insertAssignmentQuery = "INSERT INTO substitutionassignments (substitutionId, scheduleId, substituteTeacherId, remarks, status) VALUES (?, ?, NULL , NULL, 'PENDING')";
         try ( PreparedStatement ps = con.prepareStatement(getScheduleQuery);  PreparedStatement insertPs = con.prepareStatement(insertAssignmentQuery)) {
 
             Calendar calendar = Calendar.getInstance();
@@ -81,7 +81,7 @@ public class SubstitutionAssignmentDao {
         int status = 0;
         try {
             PreparedStatement myPS = con.prepareStatement(
-                    "UPDATE substitutionAssignments SET substituteTeacherId=?, remarks=?, status=? WHERE substitutionId=? AND scheduleId=?"
+                    "UPDATE substitutionassignments SET substituteTeacherId=?, remarks=?, status=? WHERE substitutionId=? AND scheduleId=?"
             );
 
             if (assignment.getSubstituteTeacherID() == 0) {  // Assuming 0 means no teacher assigned
@@ -111,7 +111,7 @@ public class SubstitutionAssignmentDao {
         try {
             Connection con = Database.getConnection();
             PreparedStatement myPS = con.prepareStatement(
-                    "UPDATE substitutionAssignments SET status='CONFIRMED' WHERE substitutionId=? AND scheduleId=?"
+                    "UPDATE substitutionassignments SET status='CONFIRMED' WHERE substitutionId=? AND scheduleId=?"
             );
             myPS.setInt(1, assignment.getSubstitutionId());
             myPS.setInt(2, assignment.getScheduleId());
@@ -129,7 +129,7 @@ public class SubstitutionAssignmentDao {
         int status = 0;
         try {
             Connection con = Database.getConnection();
-            PreparedStatement myPS = con.prepareStatement("delete from `substitutionAssignments` where substitutionId=? AND scheduleId=?");
+            PreparedStatement myPS = con.prepareStatement("delete from `substitutionassignments` where substitutionId=? AND scheduleId=?");
             myPS.setInt(1, substitutionId);
             myPS.setInt(2, scheduleId);
 
@@ -168,7 +168,7 @@ public class SubstitutionAssignmentDao {
                     + "    sch.className, \n"
                     + "    sch.scheduleSubject,  \n"
                     + "    sa.substituteTeacherId \n"
-                    + "FROM substitutionAssignments sa \n"
+                    + "FROM substitutionassignments sa \n"
                     + "INNER JOIN substitution s ON sa.substitutionId = s.substitutionId \n"
                     + "LEFT JOIN `leave` l ON s.leaveId = l.leaveId \n"
                     + "LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
@@ -229,7 +229,7 @@ public class SubstitutionAssignmentDao {
                     + "    sch.className, \n"
                     + "    sch.scheduleSubject,  \n"
                     + "    sa.substituteTeacherId \n"
-                    + "FROM substitutionAssignments sa \n"
+                    + "FROM substitutionassignments sa \n"
                     + "INNER JOIN substitution s ON sa.substitutionId = s.substitutionId \n"
                     + "LEFT JOIN `leave` l ON s.leaveId = l.leaveId \n"
                     + "LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
@@ -291,7 +291,7 @@ public class SubstitutionAssignmentDao {
                     + "    sch.className, \n"
                     + "    sch.scheduleSubject,  \n"
                     + "    sa.substituteTeacherId \n"
-                    + "FROM substitutionAssignments sa \n"
+                    + "FROM substitutionassignments sa \n"
                     + "LEFT JOIN substitution s ON sa.substitutionId = s.substitutionId  \n"
                     + "LEFT JOIN `leave` l ON s.leaveId = l.leaveId \n"
                     + "LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
@@ -334,7 +334,7 @@ public class SubstitutionAssignmentDao {
             Connection con = Database.getConnection();
             String sql = "WITH MonthlySubCount AS ( " //get frequency of teacher being assigned for substitution in a month
                     + "    SELECT sa.substituteTeacherId, COUNT(*) AS totalAssignments "
-                    + "    FROM substitutionAssignments sa "
+                    + "    FROM substitutionassignments sa "
                     + "    JOIN substitution s ON sa.substitutionId = s.substitutionId "
                     + "    WHERE MONTH(s.substitutionDate) = MONTH(CURRENT_DATE()) "
                     + "        AND YEAR(s.substitutionDate) = YEAR(CURRENT_DATE()) "
@@ -414,7 +414,7 @@ public class SubstitutionAssignmentDao {
         Set<Integer> assignedPeriods = new HashSet<>();
 
         String sql = "SELECT sch.schedulePeriod, COUNT(*)\n"
-                + "FROM substitutionAssignments sa \n"
+                + "FROM substitutionassignments sa \n"
                 + "JOIN substitution s ON sa.substitutionId = s.substitutionId \n"
                 + "JOIN schedule sch ON sa.scheduleId = sch.scheduleId \n"
                 + "WHERE sa.substituteTeacherId = ? AND s.substitutionDate = ?\n"
@@ -454,7 +454,7 @@ public class SubstitutionAssignmentDao {
                     + "    sch.className, \n"
                     + "    sch.scheduleSubject,  \n"
                     + "    sa.substituteTeacherId \n"
-                    + "FROM substitutionAssignments sa \n"
+                    + "FROM substitutionassignments sa \n"
                     + "LEFT JOIN substitution s ON sa.substitutionId = s.substitutionId  \n"
                     + "LEFT JOIN `leave` l ON s.leaveId = l.leaveId \n"
                     + "LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
@@ -512,7 +512,7 @@ public class SubstitutionAssignmentDao {
                     + "    sch.className, \n"
                     + "    sch.scheduleSubject,  \n"
                     + "    sa.substituteTeacherId \n"
-                    + "FROM substitutionAssignments sa \n"
+                    + "FROM substitutionassignments sa \n"
                     + "LEFT JOIN substitution s ON sa.substitutionId = s.substitutionId  \n"
                     + "LEFT JOIN `leave` l ON s.leaveId = l.leaveId \n"
                     + "LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"

@@ -176,7 +176,7 @@ public class ReportDao {
                     + "    SELECT \n"
                     + "        COALESCE(l.absentTeacherId, sr.requestTeacherId) AS teacherId,\n"
                     + "        COUNT(DISTINCT CONCAT(sa.substitutionId, '-', sa.scheduleId)) AS numClassesSubstituted\n"
-                    + "    FROM substitutionAssignments sa\n"
+                    + "    FROM substitutionassignments sa\n"
                     + "    JOIN substitution s ON sa.substitutionId = s.substitutionId\n"
                     + "    LEFT JOIN `leave` l ON s.leaveId = l.leaveId\n"
                     + "    LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId\n"
