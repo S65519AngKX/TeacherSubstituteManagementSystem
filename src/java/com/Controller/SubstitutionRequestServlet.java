@@ -27,7 +27,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import util.Database;
 
-@WebServlet("/")
+@WebServlet(name = "SubstitutionRequestServlet", urlPatterns = {"/SubstitutionRequestServlet"})
 public class SubstitutionRequestServlet extends HttpServlet {
 
     private SubstitutionRequestDao SubstitutionRequestDao;
