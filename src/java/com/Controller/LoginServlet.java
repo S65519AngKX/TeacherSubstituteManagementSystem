@@ -91,8 +91,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/substitutemanagement", "root", "admin");
+            Connection con = Database.getConnection();
 
             PreparedStatement staffPS = con.prepareStatement("SELECT * FROM user WHERE username=?");
             staffPS.setString(1, username);
@@ -132,7 +131,7 @@ public class LoginServlet extends HttpServlet {
             }
 
             con.close();
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             out.println("<script>alert('An error occurred.'); window.location.href='index.jsp';</script>");
         }
@@ -154,7 +153,7 @@ public class LoginServlet extends HttpServlet {
             if (rs.next()) {
                 // Generate reset token and save in the database
                 String token = UUID.randomUUID().toString();
-                String username=rs.getString("username");
+                String username = rs.getString("username");
                 long expirationTime = System.currentTimeMillis() + (60 * 60 * 1000); // Token valid for 1 hour
                 Timestamp expirationTimestamp = new Timestamp(expirationTime);
                 PreparedStatement updatePs = con.prepareStatement("UPDATE user INNER JOIN teacher ON user.teacherId = teacher.teacherId SET token=?, token_expiry=? WHERE teacher.teacherEmail=?");
@@ -192,8 +191,7 @@ public class LoginServlet extends HttpServlet {
 
         try {
             // Database connection
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/substitutemanagement", "root", "admin");
+            Connection con = Database.getConnection();
 
             // Fetch token from the database
             PreparedStatement ps = con.prepareStatement("SELECT * FROM user INNER JOIN teacher ON user.teacherId = teacher.teacherId WHERE user.token=?");
@@ -245,7 +243,7 @@ public class LoginServlet extends HttpServlet {
         String resetLink = "http://localhost:8080/S65519_TeacherSubstituteManagementSystem/resetPasswordForm.jsp?token=" + token;
 
         String message = "<p>Dear user, please kindly click the link below to reset your password:</p>"
-                + "<p>Username :"+username+"</p>"
+                + "<p>Username :" + username + "</p>"
                 + "<a href='" + resetLink + "'>Reset Password</a>";
 
         // Configure mail server settings
