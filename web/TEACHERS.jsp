@@ -19,10 +19,6 @@
                 font-size: 25px;
                 margin: 0 auto;
             }
-            th, td {
-                text-align: left;
-                font-size: 13px;
-            }
             #section {
                 overflow-x: hidden;
             }
@@ -30,16 +26,14 @@
                 color:grey;
             }
 
-            @media (max-width: 767px) {
-                .card {
-                    width: 90%;
-                    margin: 10px auto;
+            @media (min-width: 480px) and (max-width: 767px) {
+                .edit-icon{
+                    font-size:11px;
                 }
-                #title {
-                    font-size: 20px;
-                }
-                th, td {
-                    font-size: 12px;
+            }
+            @media (max-width: 479px) {
+                .edit-icon{
+                    font-size:9px;
                 }
             }
 

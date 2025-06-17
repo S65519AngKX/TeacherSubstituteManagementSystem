@@ -20,7 +20,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/schedule.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <title>Report</title>
 
@@ -51,7 +50,6 @@
                 background-color: #ffffff;
                 margin: 1rem auto;
                 max-width: 100%;
-
             }
 
             #dateForm label{
@@ -62,8 +60,22 @@
             h1{
                 font-weight: bold;
             }
-
-            @media (max-width: 500px) {
+            @media (min-width: 480px) and (max-width: 767px) {
+                #dateForm {
+                    padding: 1rem 0rem;
+                    margin: 1rem auto;
+                    max-width: 100%;
+                }
+                #dateForm label{
+                    font-size:11px;
+                    margin:auto 0% auto 1%;
+                    font-weight: bold;
+                }
+                .form-select, .form-select option,#search{
+                    font-size: 10px !important;
+                }
+            }
+            @media (max-width: 479px) {
                 #dateForm {
                     display: flex;
                     flex-direction: column;
@@ -71,21 +83,18 @@
                     padding: 1rem;
                     height: fit-content;
                 }
-
                 #dateForm label {
-                    font-size: 14px;
-                    margin-bottom: 5px;
+                    font-size: 10px;
+                    margin:7px 2px;
                     text-align: left;
                 }
-
                 #dateForm .input-group {
-                    width: 80%;
-                    margin-bottom: 10px;
+                    width: 90%;
+                    margin-bottom: 5px;
                 }
 
                 #dateForm .input-group .form-control {
-                    width: 60%;
-                    margin-bottom: 10px;
+                    width: 55%;
                 }
 
                 #button2 {
@@ -97,11 +106,10 @@
                     width: 60%;
                     margin-top: 10px;
                 }
-
-            }
-
-
-
+                .form-select, .form-select option,#search{
+                    font-size: 10px !important;
+                } 
+           }
         </style>
     </head>
 
@@ -118,9 +126,11 @@
                 <div id="content" class="d-flex flex-column shadow-lg" style="background-color: lightcyan;
                      padding: 1% 3%;
                      border-radius: 10px;">                    
-                    <nav class="navbar navbar-expand navbar-light bg-white  mb-4 static-top shadow" style="padding: 0%;border-radius:15px;">
+                    <nav class="navbar navbar-expand navbar-light bg-white  mb-4 static-top shadow" style="padding: 0%;
+                         border-radius:15px;">
                         <!-- Topbar Search -->
-                        <form id="dateForm" method="GET" action="ReportServlet" style='width:90%;margin:auto;'>
+                        <form id="dateForm" method="GET" action="ReportServlet" style='width:90%;
+                              margin:auto;'>
                             <div class="input-group">
                                 <label>Start Date:</label>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <span class="bi bi-calendar"></span>
@@ -137,7 +147,7 @@
                                     <option value="lastMonth">Last Month</option>
                                     <option value="all">Show All</option>
                                 </select>
-                                <button class="btn btn-primary" type="submit">Search</button>
+                                <button class="btn btn-primary" id="search" type="submit">Search</button>
                             </div>
                         </form>  
                     </nav>
@@ -218,7 +228,7 @@
                                     <!-- Card Body -->
                                     <div class="card-body" style='margin:auto;'>
                                         <div class="chart-pie pt-4 pb-2">
-                                            <canvas id="substitutionEfficiency"></canvas>
+                                            <canvas id="substitutionEfficiency" style="height:500px;"></canvas>
                                         </div>
 
                                     </div>

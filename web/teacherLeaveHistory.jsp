@@ -31,16 +31,22 @@
                 overflow-x: hidden;
             }
 
-            @media (max-width: 767px) {
+            @media screen and (max-width: 767px) {
                 .card {
                     width: 90%;
                     margin: 10px auto;
                 }
                 #title {
-                    font-size: 20px;
+                    font-size: 25px;
                 }
                 th, td {
                     font-size: 12px;
+                }
+            }
+            @media screen and (max-width: 479px) {
+                .card{
+                    width: 100%;
+                    margin:0;
                 }
             }
 

@@ -45,18 +45,19 @@
                 display:flex;
                 justify-content: space-between;
                 align-items: center;
-                margin:0 10%;
+                margin:0 20%;
             }
             .action-buttons button {
                 background-color: grey;
                 color: white;
                 font-weight: bold;
-                padding: 5px 15px;
+                padding: 5px 10px;
                 border: none;
                 font-size: 13px;
                 border-radius: 5px;
                 width:fit-content;
                 box-shadow: 2px 2px 2px black;
+                margin:0px 3px;
 
             }
             .action-buttons button:hover {
@@ -75,16 +76,36 @@
             }
 
             @media screen and (max-width: 767px) {
+                .action-buttons {
+                    margin:0%;
+                }
                 #button{
                     padding:5px;
                     font-size:12px;
-                    margin-bottom: 10px;
-                    width:20%;
+
                 }
                 .action-buttons button{
                     font-size:12px;
-                    width:50px;
                 }
+            }
+
+            @media screen and (max-width: 479px) {
+                #leaveRecord{
+                    overflow-x: auto;
+                }
+                #title{
+                    margin-left: 20%;
+                }
+                #button{
+                    padding:3px 10px;
+                    border-radius: 8px;
+                    font-size:10px;
+
+                }
+                .action-buttons button{
+                    font-size:10px;
+                }
+
             }
 
         </style>
@@ -100,54 +121,56 @@
                 <h1 id="title">Leave Approval/Rejection</h1>
                 <button id="button" type="button" onclick="window.location.href = 'leaveHistory.jsp';">Leave History</button>
             </div>
-            <table>
-                <tr>
-                    <th>Leave ID</th>
-                    <th>Teacher Name</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Reason</th>
-                    <th>Notes</th>
-                    <th>Status</th>
-                </tr>
-                <%
-                    List<Leave> list = LeaveDao.getAllUnprocessedLeave();
-                    LocalDate today = LocalDate.now(); // Get today's date
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            <div id="leaveRecord">
+                <table>
+                    <tr>
+                        <th>Leave ID</th>
+                        <th>Teacher Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Reason</th>
+                        <th>Notes</th>
+                        <th>Status</th>
+                    </tr>
+                    <%
+                        List<Leave> list = LeaveDao.getAllUnprocessedLeave();
+                        LocalDate today = LocalDate.now(); // Get today's date
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-                    for (Leave e : list) {
-                        Teacher teacher = TeacherDao.getTeacherById(e.getAbsentTeacherID());
-                        LocalDate startDate = LocalDate.parse(e.getLeaveStartDate().toString(), formatter);
-                        LocalDate endDate = LocalDate.parse(e.getLeaveEndDate().toString(), formatter);
-                        boolean isCurrentLeave = !today.isBefore(startDate) && !today.isAfter(endDate);
-                %>
-                <tr <% if (isCurrentLeave) { %> style="background-color:#db9b97;" <% }%> >
-                    <td><%= e.getLeaveID()%></td>
-                    <td><%= teacher != null ? teacher.getTeacherName() : "Not found"%></td>
-                    <td><%= e.getLeaveStartDate()%></td>
-                    <td><%= e.getLeaveEndDate()%></td>
-                    <td><%= e.getLeaveReason()%></td>
-                    <td><%= e.getLeaveNotes()%></td>
+                        for (Leave e : list) {
+                            Teacher teacher = TeacherDao.getTeacherById(e.getAbsentTeacherID());
+                            LocalDate startDate = LocalDate.parse(e.getLeaveStartDate().toString(), formatter);
+                            LocalDate endDate = LocalDate.parse(e.getLeaveEndDate().toString(), formatter);
+                            boolean isCurrentLeave = !today.isBefore(startDate) && !today.isAfter(endDate);
+                    %>
+                    <tr <% if (isCurrentLeave) { %> style="background-color:#db9b97;" <% }%> >
+                        <td><%= e.getLeaveID()%></td>
+                        <td><%= teacher != null ? teacher.getTeacherName() : "Not found"%></td>
+                        <td><%= e.getLeaveStartDate()%></td>
+                        <td><%= e.getLeaveEndDate()%></td>
+                        <td><%= e.getLeaveReason()%></td>
+                        <td><%= e.getLeaveNotes()%></td>
 
-                    <!-- Action buttons in one column -->
-                    <td class="action-buttons">
-                        <form action="LeaveServlet" method="post">
-                            <input type="hidden" name="leaveId" value="<%= e.getLeaveID()%>">
-                            <input type="hidden" name="leaveStatus" value="Approved">
-                            <button type="submit" style="background-color:#4CAF50" name="action" value="update">Approve</button>
-                        </form>
+                        <!-- Action buttons in one column -->
+                        <td class="action-buttons">
+                            <form action="LeaveServlet" method="post">
+                                <input type="hidden" name="leaveId" value="<%= e.getLeaveID()%>">
+                                <input type="hidden" name="leaveStatus" value="Approved">
+                                <button type="submit" style="background-color:#4CAF50" name="action" value="update">Approve</button>
+                            </form>
 
-                        <form action="LeaveServlet" method="post">
-                            <input type="hidden" name="leaveId" value="<%= e.getLeaveID()%>">
-                            <input type="hidden" name="leaveStatus" value="Rejected">
-                            <button type="submit" name="action" value="update" onclick="return confirm('Do you want to reject this leave request?');">Reject</button>
-                        </form>
-                    </td>
-                </tr>
-                <%
-                    }
-                %>
-            </table>
+                            <form action="LeaveServlet" method="post">
+                                <input type="hidden" name="leaveId" value="<%= e.getLeaveID()%>">
+                                <input type="hidden" name="leaveStatus" value="Rejected">
+                                <button type="submit" name="action" value="update" onclick="return confirm('Do you want to reject this leave request?');">Reject</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <%
+                        }
+                    %>
+                </table>
+            </div>
         </div>
         <footer>
             <%@ include file="footer.jsp" %>

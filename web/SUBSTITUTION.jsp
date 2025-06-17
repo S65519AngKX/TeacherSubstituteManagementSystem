@@ -67,14 +67,14 @@
                 border-radius: 5px;
                 box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
             }
-            #button4 {
+            #button {
                 background-color: #1fbfdb;
                 color: white;
                 border: 0;
                 border-radius: 10px;
-                padding: 8px 5px;
+                padding: 8px 20px;
                 font-size: 13px;
-                width: 120px;
+                width: fit-content;
                 height: fit-content;
                 box-shadow: 2px 2px 2px black;
                 text-align: center;
@@ -89,93 +89,113 @@
             }
             @media only screen and (max-width: 768px) {
                 #title{
-                    font-size:22px;
+                    font-size:25px;
                     margin-left: 20%;
                 }
-                #formButton #history{
-                    font-size:11px;
+                #formButton #history, #button{
+                    font-size:12px;
                 }
-
-            </style>
-        </head>
-
-
-        <body>
-            <header>
-                <%@include file="header.jsp"%>
-            </header>
-
-            <div id="section">
-                <div id="top">
-                    <h1 id="title">Substitution Assignments</h1>
-                    <div  id="formButton" class="d-flex justify-content-end mb-2">
-                        <input id="history" type="button" style="background-color:#8d9394;" value="Request Substitution" onclick="window.location.href = 'requestSubstitution.jsp'"> 
-                    </div>
-                </div>
-                <%
-                    SimpleDateFormat formatter = new SimpleDateFormat("EEEE, yyyy-MM-dd");
-                    String todayDate = formatter.format(new java.util.Date());
-                %>
-                <div id="printSection">
-                    <h5>Date: <%= todayDate%></h5>               
-                    <table>
-                        <tr>
-                            <th>Absent Teacher </th>
-                            <th>Reason</th>
-                            <th>Period</th>
-                            <th>Subject</th>
-                            <th>Class</th>
-                            <th>Substitute Teacher</th>
-                            <th>Remarks</th>
-                        </tr>
-
-                        <%
-                            List<SubstitutionAssignments> list = SubstitutionAssignmentDao.displayTodaySubstitutionAssignment();
-                            int lastSubstitutionId = 0;
-                        %>
-
-                        <% for (SubstitutionAssignments e : list) {%>
-                        <tr class="editable-row assignment-row
-                            <% if (e.getSubstitutionId() != lastSubstitutionId) { %>
-                            new-substitution
-                            <% }%>" 
-                            data-assignment-id="<%= e.getSubstitutionId()%>" 
-                            data-schedule-id="<%= e.getScheduleId()%>">
-
-                            <td><%= TeacherDao.getTeacherNameById(e.getAbsentTeacherId())%></td>
-                            <td><%= e.getReason()%></td>
-                            <td><%= e.getPeriod()%></td>
-                            <td><%= e.getSubjectName()%></td>
-                            <td><%= e.getClassName()%></td>
-                            <td><%= (e.getSubstituteTeacherID() != 0) ? TeacherDao.getTeacherNameById(e.getSubstituteTeacherID()) : ""%></td>
-                            <td><%= (e.getRemarks() == null) ? "" : e.getRemarks()%></td>
-                        </tr>
-                        <%
-                            lastSubstitutionId = e.getSubstitutionId();
-                        %>
-                        <% }%>
-                    </table>
-                </div>
-                <button id="button4" class="btn btn-primary" style="margin-right:3%;" onclick="printPage()">Print</button>
-            </div>
-            <footer>
-                <%@ include file="footer.jsp" %>
-            </footer>
-        </body>
-        <script>
-            function printPage() {
-                const currentDate = new Date().toDateString();
-                var fileName = currentDate + "_SubstitutionAssignemts.pdf";
-                var element = document.getElementById('printSection');
-                var opt = {
-                    margin: 0.5,
-                    filename: fileName,
-                    html2canvas: {scale: 2},
-                    jsPDF: {unit: 'in', format: 'letter', orientation: 'portrait'}
-                };
-
-                html2pdf().set(opt).from(element).save();
+                #printSection h5{
+                    font-size:13px;
+                }
+                #printSection{
+                    overflow-x: auto;
+                }
             }
+            @media only screen and (max-width: 479px) {
+                #title{
+                    font-size:23px;
+                    margin-left: 10%;
+                }
+                #formButton #history, #button{
+                    font-size:11px;
+                    padding: 8px 10px;
 
-        </script>
-    </html>
+                }
+                #printSection h5{
+                    font-size:12px;
+                }
+            }
+        </style>
+    </head>
+
+
+    <body>
+        <header>
+            <%@include file="header.jsp"%>
+        </header>
+
+        <div id="section">
+            <div id="top">
+                <h1 id="title">Substitution Assignments</h1>
+                <div  id="formButton" class="d-flex justify-content-end mb-2">
+                    <input id="history" type="button" style="background-color:#8d9394;" value="Request Substitution" onclick="window.location.href = 'requestSubstitution.jsp'"> 
+                </div>
+            </div>
+            <%
+                SimpleDateFormat formatter = new SimpleDateFormat("EEEE, yyyy-MM-dd");
+                String todayDate = formatter.format(new java.util.Date());
+            %>
+            <div id="printSection">
+                <h5>Date: <%= todayDate%></h5>               
+                <table>
+                    <tr>
+                        <th>Absent Teacher </th>
+                        <th>Reason</th>
+                        <th>Period</th>
+                        <th>Subject</th>
+                        <th>Class</th>
+                        <th>Substitute Teacher</th>
+                        <th>Remarks</th>
+                    </tr>
+
+                    <%
+                        List<SubstitutionAssignments> list = SubstitutionAssignmentDao.displayTodaySubstitutionAssignment();
+                        int lastSubstitutionId = 0;
+                    %>
+
+                    <% for (SubstitutionAssignments e : list) {%>
+                    <tr class="editable-row assignment-row
+                        <% if (e.getSubstitutionId() != lastSubstitutionId) { %>
+                        new-substitution
+                        <% }%>" 
+                        data-assignment-id="<%= e.getSubstitutionId()%>" 
+                        data-schedule-id="<%= e.getScheduleId()%>">
+
+                        <td><%= TeacherDao.getTeacherNameById(e.getAbsentTeacherId())%></td>
+                        <td><%= e.getReason()%></td>
+                        <td><%= e.getPeriod()%></td>
+                        <td><%= e.getSubjectName()%></td>
+                        <td><%= e.getClassName()%></td>
+                        <td><%= (e.getSubstituteTeacherID() != 0) ? TeacherDao.getTeacherNameById(e.getSubstituteTeacherID()) : ""%></td>
+                        <td><%= (e.getRemarks() == null) ? "" : e.getRemarks()%></td>
+                    </tr>
+                    <%
+                        lastSubstitutionId = e.getSubstitutionId();
+                    %>
+                    <% }%>
+                </table>
+            </div>
+            <button id="button" class="btn btn-primary" style="margin-right:3%;" onclick="printPage()">Print</button>
+        </div>
+        <footer>
+            <%@ include file="footer.jsp" %>
+        </footer>
+    </body>
+    <script>
+        function printPage() {
+            const currentDate = new Date().toDateString();
+            var fileName = currentDate + "_SubstitutionAssignemts.pdf";
+            var element = document.getElementById('printSection');
+            var opt = {
+                margin: 0.5,
+                filename: fileName,
+                html2canvas: {scale: 2},
+                jsPDF: {unit: 'in', format: 'letter', orientation: 'portrait'}
+            };
+
+            html2pdf().set(opt).from(element).save();
+        }
+
+    </script>
+</html>

@@ -51,9 +51,19 @@
                 }
                 #title{
                     font-size:23px;
+                    margin-left:30%;
                 }
                 #formButton #history{
                     font-size:11px;
+                }
+            }
+            @media only screen and (max-width: 479px) {
+                form{
+                    padding:0% 5%;
+                }
+                #title{
+                    font-size:18px;
+                    margin-left:15%;
                 }
             }
 

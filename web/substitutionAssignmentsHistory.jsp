@@ -19,6 +19,9 @@
         <link rel="stylesheet" href="css/list.css">
         <title>Substitution Assignment History</title>
         <style>
+            section{
+                width:100%;
+            }
             #title {
                 font-size: 27px;
                 margin: 5px auto;
@@ -52,6 +55,11 @@
                     font-size: 11px;
                 }
             }
+            @media only screen and (max-width: 479px) {
+                #record{
+                    overflow-x: auto;
+                }
+            }
         </style>
     </head>
 
@@ -62,44 +70,46 @@
 
         <div id="section">
             <h1 id="title">Substitution Assignments History</h1>
-            <table>
-                <tr>
-                    <th>Absent Teacher</th>
-                    <th>Reason</th>
-                    <th>Period</th>
-                    <th>Subject</th>
-                    <th>Class</th>
-                    <th>Substitute Teacher</th>
-                    <th>Remarks</th>
-                </tr>
+            <div id="record">
+                <table>
+                    <tr>
+                        <th>Absent Teacher</th>
+                        <th>Reason</th>
+                        <th>Period</th>
+                        <th>Subject</th>
+                        <th>Class</th>
+                        <th>Substitute Teacher</th>
+                        <th>Remarks</th>
+                    </tr>
 
-                <%
-                    List<SubstitutionAssignments> list = SubstitutionAssignmentDao.displayAllSubstitutionAssignment();
-                    Date lastSubstitutionDate = null;
-                %>
+                    <%
+                        List<SubstitutionAssignments> list = SubstitutionAssignmentDao.displayAllSubstitutionAssignment();
+                        Date lastSubstitutionDate = null;
+                    %>
 
-                <% for (SubstitutionAssignments e : list) { %>
-                <%
-                    Date currentSubstitutionDate = e.getSubstitutionDate();
-                    if (lastSubstitutionDate == null || !currentSubstitutionDate.equals(lastSubstitutionDate)) {
-                %>
-                <tr class="date-separator">
-                    <td colspan="7" class="date-header"><%= currentSubstitutionDate%></td>
-                </tr>
-                <% }%>
+                    <% for (SubstitutionAssignments e : list) { %>
+                    <%
+                        Date currentSubstitutionDate = e.getSubstitutionDate();
+                        if (lastSubstitutionDate == null || !currentSubstitutionDate.equals(lastSubstitutionDate)) {
+                    %>
+                    <tr class="date-separator">
+                        <td colspan="7" class="date-header"><%= currentSubstitutionDate%></td>
+                    </tr>
+                    <% }%>
 
-                <tr class="editable-row assignment-row">
-                    <td><%= TeacherDao.getTeacherNameById(e.getAbsentTeacherId())%></td>
-                    <td><%= e.getReason()%></td>
-                    <td><%= e.getPeriod()%></td>
-                    <td><%= e.getSubjectName()%></td>
-                    <td><%= e.getClassName()%></td>
-                    <td><%= (e.getSubstituteTeacherID() != 0) ? TeacherDao.getTeacherNameById(e.getSubstituteTeacherID()) : ""%></td>
-                    <td><%= (e.getRemarks() == null) ? "" : e.getRemarks()%></td>
-                </tr>
-                <% lastSubstitutionDate = currentSubstitutionDate; %> 
-                <% }%>
-            </table>
+                    <tr class="editable-row assignment-row">
+                        <td><%= TeacherDao.getTeacherNameById(e.getAbsentTeacherId())%></td>
+                        <td><%= e.getReason()%></td>
+                        <td><%= e.getPeriod()%></td>
+                        <td><%= e.getSubjectName()%></td>
+                        <td><%= e.getClassName()%></td>
+                        <td><%= (e.getSubstituteTeacherID() != 0) ? TeacherDao.getTeacherNameById(e.getSubstituteTeacherID()) : ""%></td>
+                        <td><%= (e.getRemarks() == null) ? "" : e.getRemarks()%></td>
+                    </tr>
+                    <% lastSubstitutionDate = currentSubstitutionDate; %> 
+                    <% }%>
+                </table>
+            </div>
 
             <button id="button" class="btn btn-primary" onclick="window.location.href = 'SUBSTITUTIONS.jsp'">BACK</button>
         </div>

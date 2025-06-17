@@ -104,13 +104,13 @@
     color: white;
     border: 0;
     border-radius: 10px;
-    padding: 8px 5px;
+    padding: 8px 15px;
     font-size: 12px;
-    width: 10%;
+    min-width: fit-content;
     margin: auto;
     float: right;
     margin-right: 2.5%;
-    height: 30px;
+    height:fit-content;
     box-shadow: 2px 2px 2px black;
 }
 
@@ -168,40 +168,54 @@
     }
 }
 
-@media screen and (max-width: 767px) {
+@media (min-width: 480px) and (max-width: 767px) {
     .schedule-table table thead th {
-        font-size: 15px;
+        font-size: 13px;
         padding: 15px;
     }
     .schedule-table table tbody td {
         padding: 15px;
     }
     .schedule-table table tbody td.active h4 {
-        font-size: 16px;
+        font-size: 13px;
     }
     .schedule-table table tbody td.active p {
-        font-size: 14px;
+        font-size: 13px;
     }
     .schedule-table table tbody td.day {
-        font-size: 14px;
+        font-size: 13px;
     }
     #button1, #button2, #button3 {
-        padding: 1px 2px;
+        padding: 5px 10px;
         font-size: 10px;
-        width: 15%;
-        margin-right: 1.5%;
-        height: 20px;
+        border-radius: 8px;
+        margin-right: 2%;
+        margin-top: 2%;
     }
 }
 
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 479px) {
+    .schedule-table table thead th {
+        font-size: 12px;
+        padding: 15px;
+    }
+    .schedule-table table tbody td {
+        padding: 15px;
+    }
+    .schedule-table table tbody td.active h4 {
+        font-size: 12px;
+    }
+    .schedule-table table tbody td.active p {
+        font-size: 12px;
+    }
     .schedule-table table tbody td.day {
-        min-width: 135px;
+        font-size: 12px;
     }
     #button1, #button2, #button3 {
+        padding: 5px 10px;
         font-size: 9px;
-        width: 18%;
-        margin-right: 1.5%;
-        height: 20px;
+        border-radius: 8px;
+        margin-right: 2%;
+        margin-top: 2%;
     }
 }

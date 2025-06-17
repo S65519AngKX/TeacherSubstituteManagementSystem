@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="css/list.css">
         <title>Assignment History</title>
         <style>
+
             .delete-icon i{
                 color: red;
                 font-size:13px;
@@ -79,6 +80,27 @@
                     font-size: 10px;
                 }
                 select {
+                    margin-left:5%;
+                    font-size: 10px;
+                    padding: 3px 8px;
+                }
+                select option {
+                    font-size: 10px;
+                    padding: 6px;
+                }
+            }
+            @media only screen and (max-width: 479px) {
+                #record{
+                    overflow-x:auto;
+                }
+                label,input{
+                    font-size:10px;
+                    margin:5px;
+                }
+                label{
+                    margin-left:1%;
+                }
+                select {
                     margin-left:20%;
                     font-size: 10px;
                     padding: 3px 8px;
@@ -86,6 +108,9 @@
                 select option {
                     font-size: 10px;
                     padding: 6px;
+                }
+                #button2{
+                    font-size:10px;
                 }
             }
         </style>
@@ -122,44 +147,45 @@
 
                 <button id="button2" type="submit" name="action" value='filter'>Filter</button>
             </form>
+            <div id="record">
+                <table class="substitutionReport">
+                    <tr>
+                        <th>Absent Teacher</th>
+                        <th>Reason</th>
+                        <th>Period</th>
+                        <th>Subject</th>
+                        <th>Class</th>
+                        <th>Substitute Teacher</th>
+                        <th>Remarks</th>
+                    </tr>
+                    <%
+                        List<SubstitutionAssignments> subAssignList = (List<SubstitutionAssignments>) request.getAttribute("assgnList");
+                        java.sql.Date lastSubstitutionDate = null;
+                        if (subAssignList != null) {
+                            for (SubstitutionAssignments e : subAssignList) {
+                                java.sql.Date currentSubstitutionDate = e.getSubstitutionDate();
+                                if (lastSubstitutionDate == null || !currentSubstitutionDate.equals(lastSubstitutionDate)) {
+                    %>
+                    <tr class="date-separator">
+                        <td colspan="7" class="date-header"><%= currentSubstitutionDate%></td>
+                    </tr>
+                    <% }%>
 
-            <table class="substitutionReport">
-                <tr>
-                    <th>Absent Teacher</th>
-                    <th>Reason</th>
-                    <th>Period</th>
-                    <th>Subject</th>
-                    <th>Class</th>
-                    <th>Substitute Teacher</th>
-                    <th>Remarks</th>
-                </tr>
-                <%
-                    List<SubstitutionAssignments> subAssignList = (List<SubstitutionAssignments>) request.getAttribute("assgnList");
-                    java.sql.Date lastSubstitutionDate = null;
-                    if (subAssignList != null) {
-                        for (SubstitutionAssignments e : subAssignList) {
-                            java.sql.Date currentSubstitutionDate = e.getSubstitutionDate();
-                            if (lastSubstitutionDate == null || !currentSubstitutionDate.equals(lastSubstitutionDate)) {
-                %>
-                <tr class="date-separator">
-                    <td colspan="7" class="date-header"><%= currentSubstitutionDate%></td>
-                </tr>
-                <% }%>
-
-                <tr class="editable-row assignment-row">
-                    <td><%= TeacherDao.getTeacherNameById(e.getAbsentTeacherId())%></td>
-                    <td><%= e.getReason()%></td>
-                    <td><%= e.getPeriod()%></td>
-                    <td><%= e.getSubjectName()%></td>
-                    <td><%= e.getClassName()%></td>
-                    <td><%= (e.getSubstituteTeacherID() != 0) ? TeacherDao.getTeacherNameById(e.getSubstituteTeacherID()) : ""%></td>
-                    <td><%= (e.getRemarks() == null) ? "" : e.getRemarks()%></td>
-                </tr>
-                <% lastSubstitutionDate = currentSubstitutionDate; %> 
-                <% }
-                    }
-                %>
-            </table>
+                    <tr class="editable-row assignment-row">
+                        <td><%= TeacherDao.getTeacherNameById(e.getAbsentTeacherId())%></td>
+                        <td><%= e.getReason()%></td>
+                        <td><%= e.getPeriod()%></td>
+                        <td><%= e.getSubjectName()%></td>
+                        <td><%= e.getClassName()%></td>
+                        <td><%= (e.getSubstituteTeacherID() != 0) ? TeacherDao.getTeacherNameById(e.getSubstituteTeacherID()) : ""%></td>
+                        <td><%= (e.getRemarks() == null) ? "" : e.getRemarks()%></td>
+                    </tr>
+                    <% lastSubstitutionDate = currentSubstitutionDate; %> 
+                    <% }
+                        }
+                    %>
+                </table>
+            </div>
             <button id="button" type="button" onclick="window.location.href = 'SUBSTITUTIONS.jsp';">BACK</button>
         </div>
         <footer>

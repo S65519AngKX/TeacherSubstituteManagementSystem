@@ -42,6 +42,7 @@ input,select,option{
 #formButton input:hover{
     opacity:0.8;
 }
+
 #title{
     text-align: center;
     font-size:28px;
@@ -68,6 +69,57 @@ input,select,option{
     height:fit-content;
     margin:5px 20px 0px 20px;
     box-shadow: 2px 2px 2px black;
+}
+#button:hover{
+    opacity:0.8;
+}
+@media (min-width: 480px) and (max-width: 767px) {
+    form{
+        padding:2% 10%;
+    }
+    #title{
+        font-size:22px;
+    }
+    label,.form-label{
+        font-size:14px;
+        margin-right: 100px;
+    }
+    input,select,option{
+        font-size: 14px !important;
+    }
+    .form-select option{
+        font-size: 14px !important;
+    }
+    #button, #formButton input, #history{
+        padding:6px 18px !important;
+        font-size:13px !important;
+    }
+}
+@media (max-width: 479px) {
+    form{
+        padding:0% 12%;
+    }
+    #title{
+        font-size:20px;
+    }
+
+    label,.form-label{
+        font-size:12px;
+    }
+    input,select,option{
+        font-size: 12px !important;
+    }
+    select option{
+        font-size:10px !important;
+    }
+
+    #button, #formButton input, #history{
+        padding:4px 15px !important;
+        font-size:11px !important;
+    }
+    .row{
+        padding:0% 3%;
+    }
 }
 
 

@@ -35,16 +35,16 @@
                 margin-top: 20px;
             }
 
-            .mt-5 *{
+            .mt-2 *{
                 font-size: 20px;
             }
-            .mt-5 legend{
+            .mt-2 legend{
                 font-size:30px;
                 font-weight: bold;
             }
             #div2,#div-3{
                 width:80%;
-                margin:auto;
+                margin: 0 auto;
             }
 
             #div2 fieldset {
@@ -99,15 +99,51 @@
             .col-md-4 h4{
                 font-weight: bold;
             }
-            @media (min-width: 480px) and (max-width: 767px){
-                .mt-5 *{
-                    font-size: 18px;
+            @media (min-width: 480px) and (max-width: 767px) {
+                .feature-box{
+                    margin:2% auto;
                 }
-                .mt-5 legend{
+                .mt-2 *{
+                    font-size: 20px;
+                }
+                .mt-2 h4,.mt-2 i{
+                    font-size: 22px;
+                }
+                .mt-2 legend{
                     font-size:23px;
                 }
-            }
+                #div1 {
+                    width:90%;
+                    height: 200px;
+                }
+                #div2{
+                    width:90%;
+                }
 
+            }
+            @media (max-width: 479px) {
+                .feature-box{
+                    width:100%;
+                    margin:2% auto;
+                }
+                .mt-2 *{
+                    font-size: 15px;
+                }
+                .mt-2 h4,.mt-2 i{
+                    font-size: 18px;
+                }
+                .mt-2 legend{
+                    font-size:18px;
+                }
+                #div1 {
+                    width:100%;
+                    height: 180px;
+                }
+                #div2,#div-3{
+                    width:100%;
+                }
+                
+            }
         </style>
     </head>
 
@@ -119,7 +155,7 @@
         <div id="section">
             <div id="div1"></div>
 
-            <div class="row text-center mt-5" id="div-3">
+            <div class="row text-center mt-2" id="div-3">
                 <a class="col-md-4" href="LEAVE.jsp">
                     <div class="feature-box">
                         <i class="fas fa-calendar-check feature-icon"></i>
@@ -143,7 +179,7 @@
                 </a>
             </div>
 
-            <div id="div2" class="mt-5">
+            <div id="div2" class="mt-2">
                 <fieldset>
                     <legend>How It Works</legend>
                     <p><strong>1. Input:</strong> Assistant principal identify absent teachers and available substitutes via the portal.</p>

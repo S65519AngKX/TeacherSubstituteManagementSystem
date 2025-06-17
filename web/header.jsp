@@ -88,7 +88,6 @@
                 background-color: #f9f9f9;
                 box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
                 z-index: 1;
-                right: 0 ;
                 min-width: 150px;
                 border-radius: 5px;
             }
@@ -154,6 +153,11 @@
                 .dropdown {
                     margin-top: 5px;
                 }
+
+                .dropdown-content {
+                    right: 30%;
+                }
+
             }
 
         </style>

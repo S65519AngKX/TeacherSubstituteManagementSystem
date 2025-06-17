@@ -143,10 +143,26 @@
             }
 
 
-            @media only screen and (max-width: 769px){
+            @media (min-width: 480px) and (max-width: 767px) {
                 #section{
                     flex-grow: 1;
                     overflow: auto;
+                }
+                .schedule-table input[type="text"] {
+                    height: 13px;
+                    font-size: 11px;
+                }
+                #searchLabel, #teacherSelect, #teacherSelect option{
+                    font-size: 12px;
+                }
+            }
+            @media screen and (max-width: 479px) {
+                  .schedule-table input[type="text"] {
+                    height: 12px;
+                    font-size: 11px;
+                }
+                #searchLabel, #teacherSelect, #teacherSelect option{
+                    font-size: 11px;
                 }
             }
 

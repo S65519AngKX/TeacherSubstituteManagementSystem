@@ -11,17 +11,19 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Stardos Stencil">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/form.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <title>Manage Profile</title>
         <style>
-            @media only screen and (max-width: 769px){
-                #section{
-                    flex-grow: 1;
-                    overflow: auto;
-                }
+            #section {
+                flex-grow: 1;
+                margin: 0px auto;
+                padding: 20px;
+                max-width: 100%;
+                overflow: auto;
             }
+           
         </style>
     </head>
 
