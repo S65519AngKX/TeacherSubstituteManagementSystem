@@ -42,7 +42,7 @@ public class InitDataServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         out.println("<html><head>");
-        out.println("<meta http-equiv='refresh' content='3;URL=" + request.getContextPath() + "/login'>");
+        out.println("<meta http-equiv='refresh' content='3;URL=" + request.getContextPath() + "/index.jsp'>");
         out.println("<title>Initializing...</title></head><body>");
         out.println("<h3>Initializing system data...</h3><pre>");
 
