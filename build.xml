@@ -7,7 +7,7 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="S65519_TeacherSubstituteManagementSystem" default="default" basedir=".">
+<project name="S65519_TeacherSubstituteManagementSystem" default="war" basedir=".">
     <description>Builds, tests, and runs the project S65519_TeacherSubstituteManagementSystem.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
@@ -70,10 +70,9 @@
     -->
     <target name="war">
         <mkdir dir="dist"/>
-        <war destfile="dist/MyApp.war" webxml="src/webapp/WEB-INF/web.xml">
-            <fileset dir="src/webapp"/>
-            <classes dir="build/classes"/>
-        </war>
+        <war destfile="dist/TeacherSubstituteManagementSystem.war"
+             webxml="web/WEB-INF/web.xml"
+             basedir="web" />
     </target>
 
 </project>
