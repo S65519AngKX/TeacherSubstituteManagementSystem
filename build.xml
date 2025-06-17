@@ -70,8 +70,8 @@
     -->
     <target name="war">
         <mkdir dir="dist"/>
-        <war destfile="dist/S65519_TeacherSubstituteManagementSystem.war" webxml="src/web/WEB-INF/web.xml">
-            <fileset dir="src/web"/>
+        <war destfile="dist/S65519_TeacherSubstituteManagementSystem.war" webxml="web/WEB-INF/web.xml">
+            <fileset dir="web"/>
             <classes dir="build/classes"/>
         </war>
     </target>
