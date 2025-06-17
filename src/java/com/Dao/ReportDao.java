@@ -179,7 +179,7 @@ public class ReportDao {
                     + "    FROM substitutionassignments sa\n"
                     + "    JOIN substitution s ON sa.substitutionId = s.substitutionId\n"
                     + "    LEFT JOIN `leave` l ON s.leaveId = l.leaveId\n"
-                    + "    LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId\n"
+                    + "    LEFT JOIN substitutionrequest sr ON s.substitutionRequestId = sr.substitutionRequestId\n"
                     + "    WHERE sa.status = 'CONFIRMED'\n";
 
             if (startDate != null && endDate != null) {
