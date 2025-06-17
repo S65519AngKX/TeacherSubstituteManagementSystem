@@ -15,7 +15,7 @@ public class SubstitutionRequestPeriodDao {
         int status = 0;
         try {
             PreparedStatement myPS = con.prepareStatement(
-                    "INSERT INTO `substitutionRequestPeriod`(substitutionRequestId,substitutionRequestPeriod) "
+                    "INSERT INTO `substitutionrequestperiod`(substitutionrequestid,substitutionrequestperiod) "
                     + "VALUES(?, ?)");
 
             myPS.setInt(1, request.getSubstitutionRequestId());
@@ -33,7 +33,7 @@ public class SubstitutionRequestPeriodDao {
 
         try {
             Connection con = Database.getConnection();
-            PreparedStatement myPS = con.prepareStatement("select * from `substitutionRequestPeriod` where substitutionRequestId=?");
+            PreparedStatement myPS = con.prepareStatement("select * from `substitutionrequestperiod` where substitutionrequestid=?");
             myPS.setInt(1, id);
             ResultSet rs = myPS.executeQuery();
             while (rs.next()) {
@@ -56,7 +56,7 @@ public class SubstitutionRequestPeriodDao {
         int period;
 
         try {
-            PreparedStatement myPS = con.prepareStatement("select substitutionRequestPeriod from `substitutionRequestPeriod` where substitutionRequestId=?");
+            PreparedStatement myPS = con.prepareStatement("select substitutionrequestperiod from `substitutionrequestperiod` where substitutionRequestId=?");
             myPS.setInt(1, substitutionRequestId);
             ResultSet rs = myPS.executeQuery();
             while (rs.next()) {

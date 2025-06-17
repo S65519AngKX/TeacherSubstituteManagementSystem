@@ -15,7 +15,7 @@ public class SubstitutionRequestDao {
         int substitutionRequestId = 0;
         try (
                  PreparedStatement myPS = con.prepareStatement(
-                        "INSERT INTO `substitutionRequest`(requestTeacherId,substitutionRequestDate,substitutionRequestReason, substitutionRequestNotes) "
+                        "INSERT INTO `substitutionrequest`(requestTeacherId,substitutionRequestDate,substitutionRequestReason, substitutionRequestNotes) "
                         + "VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 
             myPS.setInt(1, request.getRequestTeacherId());
@@ -42,7 +42,7 @@ public class SubstitutionRequestDao {
 
         try {
             Connection con = Database.getConnection();
-            PreparedStatement myPS = con.prepareStatement("select * from `substitutionRequest` where requestTeacherId=?");
+            PreparedStatement myPS = con.prepareStatement("select * from `substitutionrequest` where requestTeacherId=?");
             myPS.setInt(1, id);
             ResultSet rs = myPS.executeQuery();
             while (rs.next()) {

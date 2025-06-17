@@ -171,7 +171,7 @@ public class SubstitutionAssignmentDao {
                     + "FROM substitutionassignments sa \n"
                     + "INNER JOIN substitution s ON sa.substitutionId = s.substitutionId \n"
                     + "LEFT JOIN `leave` l ON s.leaveId = l.leaveId \n"
-                    + "LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
+                    + "LEFT JOIN substitutionrequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
                     + "LEFT JOIN schedule sch ON sa.scheduleId = sch.scheduleId \n"
                     + "WHERE s.substitutionDate = CURDATE() \n"
                     + "ORDER BY sa.substitutionId, sch.schedulePeriod;";
@@ -232,7 +232,7 @@ public class SubstitutionAssignmentDao {
                     + "FROM substitutionassignments sa \n"
                     + "INNER JOIN substitution s ON sa.substitutionId = s.substitutionId \n"
                     + "LEFT JOIN `leave` l ON s.leaveId = l.leaveId \n"
-                    + "LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
+                    + "LEFT JOIN substitutionrequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
                     + "LEFT JOIN schedule sch ON sa.scheduleId = sch.scheduleId \n"
                     + "WHERE s.substitutionDate = CURDATE() AND sa.status='CONFIRMED'\n"
                     + "ORDER BY sa.substitutionId, sch.schedulePeriod;";
@@ -294,7 +294,7 @@ public class SubstitutionAssignmentDao {
                     + "FROM substitutionassignments sa \n"
                     + "LEFT JOIN substitution s ON sa.substitutionId = s.substitutionId  \n"
                     + "LEFT JOIN `leave` l ON s.leaveId = l.leaveId \n"
-                    + "LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
+                    + "LEFT JOIN substitutionrequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
                     + "LEFT JOIN schedule sch ON sa.scheduleId = sch.scheduleId \n"
                     + "WHERE sa.status = 'PENDING'\n"
                     + "ORDER BY s.substitutionDate DESC, sa.substitutionId, sch.schedulePeriod;";
@@ -343,7 +343,7 @@ public class SubstitutionAssignmentDao {
                     + "BlockedTeachers AS ( " //get unsuitable teacher
                     + "    SELECT DISTINCT teacherId FROM ( " //get teacher who request for substitution on the same date
                     + "        SELECT sr.requestTeacherId AS teacherId "
-                    + "        FROM substitutionRequest sr "
+                    + "        FROM substitutionrequest sr "
                     + "        JOIN substitution s ON sr.substitutionRequestId = s.substitutionRequestId "
                     + "        WHERE s.substitutionDate = ? "
                     + "        UNION "
@@ -457,7 +457,7 @@ public class SubstitutionAssignmentDao {
                     + "FROM substitutionassignments sa \n"
                     + "LEFT JOIN substitution s ON sa.substitutionId = s.substitutionId  \n"
                     + "LEFT JOIN `leave` l ON s.leaveId = l.leaveId \n"
-                    + "LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
+                    + "LEFT JOIN substitutionrequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
                     + "LEFT JOIN schedule sch ON sa.scheduleId = sch.scheduleId "
                     + "WHERE sa.substitutionId=? AND sa.scheduleId=?;";
             PreparedStatement ps = con.prepareStatement(query);
@@ -515,7 +515,7 @@ public class SubstitutionAssignmentDao {
                     + "FROM substitutionassignments sa \n"
                     + "LEFT JOIN substitution s ON sa.substitutionId = s.substitutionId  \n"
                     + "LEFT JOIN `leave` l ON s.leaveId = l.leaveId \n"
-                    + "LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
+                    + "LEFT JOIN substitutionrequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
                     + "LEFT JOIN schedule sch ON sa.scheduleId = sch.scheduleId \n"
                     + "WHERE sa.status = 'CONFIRMED' ";
 
