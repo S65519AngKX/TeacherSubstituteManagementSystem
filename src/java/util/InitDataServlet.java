@@ -13,12 +13,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import javax.servlet.annotation.WebServlet;
 
 /**
  *
  * @author fakhr
  */
 // to be ran before login http://localhost:8080/setup/init-data?token=secret123
+@WebServlet(name = "InitDataServlet", urlPatterns = {"/setup/init-data"})
 public class InitDataServlet extends HttpServlet {
 
     private static final String INIT_TOKEN = "secret123";
@@ -71,7 +73,7 @@ public class InitDataServlet extends HttpServlet {
     private void updatePassword(PrintWriter out, Connection conn, UserDao userDAO, String username, String newPlainPassword) {
         try {
             String hashedPassword = PasswordUtil.hashPassword(newPlainPassword);
-            PreparedStatement ps = conn.prepareStatement("UPDATE users SET password = ? WHERE username = ?");
+            PreparedStatement ps = conn.prepareStatement("UPDATE user SET password = ? WHERE username = ?");
             ps.setString(1, hashedPassword);
             ps.setString(2, username);
             int affected = ps.executeUpdate();
