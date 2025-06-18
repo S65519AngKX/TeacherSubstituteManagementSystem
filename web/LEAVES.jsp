@@ -45,7 +45,7 @@
                 display:flex;
                 justify-content: space-between;
                 align-items: center;
-                margin:0 20%;
+                margin:0 10%;
             }
             .action-buttons button {
                 background-color: grey;
@@ -53,11 +53,11 @@
                 font-weight: bold;
                 padding: 5px 10px;
                 border: none;
-                font-size: 13px;
+                font-size: 12px;
                 border-radius: 5px;
                 width:fit-content;
                 box-shadow: 2px 2px 2px black;
-                margin:0px 3px;
+                margin:8px auto;
 
             }
             .action-buttons button:hover {
@@ -84,8 +84,13 @@
                     font-size:12px;
 
                 }
+                .action-buttons {
+                    margin:0 5%;
+                }
+
                 .action-buttons button{
-                    font-size:12px;
+                    font-size:10px;
+                    margin:8px 5px;
                 }
             }
 
@@ -103,7 +108,7 @@
 
                 }
                 .action-buttons button{
-                    font-size:10px;
+                    font-size:9px;
                 }
 
             }

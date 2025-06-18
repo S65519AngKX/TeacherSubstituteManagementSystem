@@ -88,10 +88,17 @@
                     font-size: 10px;
                     padding: 6px;
                 }
+                #button{
+                    font-size:11px;
+                    padding:3px 10px;
+                    width:fit-content;
+                }
             }
             @media only screen and (max-width: 479px) {
                 #record{
                     overflow-x:auto;
+                    width:98%;
+                    margin:auto;
                 }
                 label,input{
                     font-size:10px;

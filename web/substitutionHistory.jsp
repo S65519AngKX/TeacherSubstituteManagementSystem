@@ -58,7 +58,7 @@
                 background-color: #1fbfdb;
                 color:white;
             }
-           
+
             .container button.active{
                 background-color: #1fbfdb;
                 color:white;
@@ -66,12 +66,33 @@
 
             @media only screen and (max-width: 768px) {
                 #title {
-                    font-size: 22px;
-                    margin-left: 20%;
+                    font-size: 25px;
                 }
+                .date-header {
+                    font-size: 13px;
+                }
+                #button {
+                    font-size: 10px;
+                    width: fit-content;
+                    padding:5px 10px;
+                }
+            }
+            @media only screen and (max-width: 479px) {
+                #title {
+                    font-size: 22px;
+                }
+                .date-header {
+                    font-size: 12px;
+                }
+                .container button{
+                    padding:5px 15px;
+                    font-size:12px;
 
-                #formButton #history {
-                    font-size: 11px;
+                }
+                #button {
+                    font-size: 10px;
+                    width: fit-content;
+                    padding:5px 10px;
                 }
             }
         </style>
@@ -240,13 +261,13 @@
             btnToday.addEventListener('click', function () {
                 showToday();
             });
-            
+
             const buttons = document.querySelectorAll('.btn-toggle');
 
             buttons.forEach(btn => {
                 btn.addEventListener('click', function () {
-                    buttons.forEach(b => b.classList.remove('active')); 
-                    this.classList.add('active'); 
+                    buttons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
                 });
             });
         </script>
