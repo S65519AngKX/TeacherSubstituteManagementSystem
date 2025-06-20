@@ -38,7 +38,7 @@
                 font-size:30px;
                 font-weight: bold;
             }
-            #div2,#div-3{
+            #div2,#div-3, #div3{
                 width:80%;
                 margin: 0 auto;
             }
@@ -87,12 +87,16 @@
                 color: #007bff;
                 margin-bottom: 10px;
             }
-            .col-md-4 {
+            .col-md-6 .feature-icon{
+                 font-size: 30px;
+                 color: grey;
+            }
+            .col-md-4, .col-md-6 {
                 text-decoration: none;
                 color:black;
 
             }
-            .col-md-4 h4{
+            .col-md-4 h4, .col-md-6 h4{
                 font-weight: bold;
             }
             @media (min-width: 480px) and (max-width: 767px) {
@@ -171,6 +175,20 @@
                         <i class="fas fa-cogs feature-icon"></i>
                         <h4>View Substitution Assignments</h4>
                         <p>Quickly check and manage your assigned substitution tasks to ensure seamless class coverage.</p>
+                    </div>
+                </a>
+            </div>
+            <div class="row text-center mt-4" id="div3">
+                <a class="col-md-6" href="https://drive.google.com/file/d/1M_PBKRWKxa-FIZ4EYH4lkD9wsUUn2Ay7/view?usp=drive_link">
+                    <div class="feature-box">
+                          <i class="fas fa-mobile-alt feature-icon"></i>
+\                        <h4>Telegram Setup</h4>
+                    </div>
+                </a>
+                <a class="col-md-6" href="https://drive.google.com/file/d/1K6RYtsUvRmjKWQvDvPApqdrbQT-9GVuc/view?usp=sharing">
+                    <div class="feature-box">
+                         <i class="fas fa-file-alt feature-icon"></i>
+\                        <h4>User Manual</h4>
                     </div>
                 </a>
             </div>
