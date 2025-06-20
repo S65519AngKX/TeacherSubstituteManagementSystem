@@ -43,11 +43,11 @@ public class SubstitutionRequestServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getServletPath();
+        String action = request.getParameter("action");
 
         try {
             switch (action) {
-                case "/saveSubstitutionRequest":
+                case "save":
                     saveSubstitutionRequest(request, response);
                     break;
                 default:

@@ -47,7 +47,7 @@
                 margin-left:30%;
                 padding:0;
             }
-            #button {
+            #button1 {
                 background-color: grey;
                 color:white;
                 border: 0px;
@@ -64,6 +64,10 @@
                 #title{
                     font-size:22px;
                 }
+                #button1{
+                    padding:6px 18px;
+                    font-size:13px;
+                }
                 #formButton #history{
                     font-size:11px;
                 }
@@ -75,6 +79,10 @@
                 form{
                     padding:5% 12%;
                     margin-top:10%;
+                }
+                #button1{
+                    padding:4px 15px;
+                    font-size:11px;
                 }
 
 
@@ -98,7 +106,7 @@
                     <div class="col-12 col-lg-10 col-xl-10">
                         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                             <div class="card-body p-0 p-md-1">
-                                <form method="post" action="saveSubstitutionRequest" id="requestSubstitutionForm" class="container mt-3 mb-0">
+                                <form method="post" action="SubstitutionRequestServlet" id="requestSubstitutionForm" class="container mt-3 mb-0">
                                     <div id="top">
                                         <h1 id="title">Request Substitution</h1>
                                         <div  id="formButton" class="d-flex justify-content-end mb-0">
@@ -147,8 +155,8 @@
                                         </div>
 
                                         <div id="formButton">
-                                            <input type="submit" value="Apply">
-                                            <button id="button" type="button" onclick="window.location.href = 'SUBSTITUTION.jsp'">Back</button>
+                                            <button type="submit" id="button" name='action' value="save">Apply</button>
+                                            <button id="button1" type="button" onclick="window.location.href = 'SUBSTITUTION.jsp'">Back</button>
                                         </div>
                                     </div>
                                 </form>
