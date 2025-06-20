@@ -97,7 +97,7 @@
             @media only screen and (max-width: 479px) {
                 #record{
                     overflow-x:auto;
-                    width:98%;
+                    width:95%;
                     margin:auto;
                 }
                 label,input{

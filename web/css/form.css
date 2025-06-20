@@ -16,8 +16,8 @@ label,.form-label{
     font-size:17px;
     margin-right: 100px;
 }
-input,select,option{
-    font-size: 17px;
+input,select{
+    font-size:17px !important;
 }
 .form-select option{
     font-size: 17px;

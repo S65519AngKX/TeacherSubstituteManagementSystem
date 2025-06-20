@@ -27,10 +27,13 @@
         <link rel="stylesheet" href="css/list.css">
         <title>SUBSTITUTIONS</title>
         <style>
-            #top,#bottom{
+            #top,#top2,#bottom{
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+            }
+            #top2{
+                margin:0 3%;
             }
             #title{
                 font-size: 30px;
@@ -63,7 +66,6 @@
                 overflow:auto;
             }
             h5{
-                margin: 0px 3%;
                 padding: 10px 15px;
                 background-color: #f0f0f0;
                 border-left: 20px solid #1fbfdb;
@@ -114,9 +116,7 @@
                 font-weight:500;
                 display:inline-block;
             }
-            #tips{
-                margin-left:50%;
-            }
+
             @media (min-width: 769px) and (max-width: 991px) {
                 th, td {
                     padding: 3px;
@@ -125,15 +125,15 @@
                 td span{
                     font-size:12px;
                 }
-                #tips{
-                    margin-left:30%;
-                }
+
             }
 
             @media (min-width: 480px) and (max-width: 767px){
+                #top{
+                    margin-bottom: 2%;
+                }
                 h5{
                     padding: 5px 10px;
-                    margin:3%;
                     font-size: 0.95em !important;
                 }
                 #teacherSelect{
@@ -148,10 +148,6 @@
                 }
                 td span{
                     font-size:10px;
-                }
-                #title {
-                    font-size: 20px;
-                    margin-bottom:1%;
                 }
                 table {
                     margin: 3px auto;
@@ -172,9 +168,6 @@
                     font-size: 11px;
                     margin-right: 15px;
                 }
-                #tips{
-                    margin-left:10%;
-                }
                 #tips, #tips span{
                     font-size:10px;
                 }
@@ -183,18 +176,20 @@
                 }
             }
             @media screen and (max-width: 479px) {
-
-                h5{
-                    font-size:8px;
-                    padding: 5px;
-                    margin:0%;
+                #top{
+                    margin-bottom: 3%;
                 }
+                h5{
+                    font-size:10px !important;
+                    padding: 5px;
+                }
+                
                 #record{
                     overflow-x: auto;
+                    width:95%;
+                    margin:0 auto;
                 }
-                #top,#bottom{
-                    width:fit-content;
-                }
+               
                 #formButton{
                     margin-left:5%;
                 }
@@ -208,12 +203,10 @@
                     width: fit-content;
                     font-size:10px;
                 }
-                #tips{
-                    margin-left:40%;
-                }
                 #tips, #tips span{
-                    font-size:10px;
+                    display: none;
                 }
+
             }
 
         </style>
@@ -243,11 +236,14 @@
                     <input id="button5" type="button" style="background-color:#8d9394;" value="History" onclick="window.location.href = 'assignmentHistory.jsp'"> 
                 </div>
             </div>   
+            <%                    SimpleDateFormat formatter = new SimpleDateFormat("EEEE, yyyy-MM-dd");
+                String todayDate = formatter.format(new java.util.Date());
+            %>
+            <div id="top2">
+                <h5>Date: <%= todayDate%></h5>
+                <span id='tips'><span style='color:blue'>Class Match</span>/<span style='color:red'>Part Time Teacher</span>/<span style='color:green'>Subject Match</span></span>
+            </div>
             <form method="post" action="SubstitutionAssignmentServlet">
-                <%                    SimpleDateFormat formatter = new SimpleDateFormat("EEEE, yyyy-MM-dd");
-                    String todayDate = formatter.format(new java.util.Date());
-                %>
-                <h5>Date: <%= todayDate%></h5><span id='tips'><span style='color:blue'>Subject Match</span>/<span style='color:red'>Part Time Teacher</span>/<span style='color:green'>Subject Match</span></span>
                 <div id="record">
 
                     <table style="margin-top:0px;">

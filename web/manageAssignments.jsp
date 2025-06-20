@@ -193,7 +193,7 @@
             </ul>
             <h1 id="title">Substitution Assignments</h1>                        
             <form method="post" action="SubstitutionAssignmentServlet">
-                <p><span id='tips'><span style='color:blue'>Subject Match</span>/<span style='color:red'>Part Time Teacher</span>/<span style='color:green'>Subject Match</span></span></p>
+                <p><span id='tips'><span style='color:blue'>Class Match</span>/<span style='color:red'>Part Time Teacher</span>/<span style='color:green'>Subject Match</span></span></p>
                 <div id="record">
                     <table>
                         <tr>

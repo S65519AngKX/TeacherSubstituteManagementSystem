@@ -78,8 +78,8 @@
                 }
             }
             @media only screen and (max-width: 479px) {
-                #title {
-                    font-size: 22px;
+                #title, #title2 {
+                    font-size: 18px !important;
                 }
                 .date-header {
                     font-size: 12px;
@@ -87,7 +87,9 @@
                 .container button{
                     padding:5px 15px;
                     font-size:12px;
-
+                }
+                .collapse{
+                    overflow-x: auto;
                 }
                 #button {
                     font-size: 10px;

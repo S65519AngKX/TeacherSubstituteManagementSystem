@@ -104,7 +104,7 @@ public class SubstitutionDao {
                     + "    MAX(COALESCE(l.leaveReason, sr.substitutionRequestReason)) AS reason, \n"
                     + "    MAX(COALESCE(l.leaveNotes, sr.substitutionRequestNotes)) AS notes\n"
                     + "FROM substitution s \n"
-                    + "LEFT JOIN substitutionAssignments sa ON sa.substitutionId = s.substitutionId \n"
+                    + "LEFT JOIN substitutionassignments sa ON sa.substitutionId = s.substitutionId \n"
                     + "LEFT JOIN `leave` l ON s.leaveId = l.leaveId \n"
                     + "LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
                     + "WHERE s.substitutionDate = CURDATE() \n"
@@ -172,7 +172,7 @@ public class SubstitutionDao {
                     + "    COALESCE(l.absentTeacherId, sr.requestTeacherId) AS absentTeacherId\n"
                     + "FROM substitution s\n"
                     + "LEFT JOIN `leave` l ON s.leaveId = l.leaveId\n"
-                    + "LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId\n"
+                    + "LEFT JOIN substitutionrequest sr ON s.substitutionRequestId = sr.substitutionRequestId\n"
                     + "WHERE s.substitutionId = ?;";
 
             PreparedStatement myPS = con.prepareStatement(query);

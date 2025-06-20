@@ -31,14 +31,10 @@
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
 
-            #div2 {
-                margin-top: 20px;
-            }
-
-            .mt-2 *{
+            .mt-4 *{
                 font-size: 20px;
             }
-            .mt-2 legend{
+            .mt-4 legend{
                 font-size:30px;
                 font-weight: bold;
             }
@@ -103,13 +99,13 @@
                 .feature-box{
                     margin:2% auto;
                 }
-                .mt-2 *{
+                .mt-4 *{
                     font-size: 20px;
                 }
-                .mt-2 h4,.mt-2 i{
+                .mt-4 h4,.mt-4i{
                     font-size: 22px;
                 }
-                .mt-2 legend{
+                .mt-4legend{
                     font-size:23px;
                 }
                 #div1 {
@@ -126,13 +122,13 @@
                     width:100%;
                     margin:2% auto;
                 }
-                .mt-2 *{
+                .mt-4 *{
                     font-size: 15px;
                 }
-                .mt-2 h4,.mt-2 i{
+                .mt-4 h4,.mt-4 i{
                     font-size: 18px;
                 }
-                .mt-2 legend{
+                .mt-4 legend{
                     font-size:18px;
                 }
                 #div1 {
@@ -155,7 +151,7 @@
         <div id="section">
             <div id="div1"></div>
 
-            <div class="row text-center mt-2" id="div-3">
+            <div class="row text-center mt-4" id="div-3">
                 <a class="col-md-4" href="LEAVE.jsp">
                     <div class="feature-box">
                         <i class="fas fa-calendar-check feature-icon"></i>
@@ -179,7 +175,7 @@
                 </a>
             </div>
 
-            <div id="div2" class="mt-2">
+            <div id="div2" class="mt-4">
                 <fieldset>
                     <legend>How It Works</legend>
                     <p><strong>1. Input:</strong> Assistant principal identify absent teachers and available substitutes via the portal.</p>

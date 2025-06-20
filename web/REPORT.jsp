@@ -218,7 +218,7 @@
                             </div>
                             <!-- Content Column -->
                             <!-- Project Card Example -->
-                            <div class="col-xl-6 col-lg-5">
+                            <div class="col-xl-7 col-lg-6">
                                 <div class="card shadow mb-4">
                                     <!-- Card Header - Dropdown -->
                                     <div
@@ -234,7 +234,7 @@
                                     </div>
                                 </div>
                             </div>                                
-                            <div class="col-xl-6 col-lg-5">
+                            <div class="col-xl-5 col-lg-6">
                                 <div class="card shadow mb-4">
                                     <!-- Card Header - Dropdown -->
                                     <div
@@ -328,7 +328,7 @@
                             </div>
 
                             <!-- Pie Chart -->
-                            <div class="col-xl-3 col-lg-2">
+                            <div class="col-xl-3 col-lg-4">
                                 <div class="card shadow mb-4">
                                     <!-- Card Header - Dropdown -->
                                     <div

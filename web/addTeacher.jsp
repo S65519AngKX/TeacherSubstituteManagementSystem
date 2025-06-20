@@ -44,7 +44,7 @@
                     <div class="col-12 col-lg-9 col-xl-9">
                         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                             <div class="card-body p-2 p-md-4">
-                                <h3 class="mb-3 pt-3 pb-md-0 mb-md-3"id="title">Add New Teacher</h3>
+                                <h3 class="mb-3 pt-3 pb-md-0 mb-md-3" id="title">Add New Teacher</h3>
                                 <form method="post" action="TeacherServlet">
                                     <div class="row">
                                         <div class="col-md-6 mb-2">
