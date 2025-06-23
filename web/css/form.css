@@ -70,8 +70,12 @@ input,select{
     margin:5px 20px 0px 20px;
     box-shadow: 2px 2px 2px black;
 }
-#button:hover{
-    opacity:0.8;
+#formButton input,#button2, #formButton #history{
+    padding:8px 20px !important;
+    font-size:15px  !important;
+}
+#button:hover, #formButtom #history, #button2{
+    opacity:0.8 !important;
 }
 @media (min-width: 480px) and (max-width: 767px) {
     form{

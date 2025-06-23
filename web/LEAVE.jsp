@@ -20,27 +20,6 @@
                 font-size:30px;
                 margin-left:40%;
             }
-
-            #history{
-                font-size:13px;
-            }
-
-            #button,#history{
-                background-color: #1fbfdb;
-                color:white;
-                border: 0px;
-                border-radius:10px;
-                padding:5px 15px;
-                font-size:15px;
-                width:fit-content;
-                height:fit-content;
-                box-shadow: 2px 2px 2px black;
-                align-items: center;
-                margin: 2% auto;
-            }
-            #button:hover, #history:hover{
-                opacity:0.8;
-            }
             @media only screen and (max-width: 768px) {
                 #section {
                     flex-grow: 1;
@@ -54,7 +33,7 @@
                     margin-left:30%;
                 }
                 #formButton #history{
-                    font-size:11px;
+                    font-size:11px !important;
                 }
             }
             @media only screen and (max-width: 479px) {
