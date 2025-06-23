@@ -101,7 +101,7 @@
 
                                     <div class="mb-0 pt-2">
                                         <div id="formButton">
-                                            <input style="background-color: #9da0a1" type="reset" value="Cancel" onclick="return viewTeacher()">
+                                            <input style="background-color: #9da0a1" id="button2" type="reset" value="Cancel" onclick="return viewTeacher()">
                                             <button type="submit" id='button' name='action' value="save">Add</button>
                                         </div>
                                     </div>

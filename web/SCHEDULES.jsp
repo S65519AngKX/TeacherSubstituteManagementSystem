@@ -368,13 +368,11 @@
         <%!
             public boolean scheduleExists(String teacherName) {
                 boolean exists = false;
-                try {
-                    Class.forName("com.mysql.jdbc.Driver");
-                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/substitutemanagement", "root", "admin");
+                try (Connection con = Database.getConnection();
                     PreparedStatement ps = con.prepareStatement(
                             "SELECT COUNT(*) FROM schedule "
                             + "INNER JOIN teacher ON teacher.teacherId = schedule.teacherId "
-                            + "WHERE teacher.teacherName = ?");
+                            + "WHERE teacher.teacherName = ?");){
                     ps.setString(1, teacherName);
                     ResultSet rs = ps.executeQuery();
                     if (rs.next()) {

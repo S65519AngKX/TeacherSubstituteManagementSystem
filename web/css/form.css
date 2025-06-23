@@ -90,7 +90,7 @@ input,select{
     .form-select option{
         font-size: 14px !important;
     }
-    #button, #formButton input, #history{
+    #button, #formButton input,#button2, #formButton #history{
         padding:6px 18px !important;
         font-size:13px !important;
     }
@@ -113,7 +113,7 @@ input,select{
         font-size:10px !important;
     }
 
-    #button, #formButton input, #history{
+    #button, #formButton input,#button2, #formButton #history{
         padding:4px 15px !important;
         font-size:11px !important;
     }

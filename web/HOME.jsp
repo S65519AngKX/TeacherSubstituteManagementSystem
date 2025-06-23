@@ -182,13 +182,13 @@
                 <a class="col-md-6" href="https://drive.google.com/file/d/1M_PBKRWKxa-FIZ4EYH4lkD9wsUUn2Ay7/view?usp=drive_link">
                     <div class="feature-box">
                           <i class="fas fa-mobile-alt feature-icon"></i>
-\                        <h4>Telegram Setup</h4>
+                          <h4>Telegram Setup</h4>
                     </div>
                 </a>
                 <a class="col-md-6" href="https://drive.google.com/file/d/1K6RYtsUvRmjKWQvDvPApqdrbQT-9GVuc/view?usp=sharing">
                     <div class="feature-box">
                          <i class="fas fa-file-alt feature-icon"></i>
-\                        <h4>User Manual</h4>
+                         <h4>User Manual</h4>
                     </div>
                 </a>
             </div>

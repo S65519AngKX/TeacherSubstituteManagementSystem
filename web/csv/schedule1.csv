@@ -1,56 +1,111 @@
-Day,Period,Subject,Class,TeacherID
-Sunday,1, , ,102
-Sunday,2, , ,102
-Sunday,3, , ,102
-Sunday,4, , ,102
-Sunday,5, , ,102
-Sunday,6,MT,4R,102
-Sunday,7,MT,4R,102
-Sunday,8,MT,5Y,102
-Sunday,9,MT,5Y,102
-Sunday,10, , ,102
-Sunday,11, , ,102
-Monday,1, , ,102
-Monday,2, , ,102
-Monday,3,MT,3Y,102
-Monday,4,MT,3Y,102
-Monday,5, , ,102
-Monday,6, , ,102
-Monday,7, , ,102
-Monday,8, , ,102
-Monday,9,PJ,3J,102
-Monday,10,PJ,3G,102
-Monday,11,PJ,3G,102
-Tuesday,1,MT,5Y,102
-Tuesday,2,MT,5Y,102
-Tuesday,3, , ,102
-Tuesday,4, , ,102
-Tuesday,5, , ,102
-Tuesday,6,MT,3J3Y,102
-Tuesday,7,MT,3J3Y,102
-Tuesday,8,SNS,3G,102
-Tuesday,9, , ,102
-Tuesday,10, , ,102
-Tuesday,11,PJ,3G,102
-Wednesday,1, , ,102
-Wednesday,2,PJ,4R,102
-Wednesday,3, , ,102
-Wednesday,4,PJ,3Y,102
-Wednesday,5, , ,102
-Wednesday,6, , ,102
-Wednesday,7, , ,102
-Wednesday,8,MT,4R,102
-Wednesday,9,MT,4R,102
-Wednesday,10, , ,102
-Wednesday,11, , ,102
-Thursday,1,MT,4R,102
-Thursday,2,MT,4R,102
-Thursday,3, , ,102
-Thursday,4, , ,102
-Thursday,5, , ,102
-Thursday,6,MT,3Y,102
-Thursday,7,MT,3Y,102
-Thursday,8,MT,5Y,102
-Thursday,9,MT,5Y,102
-Thursday,10, , ,102
-Thursday,11,PJ,4R,102
+Day,Period,Subject,Class,TeacherID,,,
+Sunday,1, , ,102,,,
+Sunday,2, , ,102,,,
+Sunday,3, , ,102,,,
+Sunday,4, , ,102,,,
+Sunday,5, , ,102,,,
+Sunday,6,MT,4R,102,,,
+Sunday,7,MT,4R,102,,,
+Sunday,8,MT,5Y,102,,,
+Sunday,9,MT,5Y,102,,,
+Sunday,10, , ,102,,,
+Sunday,11, , ,102,,,
+Monday,1, , ,102,,,
+Monday,2, , ,102,,,
+Monday,3,MT,3Y,102,,,
+Monday,4,MT,3Y,102,,,
+Monday,5, , ,102,,,
+Monday,6, , ,102,,,
+Monday,7, , ,102,,,
+Monday,8, , ,102,,,
+Monday,9,PJ,3J,102,,,
+Monday,10,PJ,3G,102,,,
+Monday,11,PJ,3G,102,,,
+Tuesday,1,MT,5Y,102,,,
+Tuesday,2,MT,5Y,102,,,
+Tuesday,3, , ,102,,,
+Tuesday,4, , ,102,,,
+Tuesday,5, , ,102,,,
+Tuesday,6,MT,3J/3Y,102,,,
+Tuesday,7,MT,3J/3Y,102,,,
+Tuesday,8,SNS,3G,102,,,
+Tuesday,9, , ,102,,,
+Tuesday,10, , ,102,,,
+Tuesday,11,PJ,3G,102,,,
+Wednesday,1, , ,102,,,
+Wednesday,2,PJ,4R,102,,,
+Wednesday,3, , ,102,,,
+Wednesday,4,PJ,3Y,102,,,
+Wednesday,5, , ,102,,,
+Wednesday,6, , ,102,,,
+Wednesday,7, , ,102,,,
+Wednesday,8,MT,4R,102,,,
+Wednesday,9,MT,4R,102,,,
+Wednesday,10, , ,102,,,
+Wednesday,11, , ,102,,,
+Thursday,1,MT,4R,102,,,
+Thursday,2,MT,4R,102,,,
+Thursday,3, , ,102,,,
+Thursday,4, , ,102,,,
+Thursday,5, , ,102,,,
+Thursday,6,MT,3Y,102,,,
+Thursday,7,MT,3Y,102,,,
+Thursday,8,MT,5Y,102,,,
+Thursday,9,MT,5Y,102,,,
+Thursday,10, , ,102,,,
+Thursday,11,PJ,4R,102,,,
+Sunday,1,,,130,,,"(101787, 'Sunday', 1, NULL, NULL, 155),"
+Sunday,2,BI,5R,130,,,"(101788, 'Sunday', 2, 'BI', '5R', 155),"
+Sunday,3,BI,5R,130,,,"(101789, 'Sunday', 3, 'BI', '5R', 155),"
+Sunday,4,,,130,,,"(101790, 'Sunday', 4, NULL, NULL, 155),"
+Sunday,5,,,130,,,"(101791, 'Sunday', 5, NULL, NULL, 155),"
+Sunday,6,,,130,,,"(101792, 'Sunday', 6, NULL, NULL, 155),"
+Sunday,7,,,130,,,"(101793, 'Sunday', 7, NULL, NULL, 155),"
+Sunday,8,BI,3Y,130,,,"(101794, 'Sunday', 8, 'BI', '3Y', 155),"
+Sunday,9,BI,3Y,130,,,"(101795, 'Sunday', 9, 'BI', '3Y', 155),"
+Sunday,10,BI,6R,130,,,"(101796, 'Sunday', 10, 'BI', '6R', 155),"
+Sunday,11,BI,6R,130,,,"(101797, 'Sunday', 11, 'BI', '6R', 155),"
+Monday,1,BI,4J,130,,,"(101798, 'Monday', 1, 'BI', '4J', 155),"
+Monday,2,BI,4J,130,,,"(101799, 'Monday', 2, 'BI', '4J', 155),"
+Monday,3,,,130,,,"(101800, 'Monday', 3, NULL, NULL, 155),"
+Monday,4,,,130,,,"(101801, 'Monday', 4, NULL, NULL, 155),"
+Monday,5,,,130,,,"(101802, 'Monday', 5, NULL, NULL, 155),"
+Monday,6,BI,2Y,130,,,"(101803, 'Monday', 6, 'BI', '2Y', 155),"
+Monday,7,BI,2Y,130,,,"(101804, 'Monday', 7, 'BI', '2Y', 155),"
+Monday,8,,,130,,,"(101805, 'Monday', 8, NULL, NULL, 155),"
+Monday,9,,,130,,,"(101806, 'Monday', 9, NULL, NULL, 155),"
+Monday,10,BI,5R,130,,,"(101807, 'Monday', 10, 'BI', '5R', 155),"
+Monday,11,BI,5R,130,,,"(101808, 'Monday', 11, 'BI', '5R', 155),"
+Tuesday,1,,,130,,,"(101809, 'Tuesday', 1, NULL, NULL, 155),"
+Tuesday,2,,,130,,,"(101810, 'Tuesday', 2, NULL, NULL, 155),"
+Tuesday,3,BI,3Y,130,,,"(101811, 'Tuesday', 3, 'BI', '3Y', 155),"
+Tuesday,4,BI,3Y,130,,,"(101812, 'Tuesday', 4, 'BI', '3Y', 155),"
+Tuesday,5,,,130,,,"(101813, 'Tuesday', 5, NULL, NULL, 155),"
+Tuesday,6,BI,2Y,130,,,"(101814, 'Tuesday', 6, 'BI', '2Y', 155),"
+Tuesday,7,BI,2Y,130,,,"(101815, 'Tuesday', 7, 'BI', '2Y', 155),"
+Tuesday,8,,,130,,,"(101816, 'Tuesday', 8, NULL, NULL, 155),"
+Tuesday,9,,,130,,,"(101817, 'Tuesday', 9, NULL, NULL, 155),"
+Tuesday,10,,,130,,,"(101818, 'Tuesday', 10, 'BI', '5R', 155),"
+Tuesday,11,,,130,,,"(101819, 'Tuesday', 11, 'BI', '5R', 155),"
+Wednesday,1,,,130,,,"(101820, 'Wednesday', 1, NULL, NULL, 155),"
+Wednesday,2,,,130,,,"(101821, 'Wednesday', 2, NULL, NULL, 155),"
+Wednesday,3,BI,6R,130,,,"(101822, 'Wednesday', 3, 'BI', '6R', 155),"
+Wednesday,4,BI,6R,130,,,"(101823, 'Wednesday', 4, 'BI', '6R', 155),"
+Wednesday,5,,,130,,,"(101824, 'Wednesday', 5, NULL, NULL, 155),"
+Wednesday,6,BI,4J,130,,,"(101825, 'Wednesday', 6, 'BI', '4J', 155),"
+Wednesday,7,BI,4J,130,,,"(101826, 'Wednesday', 7, 'BI', '4J', 155),"
+Wednesday,8,,,130,,,"(101827, 'Wednesday', 8, NULL, NULL, 155),"
+Wednesday,9,,,130,,,"(101828, 'Wednesday', 9, 'BI', '2Y', 155),"
+Wednesday,10,,,130,,,"(101829, 'Wednesday', 10, 'BI', '2Y', 155),"
+Wednesday,11,,,130,,,"(101830, 'Wednesday', 11, NULL, NULL, 155),"
+Thursday,1,,,130,,,"(101831, 'Thursday', 1, NULL, NULL, 155),"
+Thursday,2,,,130,,,"(101832, 'Thursday', 2, NULL, NULL, 155),"
+Thursday,3,,,130,,,"(101833, 'Thursday', 3, 'BI', '4J', 155),"
+Thursday,4,,,130,,,"(101834, 'Thursday', 4, 'BI', '4J', 155),"
+Thursday,5,,,130,,,"(101835, 'Thursday', 5, NULL, NULL, 155),"
+Thursday,6,,,130,,,"(101836, 'Thursday', 6, NULL, NULL, 155),"
+Thursday,7,,,130,,,"(101837, 'Thursday', 7, NULL, NULL, 155),"
+Thursday,8,BI,6R,130,,,"(101838, 'Thursday', 8, 'BI', '6R', 155),"
+Thursday,9,BI,6R,130,,,"(101839, 'Thursday', 9, 'BI', '6R', 155),"
+Thursday,10,BI,3Y,130,,,"(101840, 'Thursday', 10, 'BI', '3Y', 155),"
+Thursday,11,BI,3Y,130,,,"(101841, 'Thursday', 11, 'BI', '3Y', 155),"

@@ -75,6 +75,15 @@
                 text-align: center;
             }
 
+            @media screen and (max-width: 992px) {
+                 .action-buttons {
+                    margin:0 5%;
+                }
+                  .action-buttons button{
+                    font-size:11px;
+                    margin:8px;
+                }
+            }
             @media screen and (max-width: 767px) {
                 .action-buttons {
                     margin:0%;

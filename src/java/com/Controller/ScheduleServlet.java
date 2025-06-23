@@ -17,7 +17,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -211,53 +213,54 @@ public class ScheduleServlet extends HttpServlet {
         }
 
         // Read and process CSV file
-        try ( BufferedReader lineReader = new BufferedReader(new FileReader(uploadedFile));  Connection connection = Database.getConnection()) {
+        try ( BufferedReader lineReader = new BufferedReader(new FileReader(uploadedFile))) {
+            String lineText;
+            int count = 0;
 
-            connection.setAutoCommit(false); // Disable auto-commit for batch processing
+            // Skip the header
+            lineReader.readLine();
 
-            String sql = "INSERT INTO schedule(scheduleDay,schedulePeriod,scheduleSubject,className,teacherId)VALUES(?,?,?,?,?)";
-            try ( PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            // Track deleted teacherIds
+            Set<Integer> deletedTeacherIds = new HashSet<>();
 
-                String lineText;
-                int count = 0;
+            while ((lineText = lineReader.readLine()) != null) {
+                String[] data = lineText.split(",");
 
-                lineReader.readLine(); // Skip header line
-
-                while ((lineText = lineReader.readLine()) != null) {
-                    String[] data = lineText.split(",");
-
-                    if (data.length < 5) {
-                        continue; //skip uneccesary content
-                    }
-
-                    preparedStatement.setString(1, data[0]);
-                    preparedStatement.setInt(2, Integer.parseInt(data[1]));
-                    preparedStatement.setString(3, data[2]);
-                    preparedStatement.setString(4, data[3]);
-                    preparedStatement.setInt(5, Integer.parseInt(data[4]));
-
-                    preparedStatement.addBatch(); // Add to batch
-                    count++;
-
-                    // Execute batch every 500 records to avoid memory overflow
-                    if (count % 500 == 0) {
-                        preparedStatement.executeBatch();
-                    }
+                if (data.length < 5) {
+                    continue;
                 }
 
-                // Execute remaining batch
-                preparedStatement.executeBatch();
-                connection.commit(); // Commit all changes
+                String day = data[0];
+                int period = Integer.parseInt(data[1]);
+                String subject = data[2];
+                String className = data[3];
+                int teacherId = Integer.parseInt(data[4]);
 
-                out.print("<script>alert('" + count + " records saved successfully');</script>");
-                request.getRequestDispatcher("SCHEDULES.jsp").include(request, response);
+                // Delete old schedule for this teacher if not done already
+                if (!deletedTeacherIds.contains(teacherId)) {
+                    ScheduleDao.delete(teacherId);
+                    deletedTeacherIds.add(teacherId);
+                }
+
+                Schedule schedule = new Schedule();
+                schedule.setScheduleDay(day);
+                schedule.setSchedulePeriod(period);
+                schedule.setScheduleSubject(subject);
+                schedule.setClassName(className);
+                schedule.setTeacherId(teacherId);
+
+                if (ScheduleDao.save(schedule) > 0) {
+                    count++;
+                }
             }
+
+            out.print("<script>alert('" + count + " records uploaded and replaced successfully');</script>");
+            request.getRequestDispatcher("SCHEDULES.jsp").include(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
-            out.print("<script>alert('Sorry! Unable to save schedule record.');</script>");
+            out.print("<script>alert('Sorry! Unable to process CSV.');</script>");
             request.getRequestDispatcher("SCHEDULES.jsp").include(request, response);
         }
     }
-
 }

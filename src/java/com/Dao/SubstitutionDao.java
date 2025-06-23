@@ -106,7 +106,7 @@ public class SubstitutionDao {
                     + "FROM substitution s \n"
                     + "LEFT JOIN substitutionassignments sa ON sa.substitutionId = s.substitutionId \n"
                     + "LEFT JOIN `leave` l ON s.leaveId = l.leaveId \n"
-                    + "LEFT JOIN substitutionRequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
+                    + "LEFT JOIN substitutionrequest sr ON s.substitutionRequestId = sr.substitutionRequestId \n"
                     + "WHERE s.substitutionDate = CURDATE() \n"
                     + "GROUP BY teacherId, s.substitutionId, s.substitutionDate, sr.substitutionRequestId\n"
                     + "ORDER BY s.substitutionDate ASC, s.substitutionId ASC;";
