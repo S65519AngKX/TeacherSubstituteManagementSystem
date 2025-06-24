@@ -27,17 +27,26 @@
         <link rel="stylesheet" href="css/list.css">
         <title>SUBSTITUTIONS</title>
         <style>
-            #top,#top2,#bottom{
+            #top,#top2{
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                margin: 0.5% 10%;
             }
+            #bottom{
+                display: flex;
+                justify-content: flex-end;
+                gap: 5px;
+                margin-top: 10px;
+                margin-right:9%;
+            }
+
             #top2{
-                margin:0 3%;
+                margin:0% 10%;
             }
             #title{
                 font-size: 30px;
-                margin:5px auto 0px auto;
+                margin-left:30%;
             }
             #button4,#button5{
                 color: white;
@@ -125,12 +134,25 @@
                 td span{
                     font-size:12px;
                 }
+                #title{
+                    font-size: 24px;
+                    margin-left:25%;
+                }
+                #button4,#button5{
+                    margin-right: 20px;
+                }
 
             }
 
             @media (min-width: 480px) and (max-width: 767px){
                 #top{
                     margin-bottom: 2%;
+                }
+                #bottom{
+                    margin-right:3%;
+                }
+                #top2{
+                    margin:0 5%;
                 }
                 h5{
                     padding: 5px 10px;
@@ -174,6 +196,10 @@
                 #record{
                     overflow-x: auto;
                 }
+                #title{
+                    font-size: 23px;
+                    margin-left:15%;
+                }
             }
             @media screen and (max-width: 479px) {
                 #top{
@@ -183,13 +209,13 @@
                     font-size:10px !important;
                     padding: 5px;
                 }
-                
+
                 #record{
                     overflow-x: auto;
                     width:95%;
                     margin:0 auto;
                 }
-               
+
                 #formButton{
                     margin-left:5%;
                 }
@@ -400,7 +426,7 @@
                     </table>
                 </div>
 
-                <div id="buttonContainer" style="display: flex; justify-content: flex-end; gap: 5px; margin-top: 10px;margin-right:3%;">
+                <div id="bottom">
 
                     <button type="submit" id="button1" class="btn btn-primary" name="action" value="update">
                         Save Changes

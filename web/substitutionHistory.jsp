@@ -113,13 +113,13 @@
             </ul>
 
             <div class="container">
-                <div class="row mt-3 mb-3">
-                    <div class="col-6">
+                <div class="row justify-content-center mt-3 mb-3">
+                    <div class="col-5">
                         <button class="btn btn-primary w-100 btn-toggle active" id="btnUnprocessed">
                             Unprocessed Leave
                         </button>
                     </div>
-                    <div class="col-6">
+                    <div class="col-5">
                         <button class="btn btn-primary w-100 btn-toggle" id="btnToday">
                             Today Substitution Task
                         </button>

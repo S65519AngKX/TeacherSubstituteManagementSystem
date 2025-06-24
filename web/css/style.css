@@ -58,13 +58,13 @@ ul.breadcrumb {
     list-style: none;
     background-color: #eee;
     margin-bottom: 0;
-    
+
 }
 
 /* Display list items side by side */
-ul.breadcrumb li {
+ul.breadcrumb li , ul.breadcrumb li a{
     display: inline;
-    font-size: 12px;
+    font-size: 14px;
 }
 /* Add a slash symbol (/) before/behind each list item */
 ul.breadcrumb li+li:before {
@@ -83,4 +83,18 @@ ul.breadcrumb li a {
 ul.breadcrumb li a:hover {
     color: #01447e;
     text-decoration: underline;
+}
+
+@media screen and (max-width: 767px) {
+    ul.breadcrumb li , ul.breadcrumb li a{
+        display: inline;
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    ul.breadcrumb li , ul.breadcrumb li a{
+        display: inline;
+        font-size: 11px;
+    }
 }

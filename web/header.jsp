@@ -41,20 +41,20 @@
 
             #logo {
                 font-family: 'Stardos Stencil', sans-serif;
-                font-size: 18px;
+                font-size: 20px;
                 font-weight: bolder;
                 color: red;
             }
 
             #logo1 {
-                font-size: 18px;
+                font-size: 20px;
                 font-weight: bolder;
                 color: blue;
             }
 
             .navbar-nav .nav-link {
                 font-weight: bold;
-                font-size: 14px;
+                font-size: 16px;
                 padding: 5px;
                 margin: 0 15px;
             }
@@ -67,9 +67,13 @@
                 color:white;
             }
 
-            .dropdown {
+            .dropdown i {
                 text-align: center;
                 position: relative;
+                font-size: 16px;
+            }
+            .dropbtn span{
+                font-size:14px;
             }
 
             .dropdown .dropbtn {

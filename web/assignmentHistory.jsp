@@ -29,6 +29,10 @@
             .delete-icon i:hover {
                 color: darkred;
             }
+            #dateForm{
+                margin-left:7%;
+            }
+
             table tr td,th{
                 text-align:  center;
             }
@@ -79,6 +83,10 @@
                 #dateForm label{
                     font-size: 10px;
                 }
+                label,input{
+                    font-size:13px;
+                    margin:8px;
+                }
                 select {
                     margin-left:5%;
                     font-size: 10px;
@@ -86,13 +94,17 @@
                 }
                 select option {
                     font-size: 10px;
-                    padding: 6px;
+                    padding: 5px;
                 }
                 #button{
                     font-size:11px;
                     padding:3px 10px;
                     width:fit-content;
                 }
+                #dateForm{
+                    margin-left:0%;
+                }
+
             }
             @media only screen and (max-width: 479px) {
                 #record{

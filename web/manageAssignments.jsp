@@ -26,9 +26,16 @@
         <link rel="stylesheet" href="css/list.css">
         <title>SUBSTITUTIONS</title>
         <style>
-            #top,#bottom{
+            #top{
                 display: flex;
                 align-items: center;
+            }
+            #buttonContainer{
+                display: flex;
+                justify-content: flex-end;
+                gap: 5px;
+                margin-top:10px;
+                margin-right:8%;
             }
             #title{
                 font-size: 30px;
@@ -72,7 +79,7 @@
             option {
                 font-size: 12px;
             }
-            #button, #button3 {
+            #button7, #button3 {
                 background-color: #1fbfdb;
                 color: white;
                 border: 0;
@@ -90,7 +97,7 @@
                 font-weight:500;
             }
             #tips{
-                margin-left:75%;
+                margin-left:70%;
             }
             @media (min-width: 769px) and (max-width: 991px) {
                 th, td {
@@ -102,6 +109,9 @@
                 }
                 #tips{
                     margin-left:65%;
+                }
+                #buttonContainer{
+                    margin-right:7%;
                 }
             }
             @media (min-width: 480px) and (max-width: 767px){
@@ -131,13 +141,16 @@
                 .delete-icon i{
                     font-size:10px;
                 }
-                #button,#button3{
+                #buttonContainer{
+                    margin-right:3%;
+                }
+                #button7,#button3{
                     padding:5px 15px;
                     width: fit-content;
                     font-size:11px;
                     margin-bottom: 10px;
                 }
-               
+
                 #tips{
                     margin-left:55%;
                 }
@@ -156,14 +169,14 @@
                 }
                 #record{
                     overflow-x: auto;
+                    width:95%;
+                    margin:auto;
                 }
                 #top,#bottom{
                     width:fit-content;
                 }
-                #formButton{
-                    margin-left:5%;
-                }
-                #button, #button3{
+
+                #button7, #button3{
                     padding:5px 15px;
                     width: fit-content;
                     font-size:10px;
@@ -349,9 +362,9 @@
                         <% }%>
                     </table>
                 </div>
-                <div id="buttonContainer" style="display: flex; justify-content: flex-end; gap: 5px; margin-top: 10px;margin-right:2%;">
+                <div id="buttonContainer">
 
-                    <button type="submit" id="button" class="btn btn-primary" name="action" value="modify">
+                    <button type="submit" id="button7" class="btn btn-primary" name="action" value="modify">
                         Save Changes
                     </button>
                     <a id="button3" class="btn btn-primary" style="background-color:grey;" onclick="window.location.href = 'SUBSTITUTIONS.jsp'">Back</a>

@@ -56,10 +56,10 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                margin:0 auto;
+                margin:0 8%;
             }
             h5{
-                margin: 10px 3%;
+                margin: 10px 10%;
                 padding: 10px 15px;
                 background-color: #f0f0f0;
                 border-left: 20px solid #1fbfdb;
@@ -78,7 +78,7 @@
                 height: fit-content;
                 box-shadow: 2px 2px 2px black;
                 text-align: center;
-                margin-right:3%;
+                margin-right:10% !important;
                 float: right;
                 margin-bottom: 10px;
                 clear: both;
@@ -88,21 +88,31 @@
                 border-top: 3px solid  #1fb1c4; /* Add top border for new substitutions */
             }
             @media only screen and (max-width: 768px) {
+                #top{
+                    margin:0 5%;
+                }
                 #title{
                     font-size:25px;
                     margin-left: 20%;
                 }
                 #formButton #history, #button{
-                    font-size:12px;
+                    font-size:11px;
+                }
+                #button{
+                    margin-right:5% !important;
                 }
                 #printSection h5{
                     font-size:13px;
+                    margin-left:5%;
                 }
                 #printSection{
                     overflow-x: auto;
                 }
             }
             @media only screen and (max-width: 479px) {
+                #top{
+                    margin:0 1%;
+                }
                 #title{
                     font-size:23px;
                     margin-left: 10%;
