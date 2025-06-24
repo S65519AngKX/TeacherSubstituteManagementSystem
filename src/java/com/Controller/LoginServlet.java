@@ -240,7 +240,7 @@ public class LoginServlet extends HttpServlet {
     //other method
     private void sendEmail(String recipient, String username, String token) throws MessagingException, UnsupportedEncodingException {
         String subject = "SmartSub Password Reset Request";
-        String resetLink = "http://localhost:8080/S65519_TeacherSubstituteManagementSystem/resetPasswordForm.jsp?token=" + token;
+        String resetLink = "https://smartsub.up.railway.app/resetPasswordForm.jsp?token=" + token;
 
         String message = "<p>Dear user, please kindly click the link below to reset your password:</p>"
                 + "<p>Username :" + username + "</p>"
