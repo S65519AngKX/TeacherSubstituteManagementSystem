@@ -205,6 +205,10 @@
                 #top{
                     margin-bottom: 3%;
                 }
+                #title{
+                    font-size: 15px !important;
+                    margin-left:0% !important;
+                }
                 h5{
                     font-size:10px !important;
                     padding: 5px;

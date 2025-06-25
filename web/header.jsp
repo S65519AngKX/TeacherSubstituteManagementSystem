@@ -144,7 +144,9 @@
                     padding-top: 0 !important;
                     padding-bottom: 0 !important;
                 }
-
+                .navbar-nav .nav-link {
+                    font-size: 15px;
+                }
                 .navbar-brand {
                     padding: 0 !important;
                     margin: 0 auto !important;
