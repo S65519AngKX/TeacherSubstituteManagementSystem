@@ -95,6 +95,7 @@
                                             <div class="col-md-6 mb-1">
                                                 <label for="password" class="form-label">Password:</label>
                                                 <input type="password" name="password" class="form-control" required>
+                                                <i class="fas fa-eye" style="color:#1fb1c4;" onclick="togglePasswordVisibility(this)"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -116,6 +117,16 @@
         <script>
             function viewTeacher() {
                 window.location.href = "TEACHERS.jsp";
+            }
+            function togglePasswordVisibility(icon) {
+                var passwordField = icon.previousElementSibling;
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                    icon.className = "fas fa-eye-slash";
+                } else {
+                    passwordField.type = "password";
+                    icon.className = "fas fa-eye";
+                }
             }
         </script>
         <footer>

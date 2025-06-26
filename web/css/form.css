@@ -16,11 +16,8 @@ label,.form-label{
     font-size:17px;
     margin-right: 100px;
 }
-input,select{
+input,select,option{
     font-size:17px !important;
-}
-.form-select option{
-    font-size: 17px;
 }
 #formButton{
     margin:1% auto;
@@ -91,9 +88,7 @@ input,select{
     input,select,option{
         font-size: 14px !important;
     }
-    .form-select option{
-        font-size: 14px !important;
-    }
+
     #button, #formButton input,#button2, #formButton #history{
         padding:6px 18px !important;
         font-size:13px !important;
@@ -113,10 +108,6 @@ input,select{
     input,select,option{
         font-size: 12px !important;
     }
-    select option{
-        font-size:10px !important;
-    }
-
     #button, #formButton input,#button2, #formButton #history{
         padding:4px 15px !important;
         font-size:11px !important;
