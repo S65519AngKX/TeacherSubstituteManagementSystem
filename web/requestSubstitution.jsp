@@ -47,6 +47,10 @@
                 margin-left:30%;
                 padding:0;
             }
+            #section{
+                flex-grow: 1;
+                overflow: auto;
+            }
             #button1 {
                 background-color: grey;
                 color:white;

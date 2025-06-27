@@ -17,11 +17,9 @@
         <link rel="stylesheet" href="css/form.css">
         <title>Add Staff</title>  
         <style>
-            @media only screen and (max-width: 769px){
-                #section{
-                    flex-grow: 1;
-                    overflow: auto;
-                }
+            #section{
+                flex-grow: 1;
+                overflow: auto;
             }
         </style>
     </head>

@@ -20,14 +20,12 @@
                 font-size:30px;
                 margin-left:40%;
             }
+            #section {
+                flex-grow: 1;
+                overflow:auto;
+            }
+                       
             @media only screen and (max-width: 768px) {
-                #section {
-                    flex-grow: 1;
-                    margin: 0px auto;
-                    padding: 2px;
-                    max-width: 90%;
-                    overflow:auto;
-                }
                 #title{
                     font-size:23px;
                     margin-left:30%;
@@ -54,8 +52,8 @@
             <%@include file="header.jsp"%>
         </header>
 
-        <div id="section" class="container mt-3 mb-0">
-            <div class="container h-60"> 
+        <div id="section">
+            <div class="container mt-3 h-60"> 
                 <div class="row justify-content-center align-items-center h-60">
                     <div class="col-12 col-lg-11 col-xl-11">
                         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">

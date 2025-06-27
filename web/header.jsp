@@ -54,7 +54,7 @@
 
             .navbar-nav .nav-link {
                 font-weight: bold;
-                font-size: 16px;
+                font-size: 16px !important;
                 padding: 5px;
                 margin: 0 15px;
             }
@@ -145,7 +145,7 @@
                     padding-bottom: 0 !important;
                 }
                 .navbar-nav .nav-link {
-                    font-size: 15px;
+                    font-size: 15px !important;
                 }
                 .navbar-brand {
                     padding: 0 !important;
