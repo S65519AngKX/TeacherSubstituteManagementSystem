@@ -157,7 +157,7 @@
                 }
             }
             @media screen and (max-width: 479px) {
-                  .schedule-table input[type="text"] {
+                .schedule-table input[type="text"] {
                     height: 12px;
                     font-size: 11px;
                 }
@@ -334,6 +334,8 @@
                         <label for="formFile" class="form-label">Please upload your schedule file in .csv</label>
                         <input class="form-control" type="file" id="formFile" name="file" required>
                         <button id="submit-btn"  type="submit" name="action" value="upload" class="btn btn-success mt-2">Submit</button>
+                        <br>
+                        <a href="https://drive.google.com/file/d/153j9bKwz9jVDqZyUc1lh0XceQwvCAFqX/view?usp=drive_link" style="text-decoration: none"class="fa fa-file-excel-o mt-2">Example CSV</a>
                     </div>
                 </form>
             </div>
@@ -368,11 +370,10 @@
         <%!
             public boolean scheduleExists(String teacherName) {
                 boolean exists = false;
-                try (Connection con = Database.getConnection();
-                    PreparedStatement ps = con.prepareStatement(
-                            "SELECT COUNT(*) FROM schedule "
-                            + "INNER JOIN teacher ON teacher.teacherId = schedule.teacherId "
-                            + "WHERE teacher.teacherName = ?");){
+                try ( Connection con = Database.getConnection();  PreparedStatement ps = con.prepareStatement(
+                        "SELECT COUNT(*) FROM schedule "
+                        + "INNER JOIN teacher ON teacher.teacherId = schedule.teacherId "
+                        + "WHERE teacher.teacherName = ?");) {
                     ps.setString(1, teacherName);
                     ResultSet rs = ps.executeQuery();
                     if (rs.next()) {

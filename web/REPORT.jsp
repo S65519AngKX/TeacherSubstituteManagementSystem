@@ -247,8 +247,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Teacher Name</th>
-                                                        <th>Times Absent</th>
-                                                        <th>Class Covered</th>
+                                                        <th>No of Classes Covered	</th>
+                                                        <th>No of Substitution Classes	</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

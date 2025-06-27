@@ -259,7 +259,7 @@ public class ScheduleServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            out.print("<script>alert('Sorry! Unable to process CSV.');</script>");
+            out.print("<script>alert('Sorry! Unable to process CSV.Please check your data format');</script>");
             request.getRequestDispatcher("SCHEDULES.jsp").include(request, response);
         }
     }

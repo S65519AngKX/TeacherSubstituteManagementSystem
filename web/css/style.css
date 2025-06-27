@@ -34,7 +34,7 @@ footer{
     font-size: 12px;
     text-align: center;
     position: relative;
-    bottom:0;
+    bottom:0 !important;
     margin-top:0;
 }
 #logo{

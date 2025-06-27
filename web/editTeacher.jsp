@@ -84,7 +84,7 @@
                                         <div class="col-md-4 mb-2 d-flex align-items-center">
                                             <div data-mdb-input-init class="form-outline">
                                                 <label for="contact" class="form-label">Contact:</label>
-                                                <input type="tel" name="contactNo" id="contact" value='<%=teacher.getTeacherContact()%>' class="form-control form-control-lg" maxlength="15" placeholder="eg. 012-3456789" pattern="01[0-9]-[0-9]{7,8}" required />
+                                                <input type="tel" name="contactNo" id="contact" value='<%=teacher.getTeacherContact()%>' class="form-control form-control-lg" maxlength="12" placeholder="eg. 012-3456789" pattern="01[0-9]-[0-9]{7,8}" required />
                                             </div>
                                         </div>
                                         <div class="col-md-4 mb-2 d-flex align-items-center">

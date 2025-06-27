@@ -126,6 +126,49 @@
                     font-size:12px;
                 }
             }
+
+            /*for printing purpose*/
+            .print-mode * {
+                background: white !important;
+                color: black !important;
+                border-color: black !important;
+                box-shadow: none !important;
+            }
+
+            .print-mode .report-table {
+                width: 100% !important;
+                table-layout: fixed !important;
+                font-size: 10px !important;
+                border: 1px solid black;
+            }
+
+            .print-mode td, .print-mode th {
+                padding: 4px 6px !important;
+                font-size: 10px !important;
+                border: 1px solid black;
+            }
+            .print-mode th {
+                font-size: 9px !important;
+            }
+
+            .print-mode h5 {
+                font-size: 11px !important;
+                margin: 5px 10px !important;
+                padding: 5px 10px !important;
+                background: white !important;
+                border-left: 3px solid black !important;
+            }
+
+            .print-mode #printSection,
+            .print-mode .card,
+            .print-mode .container,
+            .print-mode .row {
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+
         </style>
     </head>
 
@@ -148,7 +191,7 @@
             %>
             <div id="printSection">
                 <h5>Date: <%= todayDate%></h5>               
-                <table>
+                <table class="report-table">
                     <tr>
                         <th>Absent Teacher </th>
                         <th>Reason</th>
@@ -174,8 +217,45 @@
 
                         <td><%= TeacherDao.getTeacherNameById(e.getAbsentTeacherId())%></td>
                         <td><%= e.getReason()%></td>
-                        <td><%= e.getPeriod()%></td>
-                        <td><%= e.getSubjectName()%></td>
+                        <% String time = "";
+                            switch (e.getPeriod()) {
+                                case 1:
+                                    time = "7:40-8:10";
+                                    break;
+                                case 2:
+                                    time = "8:10-8:40";
+                                    break;
+                                case 3:
+                                    time = "8:40-9:10";
+                                    break;
+                                case 4:
+                                    time = "9:10-9:40";
+                                    break;
+                                case 5:
+                                    time = "9:40-10:10";
+                                    break;
+                                case 6:
+                                    time = "10:10-10:40";
+                                    break;
+                                case 7:
+                                    time = "10:40-11:10";
+                                    break;
+                                case 8:
+                                    time = "11:10-11:40";
+                                    break;
+                                case 9:
+                                    time = "11:40-12:10";
+                                    break;
+                                case 10:
+                                    time = "12:10-12:40";
+                                    break;
+                                case 11:
+                                    time = "12:40-13:10";
+                                    break;
+                            }
+                        %>
+                        <td style="text-align: left;font-size:0.9em"><span style="font-weight: bold;"><%= e.getPeriod()%></span> (<%=time%>)</td>
+                        <td><%= e.getSubjectName()%></td>                       
                         <td><%= e.getClassName()%></td>
                         <td><%= (e.getSubstituteTeacherID() != 0) ? TeacherDao.getTeacherNameById(e.getSubstituteTeacherID()) : ""%></td>
                         <td><%= (e.getRemarks() == null) ? "" : e.getRemarks()%></td>
@@ -195,17 +275,34 @@
     <script>
         function printPage() {
             const currentDate = new Date().toDateString();
-            var fileName = currentDate + "_SubstitutionAssignemts.pdf";
-            var element = document.getElementById('printSection');
-            var opt = {
+            const fileName = currentDate + "_SubstitutionAssignments.pdf";
+            const element = document.getElementById('printSection');
+
+            // Add print-mode class to apply styles
+            element.classList.add('print-mode');
+
+            const opt = {
                 margin: 0.5,
                 filename: fileName,
-                html2canvas: {scale: 2},
-                jsPDF: {unit: 'in', format: 'letter', orientation: 'portrait'}
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: "#ffffff"
+                },
+                jsPDF: {
+                    unit: 'in',
+                    format: 'a4',
+                    orientation: 'portrait'
+                },
+                pagebreak: {mode: ['avoid-all', 'css', 'legacy']}
             };
 
-            html2pdf().set(opt).from(element).save();
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Remove class after saving
+                element.classList.remove('print-mode');
+            });
         }
+
 
     </script>
 </html>

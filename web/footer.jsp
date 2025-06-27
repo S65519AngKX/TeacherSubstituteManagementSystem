@@ -11,7 +11,7 @@
                 text-align: center;
                 padding: 10px;
                 padding-bottom:0px;
-                bottom: 0px;
+                bottom: 0px !important;
                 width: 100%;
                 margin-top: 0;
                 position:relative;
