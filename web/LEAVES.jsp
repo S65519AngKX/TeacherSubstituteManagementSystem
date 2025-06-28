@@ -1,3 +1,4 @@
+<%@page import="java.time.ZoneId"%>
 <%@page import="com.Model.Teacher"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
@@ -154,7 +155,8 @@
                         </tr>
                         <%
                             List<Leave> list = LeaveDao.getAllUnprocessedLeave();
-                            LocalDate today = LocalDate.now(); // Get today's date
+                            ZoneId zone = ZoneId.of("Asia/Kuala_Lumpur");
+                            LocalDate today = LocalDate.now(zone);
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
                             for (Leave e : list) {

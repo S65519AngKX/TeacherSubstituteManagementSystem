@@ -1,3 +1,6 @@
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.time.ZoneId"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="com.Dao.LeaveDao"%>
 <%@page import="util.Database"%>
 <%@page import="com.Model.Teacher"%>
@@ -266,8 +269,11 @@
                     <input id="button5" type="button" style="background-color:#8d9394;" value="History" onclick="window.location.href = 'assignmentHistory.jsp'"> 
                 </div>
             </div>   
-            <%                    SimpleDateFormat formatter = new SimpleDateFormat("EEEE, yyyy-MM-dd");
-                String todayDate = formatter.format(new java.util.Date());
+            <%                      
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, yyyy-MM-dd");
+                ZoneId zone = ZoneId.of("Asia/Kuala_Lumpur");
+                LocalDate today = LocalDate.now(zone);
+                String todayDate = today.format(formatter);
             %>
             <div id="top2">
                 <h5>Date: <%= todayDate%></h5>

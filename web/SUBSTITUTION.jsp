@@ -1,3 +1,6 @@
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.time.ZoneId"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.Model.SubstitutionAssignments"%>
 <%@page import="com.Dao.SubstitutionAssignmentDao"%>
@@ -186,9 +189,12 @@
                 </div>
             </div>
             <%
-                SimpleDateFormat formatter = new SimpleDateFormat("EEEE, yyyy-MM-dd");
-                String todayDate = formatter.format(new java.util.Date());
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, yyyy-MM-dd");
+                ZoneId zone = ZoneId.of("Asia/Kuala_Lumpur");
+                LocalDate today = LocalDate.now(zone); 
+                String todayDate = today.format(formatter);
             %>
+                
             <div id="printSection">
                 <h5>Date: <%= todayDate%></h5>               
                 <table class="report-table">
