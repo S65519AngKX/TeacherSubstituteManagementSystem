@@ -111,10 +111,20 @@ public class SubstitutionAssignmentDao {
         try {
             Connection con = Database.getConnection();
             PreparedStatement myPS = con.prepareStatement(
-                    "UPDATE substitutionassignments SET status='CONFIRMED' WHERE substitutionId=? AND scheduleId=?"
+                    "UPDATE substitutionassignments SET substituteTeacherId=?, remarks=?, status='CONFIRMED' WHERE substitutionId=? AND scheduleId=?"
             );
-            myPS.setInt(1, assignment.getSubstitutionId());
-            myPS.setInt(2, assignment.getScheduleId());
+            if (assignment.getSubstituteTeacherID() == 0) {  // Assuming 0 means no teacher assigned
+                myPS.setNull(1, java.sql.Types.INTEGER);
+            } else {
+                myPS.setInt(1, assignment.getSubstituteTeacherID());
+            }
+            if (assignment.getRemarks() == null || assignment.getRemarks().trim().isEmpty()) {
+                myPS.setNull(2, java.sql.Types.VARCHAR);
+            } else {
+                myPS.setString(2, assignment.getRemarks());
+            }
+            myPS.setInt(3, assignment.getSubstitutionId());
+            myPS.setInt(4, assignment.getScheduleId());
             status = myPS.executeUpdate();
 
             myPS.close();
@@ -391,7 +401,7 @@ public class SubstitutionAssignmentDao {
             finalQuery = finalQuery.replaceFirst("\\?", "'" + className + "'");
             finalQuery = finalQuery.replaceFirst("\\?", "'" + scheduleSubject + "'");
 
-            System.out.println("Executed SQL: " + finalQuery +"\n");
+            System.out.println("Executed SQL: " + finalQuery + "\n");
 
             while (rs.next()) {
                 Teacher teacher = new Teacher();
@@ -443,8 +453,8 @@ public class SubstitutionAssignmentDao {
         try {
             Connection con = Database.getConnection();
             String query = "SELECT \n"
-                    + "    sa.remarks, sch.scheduleDay, \n"
-                    + "    s.substitutionDate,  \n"
+                    + "    sa.substitutionId, sa.scheduleId, sa.remarks, sch.scheduleDay, \n"
+                    + "    s.substitutionDate, sa.status, \n"
                     + "    CASE \n"
                     + "        WHEN ROW_NUMBER() OVER (PARTITION BY sa.substitutionId ORDER BY sch.schedulePeriod) = 1 \n"
                     + "        THEN COALESCE(l.absentTeacherId, sr.requestTeacherId) \n"
@@ -466,6 +476,8 @@ public class SubstitutionAssignmentDao {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+                assgn.setSubstitutionId(rs.getInt("substitutionId"));
+                assgn.setScheduleId(rs.getInt("scheduleId"));
                 assgn.setRemarks(rs.getString("remarks"));
                 assgn.setScheduleDay(rs.getString("scheduleDay"));
                 assgn.setSubstitutionDate(rs.getDate("substitutionDate"));
@@ -474,6 +486,7 @@ public class SubstitutionAssignmentDao {
                 assgn.setClassName(rs.getString("className"));
                 assgn.setSubjectName(rs.getString("scheduleSubject"));
                 assgn.setSubstituteTeacherID(rs.getInt("substituteTeacherId"));
+                assgn.setStatus(rs.getString("status"));
             }
 
             con.close();

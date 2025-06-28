@@ -356,7 +356,29 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
                 String remarks = remarks1[i];
                 String status = status1[i];
 
+                // Build new assignment
                 SubstitutionAssignments newAssgn = new SubstitutionAssignments(substitutionId, scheduleId, substituteTeacherId, remarks, status);
+
+                // Retrieve the old assignment for comparison
+                SubstitutionAssignments oldAssgn = SubstitutionAssignmentDao.getSubstitutionAssigmentDetailsBySubstitutionIdAndScheduleId(substitutionId, scheduleId);
+
+                boolean shouldSendCancel = false;
+
+                if (oldAssgn != null) {
+                    boolean wasConfirmed = "confirmed".equalsIgnoreCase(oldAssgn.getStatus());
+                    boolean teacherChanged = oldAssgn.getSubstituteTeacherID() != substituteTeacherId;
+                    boolean isCancelled = remarks.equalsIgnoreCase("Cancelled")
+                            || remarks.equalsIgnoreCase("Split Class")
+                            || remarks.equalsIgnoreCase("Event");
+
+                    if (wasConfirmed && (teacherChanged || isCancelled)) {
+                        // notify previous teacher about cancellation/reassignment
+                        sendCancellationNotification(oldAssgn);
+                        shouldSendCancel = true;
+                    }
+                }
+
+                // Confirm the new assignment
                 int success = SubstitutionAssignmentDao.confirm(newAssgn);
                 if (success <= 0) {
                     allSuccess = false;
@@ -468,6 +490,58 @@ public class SubstitutionAssignmentServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error sending Telegram notification: " + e.getMessage());
+        }
+    }
+
+    private void sendCancellationNotification(SubstitutionAssignments assignment) {
+
+        int substituteTeacherId = assignment.getSubstituteTeacherID();
+        Teacher substituteTeacher = TeacherDao.getTeacherById(substituteTeacherId);
+        String telegramId = substituteTeacher.getTelegramId();
+        try {
+            //skip if the teacher does not have a telegram chat id
+            if (telegramId == null || telegramId.trim().isEmpty()) {
+                return;
+            }
+            CHAT_ID = telegramId;
+            SubstitutionAssignments assgn = SubstitutionAssignmentDao.getSubstitutionAssigmentDetailsBySubstitutionIdAndScheduleId(assignment.getSubstitutionId(), assignment.getScheduleId());
+            String message = "Dear " + TeacherDao.getTeacherNameById(assgn.getSubstituteTeacherID()) + ",\n\n"
+                    + "Please be informed that your previously assigned substitution has been *cancelled* or *reassigned*.\n\n"
+                    + "Original Assignment Details:\n" + "Absent Teacher Name: " + TeacherDao.getTeacherNameById(assgn.getAbsentTeacherId()) + "\n"
+                    + "Period: " + assgn.getPeriod() + "\n"
+                    + "Subject: " + assgn.getSubjectName() + "\n"
+                    + "Class: " + assgn.getClassName() + "\n"
+                    + "Remarks: " + (assgn.getRemarks() == null ? "" : assgn.getRemarks()) + "\n\n"
+                    + "You are no longer required to attend this class.\n\n"
+                    + "Best regards,\nAssistant Principal";
+
+            // URL-encode the message to ensure no illegal characters
+            String encodedMessage = URLEncoder.encode(message, "UTF-8");
+
+            // Construct the Telegram URL
+            String urlString = "https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage?chat_id=" + CHAT_ID + "&text=" + encodedMessage;
+            System.out.println("URL: " + urlString); // This will show the full URL in the console
+
+            // Create a URL object and open a connection
+            URL url = new URL(urlString);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            // Set request method and headers
+            connection.setRequestMethod("GET");
+            connection.setDoOutput(true);
+
+            // Send the request
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                // Success
+                System.out.println("Cancellation Telegram notification sent successfully.");
+            } else {
+                // Handle error response
+                System.out.println("Failed to send Cancellation Telegram notification. Response code: " + responseCode);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error sending Cancellation Telegram notification: " + e.getMessage());
         }
     }
 
